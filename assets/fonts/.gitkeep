@@ -1,0 +1,8 @@
+# 字体资源目录
+
+将您的自定义字体文件放在这里，例如：
+- custom-font.woff2
+- custom-font.woff
+- custom-font.ttf
+
+支持的字体格式：WOFF2、WOFF、TTF、OTF

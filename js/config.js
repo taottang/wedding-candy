@@ -1,0 +1,246 @@
+// =================================================================
+// 配置文件 - Config.js
+// 婚礼喜糖领取系统配置
+// =================================================================
+
+// 系统配置
+const CONFIG = {
+    // ==================== 应用信息 ====================
+    APP_NAME: '婚礼喜糖领取系统',
+    APP_VERSION: '1.0.0',
+    APP_DESCRIPTION: '邓蓓 & 唐韬的婚礼喜糖在线领取系统',
+    
+    // ==================== 新人信息 ====================
+    COUPLE: {
+        BRIDE: '邓蓓',           // 新娘姓名
+        GROOM: '唐韬',           // 新郎姓名
+        FULL_NAME: '邓蓓 & 唐韬', // 完整姓名
+        WEDDING_DATE: '2026-02-01', // 婚期日期
+        CONTACT_PHONE: '',       // 联系电话（可选）
+        CONTACT_EMAIL: '',       // 联系邮箱（可选）
+    },
+    
+    // ==================== 管理员配置 ====================
+    ADMIN: {
+        USERNAME: 'admin',              // 管理员用户名
+        PASSWORD: 'dbdbdengbei..',      // 管理员密码（请在正式使用时修改）
+        SESSION_TIMEOUT: 24 * 60 * 60 * 1000, // 会话超时时间（24小时）
+    },
+    
+    // ==================== LocalStorage 键名 ====================
+    STORAGE_KEYS: {
+        RECIPIENTS: 'wedding_recipients',        // 领取记录
+        ADMIN_TOKEN: 'wedding_admin_token',      // 管理员令牌
+        LAST_SUBMISSION: 'lastSubmission',       // 最后提交的数据
+        SETTINGS: 'wedding_settings',            // 系统设置
+    },
+    
+    // ==================== 会话配置 ====================
+    SESSION: {
+        TIMEOUT: 24 * 60 * 60 * 1000,  // 24小时（毫秒）
+        REFRESH_INTERVAL: 30 * 60 * 1000, // 自动刷新间隔：30分钟
+    },
+    
+    // ==================== 表单字段配置 ====================
+    FORM_FIELDS: {
+        // 姓名字段
+        NAME: {
+            LABEL: '姓名',
+            PLACEHOLDER: '请输入您的姓名',
+            REQUIRED: true,
+            TYPE: 'text',
+        },
+        // 手机号字段
+        PHONE: {
+            LABEL: '手机号码',
+            PLACEHOLDER: '请输入11位手机号码',
+            REQUIRED: true,
+            TYPE: 'tel',
+            MAXLENGTH: 11,
+        },
+        // 省份字段
+        PROVINCE: {
+            LABEL: '省份',
+            PLACEHOLDER: '请选择省份',
+            REQUIRED: true,
+            TYPE: 'select',
+        },
+        // 城市字段
+        CITY: {
+            LABEL: '城市',
+            PLACEHOLDER: '请先选择省份',
+            REQUIRED: true,
+            TYPE: 'select',
+        },
+        // 区县字段
+        DISTRICT: {
+            LABEL: '区县',
+            PLACEHOLDER: '请先选择城市',
+            REQUIRED: true,
+            TYPE: 'select',
+        },
+        // 详细地址字段
+        ADDRESS: {
+            LABEL: '详细地址',
+            PLACEHOLDER: '请输入详细地址（街道、门牌号、楼栋单元等）',
+            REQUIRED: true,
+            TYPE: 'textarea',
+            ROWS: 3,
+        },
+        // 留言字段
+        MESSAGE: {
+            LABEL: '留言祝福',
+            PLACEHOLDER: '写下您的祝福或留言吧~',
+            REQUIRED: false,
+            TYPE: 'textarea',
+            ROWS: 4,
+            MAXLENGTH: 200,
+        },
+        // 隐私协议字段
+        PRIVACY: {
+            LABEL: '我已阅读并同意隐私政策',
+            REQUIRED: true,
+            TYPE: 'checkbox',
+        },
+    },
+    
+    // ==================== 表单验证规则 ====================
+    VALIDATION: {
+        NAME: {
+            MIN_LENGTH: 2,
+            MAX_LENGTH: 20,
+            PATTERN: /^[\u4e00-\u9fa5a-zA-Z\s]+$/,
+            ERROR_MESSAGES: {
+                REQUIRED: '请输入姓名',
+                MIN_LENGTH: '姓名至少需要2个字符',
+                MAX_LENGTH: '姓名不能超过20个字符',
+                PATTERN: '姓名只能包含中文、英文字母和空格',
+            },
+        },
+        PHONE: {
+            PATTERN: /^1[3-9]\d{9}$/,
+            ERROR_MESSAGES: {
+                REQUIRED: '请输入手机号码',
+                PATTERN: '请输入正确的11位手机号码',
+                DUPLICATE: '该手机号已经提交过领取信息',
+            },
+        },
+        PROVINCE: {
+            ERROR_MESSAGES: {
+                REQUIRED: '请选择省份',
+            },
+        },
+        CITY: {
+            ERROR_MESSAGES: {
+                REQUIRED: '请选择城市',
+            },
+        },
+        DISTRICT: {
+            ERROR_MESSAGES: {
+                REQUIRED: '请选择区县',
+            },
+        },
+        ADDRESS: {
+            MIN_LENGTH: 5,
+            MAX_LENGTH: 100,
+            ERROR_MESSAGES: {
+                REQUIRED: '请输入详细地址',
+                MIN_LENGTH: '详细地址至少需要5个字符',
+                MAX_LENGTH: '详细地址不能超过100个字符',
+            },
+        },
+        MESSAGE: {
+            MAX_LENGTH: 200,
+            ERROR_MESSAGES: {
+                MAX_LENGTH: '留言不能超过200个字符',
+            },
+        },
+        PRIVACY: {
+            ERROR_MESSAGES: {
+                REQUIRED: '请阅读并同意隐私政策',
+            },
+        },
+    },
+    
+    // ==================== 数据导出配置 ====================
+    EXPORT: {
+        EXCEL_FILENAME: '喜糖领取记录_邓蓓唐韬',
+        JSON_FILENAME: 'wedding-candy-recipients',
+        FILE_ENCODING: 'UTF-8',
+    },
+    
+    // ==================== 状态配置 ====================
+    STATUS: {
+        PENDING: { 
+            value: 'pending', 
+            label: '待处理', 
+            color: '#ff9800',
+            icon: '⏳',
+        },
+        PROCESSED: { 
+            value: 'processed', 
+            label: '已处理', 
+            color: '#4CAF50',
+            icon: '✅',
+        },
+    },
+    
+    // ==================== 日期格式配置 ====================
+    DATE_FORMAT: {
+        FULL: 'YYYY-MM-DD HH:mm:ss',
+        DATE: 'YYYY-MM-DD',
+        TIME: 'HH:mm:ss',
+        DATETIME: 'YYYY-MM-DD HH:mm',
+        MONTH_DAY: 'MM-DD',
+    },
+    
+    // ==================== UI配置 ====================
+    UI: {
+        THEME_COLOR: '#d81b60',        // 主题色
+        THEME_COLOR_LIGHT: '#f06292',  // 浅色主题色
+        THEME_COLOR_DARK: '#ad1457',   // 深色主题色
+        ANIMATION_DURATION: 300,        // 动画持续时间（毫秒）
+        TOAST_DURATION: 3000,          // 提示消息显示时长（毫秒）
+    },
+    
+    // ==================== 功能开关 ====================
+    FEATURES: {
+        ENABLE_MESSAGE: true,           // 启用留言功能
+        ENABLE_EXPORT: true,            // 启用数据导出
+        ENABLE_SEARCH: true,            // 启用搜索功能
+        ENABLE_STATUS_TOGGLE: true,     // 启用状态切换
+        ENABLE_DELETE: true,            // 启用删除功能
+        ENABLE_DUPLICATE_CHECK: true,   // 启用重复检查（手机号）
+    },
+    
+    // ==================== 系统限制 ====================
+    LIMITS: {
+        MAX_RECIPIENTS: 1000,          // 最大领取人数
+        MAX_MESSAGE_LENGTH: 200,       // 最大留言长度
+        MAX_ADDRESS_LENGTH: 100,       // 最大地址长度
+        MAX_NAME_LENGTH: 20,           // 最大姓名长度
+    },
+    
+    // ==================== 提示消息 ====================
+    MESSAGES: {
+        SUBMIT_SUCCESS: '提交成功！感谢填写信息',
+        SUBMIT_ERROR: '提交失败，请重试',
+        LOGIN_SUCCESS: '登录成功',
+        LOGIN_ERROR: '用户名或密码错误',
+        DELETE_CONFIRM: '确定要删除这条记录吗？',
+        CLEAR_CONFIRM: '确定要清空所有数据吗？此操作不可恢复！',
+        EXPORT_SUCCESS: '导出成功',
+        EXPORT_ERROR: '导出失败',
+        NETWORK_ERROR: '网络错误，请检查网络连接',
+    },
+};
+
+// 导出配置对象
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = CONFIG;
+}
+
+// 在控制台显示系统信息（开发调试用）
+console.log('%c💝 婚礼喜糖领取系统 v' + CONFIG.APP_VERSION, 'color: #d81b60; font-size: 16px; font-weight: bold;');
+console.log('%c新人：' + CONFIG.COUPLE.FULL_NAME, 'color: #666; font-size: 12px;');
+console.log('%c婚期：' + CONFIG.COUPLE.WEDDING_DATE, 'color: #666; font-size: 12px;');

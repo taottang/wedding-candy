@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="邓蓓 & 唐韬的婚礼喜糖在线领取，填写地址即可免费收到精美喜糖礼盒，满载新人的祝福与喜悦">
+    <meta name="keywords" content="婚礼喜糖,喜糖领取,邓蓓,唐韬,婚礼祝福">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
+    <meta property="og:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
+    <meta property="og:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
+    <meta property="twitter:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
+    <meta property="twitter:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    
+    <title>邓蓓 & 唐韬 - 婚礼喜糖领取</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 移动端优化样式 -->
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <style>
+        /* ==================== 配色方案（淡雅高级风格）==================== */
+        :root {
+            --color-bg-main: #FAF8F5;        /* 米白背景 */
+            --color-accent: #D8B4B4;         /* 灰粉强调色 */
+            --color-text: #5D4A3D;           /* 深棕文字 */
+            --color-text-light: #8B7968;     /* 浅棕文字 */
+            --color-card-bg: #FFFFFF;        /* 卡片背景 */
+            --color-highlight-bg: #F5F0EB;   /* 高亮背景 */
+            --color-border: #E8DDD4;         /* 边框色 */
+            --shadow-soft: 0 2px 12px rgba(93, 74, 61, 0.08);
+            --shadow-medium: 0 4px 20px rgba(93, 74, 61, 0.12);
+        }
+        
+        /* ==================== 全局样式 ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--color-text);
+            background: var(--color-bg-main);
+            position: relative;
+        }
+        
+        /* ==================== 背景图片轮播 ==================== */
+        .background-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .bg-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .bg-slide.active {
+            opacity: 1;
+        }
+        
+        /* 使用渐变色作为背景（可替换为实际图片）- 淡雅风格 */
+        .bg-slide-1 {
+            background: linear-gradient(135deg, #FAF8F5 0%, #F5F0EB 100%);
+        }
+        
+        .bg-slide-2 {
+            background: linear-gradient(135deg, #F5F0EB 0%, #EDE6DD 100%);
+        }
+        
+        .bg-slide-3 {
+            background: linear-gradient(135deg, #EDE6DD 0%, #E8DDD4 100%);
+        }
+        
+        /* 如需使用实际图片，取消注释以下代码并添加图片路径：
+        .bg-slide-1 {
+            background-image: url('assets/images/bg1.jpg');
+        }
+        .bg-slide-2 {
+            background-image: url('assets/images/bg2.jpg');
+        }
+        .bg-slide-3 {
+            background-image: url('assets/images/bg3.jpg');
+        }
+        */
+        
+        /* 背景遮罩层 */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(250, 248, 245, 0.5);
+            z-index: 0;
+        }
+        
+        /* ==================== 主容器 ==================== */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 120px; /* 为底部按钮留出空间 */
+        }
+        
+        /* ==================== 核心内容区域 ==================== */
+        .hero-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        /* 新人姓名 - 添加装饰 */
+        .couple-names {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+            letter-spacing: 3px;
+            animation: fadeIn 1s ease-out 0.3s both;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .couple-names::before,
+        .couple-names::after {
+            content: '✿';
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.8;
+        }
+        
+        .couple-names::before {
+            left: -50px;
+        }
+        
+        .couple-names::after {
+            right: -50px;
+        }
+        
+        /* 婚期日期 */
+        .wedding-date {
+            font-size: 1.8rem;
+            color: var(--color-text-light);
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+        
+        /* 倒计时（可选） */
+        .countdown-simple {
+            background: var(--color-card-bg);
+            padding: 20px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out 0.7s both;
+        }
+        
+        .countdown-text {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+        
+        /* ==================== 喜糖礼盒区域 ==================== */
+        .candy-showcase {
+            padding: 60px 40px;
+            background: var(--color-card-bg);
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .candy-container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        /* 左侧图片轮播 */
+        .candy-carousel {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-soft);
+            background: var(--color-highlight-bg);
+        }
+        
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* 4:3 宽高比 */
+        }
+        
+        .carousel-track {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-highlight-bg), var(--color-bg-main));
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 如果没有图片，显示占位符 */
+        .carousel-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-accent);
+            font-size: 3rem;
+        }
+        
+        .carousel-placeholder-text {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: var(--color-text-light);
+        }
+        
+        /* 轮播指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 2;
+        }
+        
+        .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-indicator.active {
+            width: 24px;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        /* 左右切换按钮（桌面端） */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text);
+            font-size: 1.2rem;
+            z-index: 2;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .carousel-wrapper:hover .carousel-nav {
+            opacity: 1;
+        }
+        
+        .carousel-nav:hover {
+            background: white;
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .carousel-nav.prev {
+            left: 15px;
+        }
+        
+        .carousel-nav.next {
+            right: 15px;
+        }
+        
+        /* 右侧固定文字 */
+        .candy-info {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .candy-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            position: relative;
+            display: inline-block;
+            padding: 0 40px;
+        }
+        
+        /* 标题前后装饰 */
+        .candy-title::before,
+        .candy-title::after {
+            content: '❀';
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .candy-title::before {
+            left: 0;
+        }
+        
+        .candy-title::after {
+            right: 0;
+        }
+        
+        .candy-description {
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--color-text-light);
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--color-highlight-bg);
+            border-radius: 12px;
+            border-left: 3px solid var(--color-accent);
+        }
+        
+        .candy-features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .candy-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--color-text);
+            padding: 12px;
+            background: var(--color-card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+        
+        .candy-feature:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .candy-feature-icon {
+            font-size: 1.3rem;
+            color: var(--color-accent);
+        }
+        
+        /* ==================== 详情展开区域 ==================== */
+        .details-section {
+            position: fixed;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            background: var(--color-card-bg);
+            border-top: 1px solid var(--color-border);
+            box-shadow: 0 -4px 20px rgba(93, 74, 61, 0.12);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .details-section.expanded {
+            transform: translateY(0);
+        }
+        
+        /* 展开按钮 */
+        .expand-toggle {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            background: var(--color-accent);
+            border: 1px solid var(--color-border);
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .expand-toggle:hover {
+            background: var(--color-text);
+            color: white;
+        }
+        
+        .expand-toggle::before {
+            content: '详情';
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .expand-toggle.expanded::before {
+            content: '收起';
+        }
+        
+        .expand-icon {
+            margin-left: 5px;
+            font-size: 1rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .expand-toggle.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* 详情内容 */
+        .details-content {
+            padding: 30px 20px;
+        }
+        
+        .details-title {
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .details-title::before {
+            content: '✿';
+            color: var(--color-accent);
+            margin-right: 10px;
+        }
+        
+        .details-title::after {
+            content: '✿';
+            color: var(--color-accent);
+            margin-left: 10px;
+        }
+        
+        .step-cards {
+            display: grid;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step-card {
+            background: var(--color-highlight-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            border-left: 3px solid var(--color-accent);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .step-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
+        }
+        
+        .step-card-desc {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.8;
+        }
+        
+        /* ==================== 主要行动按钮（固定底部） ==================== */
+        .main-cta-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            background: linear-gradient(to top, var(--color-card-bg), rgba(250, 248, 245, 0.95));
+            border-top: 1px solid var(--color-border);
+            box-shadow: 0 -4px 20px rgba(93, 74, 61, 0.1);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .main-cta-button {
+            width: 80%;
+            max-width: 500px;
+            height: 60px;
+            background: var(--color-accent);
+            border: 1px solid var(--color-border);
+            border-radius: 30px;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .main-cta-button:hover {
+            transform: translateY(-2px);
+            background: var(--color-text);
+            box-shadow: 0 8px 30px rgba(93, 74, 61, 0.3);
+        }
+        
+        .main-cta-button:active {
+            transform: translateY(0);
+        }
+        
+        /* 发光动画 */
+        .main-cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: glow 3s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+        
+        /* 按钮文字 */
+        .cta-text {
+            position: relative;
+            z-index: 1;
+            letter-spacing: 2px;
+        }
+        
+        /* 按钮图标 */
+        .cta-icon {
+            position: relative;
+            z-index: 1;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* ==================== 动画效果 ==================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ==================== 移动端紧凑布局 ==================== */
+        @media (max-width: 768px) {
+            /* 减少内边距和外边距 */
+            .hero-section {
+                padding: 30px 15px;
+            }
+            
+            .couple-names {
+                font-size: 2.8rem;
+                margin-bottom: 15px;
+            }
+            
+            .couple-names::before,
+            .couple-names::after {
+                font-size: 1.2rem;
+            }
+            
+            .couple-names::before {
+                left: -35px;
+            }
+            
+            .couple-names::after {
+                right: -35px;
+            }
+            
+            .wedding-date {
+                font-size: 1.3rem;
+                margin-bottom: 30px;
+            }
+            
+            .countdown-simple {
+                padding: 15px 30px;
+                margin-bottom: 30px;
+            }
+            
+            .countdown-text {
+                font-size: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            /* 喜糖区域紧凑布局 */
+            .candy-showcase {
+                padding: 30px 15px;
+                margin: 15px 10px;
+            }
+            
+            .candy-container {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .candy-carousel {
+                width: 100%;
+            }
+            
+            .candy-info {
+                padding: 0;
+            }
+            
+            .candy-title {
+                font-size: 1.5rem;
+                padding: 0 30px;
+            }
+            
+            .candy-title::before {
+                left: 0;
+            }
+            
+            .candy-title::after {
+                right: 0;
+            }
+            
+            .candy-description {
+                font-size: 0.95rem;
+                line-height: 1.8;
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+            
+            .candy-feature {
+                font-size: 0.9rem;
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .candy-feature-icon {
+                font-size: 1.1rem;
+            }
+            
+            /* 详情区域紧凑 */
+            .details-content {
+                padding: 20px 15px;
+            }
+            
+            .step-card {
+                padding: 15px;
+            }
+            
+            /* 主按钮固定底部 */
+            .main-cta-container {
+                padding: 12px 15px;
+            }
+            
+            .main-cta-button {
+                width: 90%;
+                height: 55px;
+                font-size: 1.15rem;
+            }
+            
+            /* 移动端隐藏导航按钮，使用手势滑动 */
+            .carousel-nav {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* 超小屏幕更紧凑 */
+            .hero-section {
+                padding: 25px 12px;
+            }
+            
+            .couple-names {
+                font-size: 2.3rem;
+            }
+            
+            .couple-names::before {
+                left: -30px;
+            }
+            
+            .couple-names::after {
+                right: -30px;
+            }
+            
+            .wedding-date {
+                font-size: 1.1rem;
+            }
+            
+            .countdown-simple {
+                padding: 12px 25px;
+            }
+            
+            .countdown-text {
+                font-size: 0.95rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .candy-showcase {
+                padding: 25px 12px;
+                margin: 12px 8px;
+            }
+            
+            .candy-title {
+                font-size: 1.3rem;
+                padding: 0 25px;
+            }
+            
+            .candy-description {
+                font-size: 0.9rem;
+                padding: 10px;
+            }
+            
+            .candy-feature {
+                font-size: 0.85rem;
+                padding: 8px;
+            }
+            
+            .details-content {
+                padding: 18px 12px;
+            }
+            
+            .step-card {
+                padding: 12px;
+            }
+            
+            .main-cta-button {
+                height: 52px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* ==================== 开发调试工具栏 ==================== */
+        .dev-toolbar {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #00ff00;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 200px;
+        }
+        
+        .dev-toolbar-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #00ffff;
+            font-size: 13px;
+        }
+        
+        .dev-toolbar-item {
+            margin: 4px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .dev-toolbar-label {
+            color: #aaa;
+        }
+        
+        .dev-toolbar-value {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        
+        .dev-toolbar-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            background: #ff4444;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .dev-toolbar-close:hover {
+            background: #ff0000;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .dev-toolbar {
+                top: 5px;
+                right: 5px;
+                padding: 10px 12px;
+                font-size: 11px;
+                min-width: 180px;
+            }
+            
+            .dev-toolbar-title {
+                font-size: 12px;
+            }
+        }
+        
+        /* ==================== 横屏适配 ==================== */
+        @media (max-width: 896px) and (orientation: landscape) {
+            .hero-section {
+                padding: 20px;
+            }
+            
+            .couple-names {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .wedding-date {
+                font-size: 1.2rem;
+                margin-bottom: 20px;
+            }
+            
+            .countdown-simple {
+                padding: 10px 30px;
+                margin-bottom: 20px;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .main-container {
+                padding-bottom: 90px;
+            }
+            
+            .main-cta-button {
+                height: 50px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 开发调试工具栏（仅localhost显示）-->
+    <div class="dev-toolbar" id="devToolbar" style="display: none;">
+        <button class="dev-toolbar-close" onclick="closeDevToolbar()" aria-label="关闭">×</button>
+        <div class="dev-toolbar-title">🛠️ DEV MODE</div>
+        <div class="dev-toolbar-item">
+            <span class="dev-toolbar-label">环境:</span>
+            <span class="dev-toolbar-value" id="devEnv">-</span>
+        </div>
+        <div class="dev-toolbar-item">
+            <span class="dev-toolbar-label">屏幕:</span>
+            <span class="dev-toolbar-value" id="devScreen">-</span>
+        </div>
+        <div class="dev-toolbar-item">
+            <span class="dev-toolbar-label">轮播:</span>
+            <span class="dev-toolbar-value" id="devCarousel">-</span>
+        </div>
+        <div class="dev-toolbar-item">
+            <span class="dev-toolbar-label">存储:</span>
+            <span class="dev-toolbar-value" id="devStorage">-</span>
+        </div>
+    </div>
+    
+    <!-- 背景图片轮播 -->
+    <div class="background-slider">
+        <div class="bg-slide bg-slide-1 active"></div>
+        <div class="bg-slide bg-slide-2"></div>
+        <div class="bg-slide bg-slide-3"></div>
+    </div>
+    
+    <!-- 背景遮罩 -->
+    <div class="bg-overlay"></div>
+    
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 核心内容区域 -->
+        <section class="hero-section">
+            <!-- 新人姓名 -->
+            <h1 class="couple-names">邓蓓 & 唐韬</h1>
+            
+            <!-- 婚期日期 -->
+            <p class="wedding-date">2026年2月1日</p>
+            
+            <!-- 简单倒计时 -->
+            <div class="countdown-simple">
+                <div class="countdown-text">距离我们的婚礼</div>
+                <div class="countdown-number" id="daysCount">0天</div>
+            </div>
+        </section>
+        
+        <!-- 喜糖礼盒展示区域 -->
+        <section class="candy-showcase">
+            <div class="candy-container">
+                <!-- 左侧图片轮播 -->
+                <div class="candy-carousel">
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- 如果有图片，使用 img 标签 -->
+                            <!-- <div class="carousel-slide">
+                                <img src="assets/images/candy1.jpg" alt="喜糖礼盒1" loading="lazy">
+                            </div> -->
+                            
+                            <!-- 占位符（没有图片时显示）-->
+                            <div class="carousel-slide">
+                                <div class="carousel-placeholder">
+                                    🍬
+                                    <div class="carousel-placeholder-text">喜糖礼盒</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="carousel-placeholder">
+                                    🎁
+                                    <div class="carousel-placeholder-text">精美包装</div>
+                                </div>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="carousel-placeholder">
+                                    💝
+                                    <div class="carousel-placeholder-text">满满心意</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 左右切换按钮（桌面端） -->
+                        <button class="carousel-nav prev" onclick="prevSlide()" aria-label="上一张">‹</button>
+                        <button class="carousel-nav next" onclick="nextSlide()" aria-label="下一张">›</button>
+                        
+                        <!-- 指示器 -->
+                        <div class="carousel-indicators" id="carouselIndicators"></div>
+                    </div>
+                </div>
+                
+                <!-- 右侧固定文字 -->
+                <div class="candy-info">
+                    <h2 class="candy-title">Sweet Memories</h2>
+                    <p class="candy-description">
+                        精心准备的喜糖礼盒，承载着我们的喜悦与祝福。每一颗糖果都是我们对您的感谢，愿这份甜蜜能为您带来美好的心情。
+                    </p>
+                    <ul class="candy-features">
+                        <li class="candy-feature">
+                            <span class="candy-feature-icon">✨</span>
+                            <span>精选进口糖果，口味丰富</span>
+                        </li>
+                        <li class="candy-feature">
+                            <span class="candy-feature-icon">🎨</span>
+                            <span>精美礼盒包装，用心设计</span>
+                        </li>
+                        <li class="candy-feature">
+                            <span class="candy-feature-icon">💌</span>
+                            <span>附赠定制贺卡，传递心意</span>
+                        </li>
+                        <li class="candy-feature">
+                            <span class="candy-feature-icon">🚚</span>
+                            <span>全国包邮，安全送达</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 详情展开区域 -->
+    <div class="details-section" id="detailsSection">
+        <button class="expand-toggle" id="expandToggle" aria-label="展开详情">
+            <span class="expand-icon">▼</span>
+        </button>
+        
+        <div class="details-content">
+            <h2 class="details-title">三步轻松领取</h2>
+            
+            <div class="step-cards">
+                <div class="step-card">
+                    <div class="step-card-title">📋 第一步：填写信息</div>
+                    <div class="step-card-desc">点击下方按钮，填写您的姓名、手机号和收货地址，只需1分钟</div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-card-title">✅ 第二步：确认提交</div>
+                    <div class="step-card-desc">核对信息无误后提交，您还可以留下温馨的祝福语</div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-card-title">📦 第三步：等待收货</div>
+                    <div class="step-card-desc">我们将在3-5个工作日内为您安排配送，将甜蜜送到您手中</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主要行动按钮（固定底部） -->
+    <div class="main-cta-container">
+        <button class="main-cta-button" onclick="goToForm()" aria-label="填写收货信息">
+            <span class="cta-icon">✨</span>
+            <span class="cta-text">填写收货信息</span>
+            <span class="cta-icon">✨</span>
+        </button>
+    </div>
+    
+    <!-- 优化模块 -->
+    <script src="js/performance.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/seo.js"></script>
+    
+    <!-- 图片懒加载提示：所有 img 标签已添加 loading="lazy" 属性 -->
+    
+    <script>
+        // ==================== 开发调试工具栏 ====================
+        function initDevToolbar() {
+            // 只在 localhost 显示
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                              window.location.hostname === '127.0.0.1' ||
+                              window.location.hostname === '';
+            
+            if (!isLocalhost) return;
+            
+            const toolbar = document.getElementById('devToolbar');
+            if (!toolbar) return;
+            
+            toolbar.style.display = 'block';
+            
+            // 环境信息
+            document.getElementById('devEnv').textContent = 'LOCAL';
+            
+            // 屏幕尺寸
+            function updateScreenInfo() {
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+                document.getElementById('devScreen').textContent = `${width}×${height}`;
+            }
+            updateScreenInfo();
+            window.addEventListener('resize', updateScreenInfo);
+            
+            // 轮播状态
+            function updateCarouselInfo() {
+                const track = document.getElementById('carouselTrack');
+                if (track) {
+                    const slides = track.querySelectorAll('.carousel-slide');
+                    document.getElementById('devCarousel').textContent = 
+                        `${currentSlide + 1}/${slides.length}`;
+                }
+            }
+            
+            // 每次轮播切换时更新
+            setInterval(updateCarouselInfo, 500);
+            
+            // LocalStorage 使用情况
+            function updateStorageInfo() {
+                try {
+                    let total = 0;
+                    for (let key in localStorage) {
+                        if (localStorage.hasOwnProperty(key)) {
+                            total += localStorage[key].length;
+                        }
+                    }
+                    const kb = (total / 1024).toFixed(1);
+                    document.getElementById('devStorage').textContent = `${kb}KB`;
+                } catch (e) {
+                    document.getElementById('devStorage').textContent = 'N/A';
+                }
+            }
+            updateStorageInfo();
+            
+            console.log('%c🛠️ 开发工具栏已启用', 'color: #00ff00; font-size: 14px; font-weight: bold;');
+            console.log('%c仅在 localhost 显示', 'color: #00ffff; font-size: 12px;');
+        }
+        
+        function closeDevToolbar() {
+            const toolbar = document.getElementById('devToolbar');
+            if (toolbar) {
+                toolbar.style.display = 'none';
+            }
+        }
+        
+        // ==================== 背景图片轮播 ====================
+        function initBackgroundSlider() {
+            const slides = document.querySelectorAll('.bg-slide');
+            let currentSlide = 0;
+            
+            function nextSlide() {
+                // 移除当前active
+                slides[currentSlide].classList.remove('active');
+                
+                // 计算下一张
+                currentSlide = (currentSlide + 1) % slides.length;
+                
+                // 添加active到下一张
+                slides[currentSlide].classList.add('active');
+            }
+            
+            // 每5秒切换一次
+            setInterval(nextSlide, 5000);
+            
+            console.log('✅ 背景轮播已启动（每5秒切换）');
+        }
+        
+        // ==================== 倒计时功能 ====================
+        function updateCountdown() {
+            const weddingDate = new Date('2026-02-01T00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('daysCount').textContent = '新婚快乐！';
+                return;
+            }
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('daysCount').textContent = days + '天';
+        }
+        
+        // ==================== 详情展开/收起 ====================
+        function initDetailsToggle() {
+            const detailsSection = document.getElementById('detailsSection');
+            const expandToggle = document.getElementById('expandToggle');
+            
+            expandToggle.addEventListener('click', function() {
+                const isExpanded = detailsSection.classList.toggle('expanded');
+                expandToggle.classList.toggle('expanded');
+                
+                // 无障碍支持
+                expandToggle.setAttribute('aria-expanded', isExpanded);
+                
+                // 滚动到可见区域
+                if (isExpanded) {
+                    setTimeout(() => {
+                        detailsSection.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'end' 
+                        });
+                    }, 100);
+                }
+            });
+            
+            console.log('✅ 详情展开功能已初始化');
+        }
+        
+        // ==================== 喜糖轮播功能 ====================
+        let currentSlide = 0;
+        let slideInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        function initCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const indicatorsContainer = document.getElementById('carouselIndicators');
+            
+            if (slides.length === 0) return;
+            
+            // 创建指示器
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = 'carousel-indicator';
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+            
+            // 添加触摸事件（支持手势滑动）
+            const wrapper = track.closest('.carousel-wrapper');
+            wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
+            wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
+            
+            // 自动播放
+            startAutoPlay();
+            
+            // 鼠标悬停时暂停
+            wrapper.addEventListener('mouseenter', stopAutoPlay);
+            wrapper.addEventListener('mouseleave', startAutoPlay);
+            
+            console.log(`✅ 喜糖轮播已初始化（${slides.length}张图片）`);
+        }
+        
+        function updateCarousel() {
+            const track = document.getElementById('carouselTrack');
+            const slides = track.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            // 更新轨道位置
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+        }
+        
+        function nextSlide() {
+            const track = document.getElementById('carouselTrack');
+            const slides = track.querySelectorAll('.carousel-slide');
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateCarousel();
+        }
+        
+        function prevSlide() {
+            const track = document.getElementById('carouselTrack');
+            const slides = track.querySelectorAll('.carousel-slide');
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateCarousel();
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+        
+        function startAutoPlay() {
+            stopAutoPlay(); // 先清除已有的
+            slideInterval = setInterval(nextSlide, 3000); // 每3秒切换
+        }
+        
+        function stopAutoPlay() {
+            if (slideInterval) {
+                clearInterval(slideInterval);
+                slideInterval = null;
+            }
+        }
+        
+        // 触摸手势处理
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+        
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].clientX;
+            handleSwipe();
+        }
+        
+        function handleSwipe() {
+            const swipeThreshold = 50; // 滑动阈值
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // 向左滑动，显示下一张
+                    nextSlide();
+                } else {
+                    // 向右滑动，显示上一张
+                    prevSlide();
+                }
+            }
+        }
+        
+        // ==================== 跳转到表单 ====================
+        function goToForm() {
+            window.location.href = 'form.html';
+        }
+        
+        // ==================== 页面初始化 ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // 初始化背景轮播
+                initBackgroundSlider();
+                
+                // 更新倒计时
+                updateCountdown();
+                setInterval(updateCountdown, 60000); // 每分钟更新一次
+                
+                // 初始化详情展开功能
+                initDetailsToggle();
+                
+                // 初始化喜糖轮播
+                initCarousel();
+                
+                // 初始化开发工具栏（仅localhost）
+                initDevToolbar();
+                
+                // 页面加载完成提示
+                console.log('%c💝 邓蓓 & 唐韬的婚礼喜糖领取系统', 'color: #D8B4B4; font-size: 16px; font-weight: bold;');
+                console.log('%c页面已优化：淡雅高级版本 v2.1', 'color: #5D4A3D; font-size: 12px;');
+                
+            } catch (error) {
+                console.error('初始化错误:', error);
+            }
+        });
+        
+        // ==================== 键盘支持 ====================
+        document.addEventListener('keydown', function(e) {
+            // Enter键也可以展开详情
+            if (e.key === 'Enter' && e.target.id === 'expandToggle') {
+                e.target.click();
+            }
+            
+            // 空格键激活按钮
+            if (e.key === ' ' && e.target.classList.contains('main-cta-button')) {
+                e.preventDefault();
+                e.target.click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+/* =================================================================
+   移动端优化样式
+   触摸目标、键盘处理、横屏适配
+================================================================= */
+
+/* 基础触摸优化 */
+* {
+    -webkit-tap-highlight-color: rgba(232, 180, 184, 0.2);
+    -webkit-touch-callout: none;
+}
+
+/* 可交互元素的触摸目标 ≥44px */
+button,
+a,
+input,
+select,
+textarea,
+.touchable,
+[role="button"],
+[role="link"],
+[type="checkbox"],
+[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+    position: relative;
+}
+
+/* 小按钮扩展触摸区域 */
+.btn-small,
+.icon-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 20px;
+}
+
+/* 链接扩展触摸区域 */
+a:not(.btn) {
+    padding: 8px 4px;
+    margin: -8px -4px;
+}
+
+/* 表单控件触摸优化 */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+    min-height: 48px;
+    font-size: 16px; /* 防止iOS自动缩放 */
+    padding: 12px 16px;
+}
+
+/* 复选框和单选框触摸区域 */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 24px;
+    height: 24px;
+    margin: 10px;
+}
+
+/* 复选框/单选框的label扩展触摸区域 */
+label:has(input[type="checkbox"]),
+label:has(input[type="radio"]) {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* =================================================================
+   键盘弹出处理
+================================================================= */
+
+/* 软键盘弹出时的布局调整 */
+@supports (-webkit-overflow-scrolling: touch) {
+    /* iOS 键盘弹出时防止页面缩放 */
+    input:focus,
+    textarea:focus,
+    select:focus {
+        font-size: 16px !important;
+    }
+}
+
+/* 输入框获得焦点时的容器调整 */
+.form-step:has(input:focus),
+.form-step:has(textarea:focus),
+.form-step:has(select:focus) {
+    padding-bottom: 50vh; /* 为键盘留出空间 */
+    transition: padding-bottom 0.3s ease;
+}
+
+/* 键盘弹出时固定头部 */
+@media (max-width: 768px) {
+    body.keyboard-open {
+        position: fixed;
+        width: 100%;
+    }
+
+    body.keyboard-open .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+    }
+
+    body.keyboard-open .form-container {
+        margin-top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* 输入框获得焦点时滚动到可见区域 */
+input:focus,
+textarea:focus,
+select:focus {
+    scroll-margin-top: 100px;
+    scroll-behavior: smooth;
+}
+
+/* =================================================================
+   横屏适配
+================================================================= */
+
+/* 横屏模式下的布局调整 */
+@media (max-width: 896px) and (orientation: landscape) {
+    /* 减少垂直间距 */
+    .form-step {
+        padding: 16px 20px;
+    }
+
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    /* 调整标题大小 */
+    h1 {
+        font-size: 24px;
+        margin-bottom: 12px;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    /* 紧凑型按钮 */
+    .btn {
+        padding: 10px 24px;
+        min-height: 40px;
+    }
+
+    /* 减少步骤指示器间距 */
+    .step-indicator {
+        margin-bottom: 16px;
+    }
+
+    /* 减少卡片间距 */
+    .card {
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+
+    /* 固定底部按钮区域高度 */
+    .form-actions,
+    .button-group {
+        padding: 12px 20px;
+    }
+
+    /* 调整统计卡片为横向排列 */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .stat-label {
+        font-size: 12px;
+    }
+
+    /* 减少花瓣动画数量 */
+    .petal:nth-child(n+6) {
+        display: none;
+    }
+}
+
+/* 特定设备适配 - iPhone SE (横屏) */
+@media (max-width: 667px) and (orientation: landscape) {
+    .welcome-banner {
+        padding: 20px;
+    }
+
+    .countdown {
+        font-size: 14px;
+    }
+
+    .step-indicator {
+        margin-bottom: 12px;
+    }
+}
+
+/* =================================================================
+   触摸手势优化
+================================================================= */
+
+/* 滑动区域 */
+.swipeable {
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+}
+
+/* 横向滚动区域 */
+.scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.scroll-x > * {
+    scroll-snap-align: start;
+}
+
+/* 禁止拖动的元素 */
+.no-drag {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+/* =================================================================
+   移动端表格优化
+================================================================= */
+
+@media (max-width: 768px) {
+    /* 卡片式表格布局 */
+    .data-table {
+        display: block;
+        border: none;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table tbody {
+        display: block;
+    }
+
+    .data-table tr {
+        display: block;
+        margin-bottom: 16px;
+        border: 1px solid var(--color-secondary);
+        border-radius: 8px;
+        padding: 16px;
+        background: var(--color-white);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border: none;
+        border-bottom: 1px solid var(--color-light);
+    }
+
+    .data-table td:last-child {
+        border-bottom: none;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--color-text);
+        margin-right: 12px;
+        min-width: 80px;
+    }
+
+    /* 操作按钮调整 */
+    .action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    .action-buttons .btn {
+        flex: 0 0 auto;
+        min-width: 80px;
+        font-size: 14px;
+        padding: 8px 12px;
+        min-height: 36px;
+    }
+}
+
+/* =================================================================
+   底部安全区域 (iPhone X+)
+================================================================= */
+
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .form-actions,
+    .button-group,
+    .footer {
+        padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+
+    .fixed-bottom {
+        padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+}
+
+/* =================================================================
+   移动端导航优化
+================================================================= */
+
+@media (max-width: 768px) {
+    /* 汉堡菜单按钮 */
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: var(--color-text);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background: var(--color-text);
+        transition: all 0.3s ease;
+    }
+
+    .menu-toggle span::before {
+        top: -8px;
+    }
+
+    .menu-toggle span::after {
+        bottom: -8px;
+    }
+
+    .menu-toggle.active span {
+        background: transparent;
+    }
+
+    .menu-toggle.active span::before {
+        top: 0;
+        transform: rotate(45deg);
+    }
+
+    .menu-toggle.active span::after {
+        bottom: 0;
+        transform: rotate(-45deg);
+    }
+
+    /* 移动端菜单 */
+    .mobile-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--color-white);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 999;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .mobile-menu.active {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 998;
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* =================================================================
+   触觉反馈（支持的设备）
+================================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+    button:active,
+    .btn:active,
+    a:active {
+        transform: scale(0.97);
+    }
+}
+
+/* =================================================================
+   移动端输入优化
+================================================================= */
+
+/* 搜索框 */
+input[type="search"] {
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 20px;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%235D4037' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+    background-size: contain;
+    cursor: pointer;
+}
+
+/* 数字输入 */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 日期选择器 */
+input[type="date"] {
+    min-height: 48px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* =================================================================
+   移动端性能优化
+================================================================= */
+
+/* GPU 加速 */
+.animated,
+.transition {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* 减少重绘 */
+.no-repaint {
+    contain: layout style paint;
+}
+
+/* =================================================================
+   移动端字体调整
+================================================================= */
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+
+    body {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .small-text {
+        font-size: 12px;
+    }
+}
+
+/* =================================================================
+   可访问性 - 触摸设备
+================================================================= */
+
+/* 焦点指示器 */
+@media (hover: none) {
+    *:focus {
+        outline: 3px solid var(--color-secondary);
+        outline-offset: 2px;
+    }
+
+    button:focus,
+    a:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 3px solid var(--color-secondary);
+        outline-offset: 2px;
+    }
+}
+
+/* =================================================================
+   移动端加载优化
+================================================================= */
+
+/* 骨架屏 */
+.skeleton-mobile {
+    background: linear-gradient(
+        90deg,
+        var(--color-light) 25%,
+        var(--color-primary) 50%,
+        var(--color-light) 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* =================================================================
+   调试工具 (开发用)
+================================================================= */
+
+.mobile-debug {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 8px;
+    font-size: 11px;
+    font-family: monospace;
+    z-index: 9999;
+    display: none;
+}
+
+.mobile-debug.show {
+    display: block;
+}
+
+/* =================================================================
+   打印样式
+================================================================= */
+
+@media print {
+    .no-print,
+    .petal,
+    .btn,
+    button,
+    .footer {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .card,
+    .data-table {
+        break-inside: avoid;
+    }
+}

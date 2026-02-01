@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="隐私政策 - 邓蓓 & 唐韬 婚礼喜糖领取系统">
+    <title>隐私政策 - 婚礼喜糖领取系统</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔒</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/animation.css">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #FFE6E6 0%, #FFF0F0 100%);
+            color: #5D4037;
+            line-height: 1.8;
+        }
+        
+        .privacy-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .privacy-header {
+            text-align: center;
+            padding: 3rem 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(232, 180, 184, 0.15);
+            margin-bottom: 2rem;
+        }
+        
+        .privacy-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .privacy-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #5D4037;
+            margin-bottom: 0.5rem;
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .privacy-subtitle {
+            font-size: 1rem;
+            color: #8D6E63;
+            margin-bottom: 0.5rem;
+        }
+        
+        .privacy-date {
+            font-size: 0.9rem;
+            color: #BCAAA4;
+        }
+        
+        .privacy-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(232, 180, 184, 0.15);
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+        }
+        
+        .section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #5D4037;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid #E8B4B8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-content {
+            color: #5D4037;
+            line-height: 1.8;
+        }
+        
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .section-content ul,
+        .section-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .section-content li {
+            margin-bottom: 0.75rem;
+            position: relative;
+        }
+        
+        .section-content ul li::marker {
+            color: #E8B4B8;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE6E6 100%);
+            border-left: 4px solid #E8B4B8;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box h4 {
+            color: #5D4037;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: #FAFAFA;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #E0E0E0;
+        }
+        
+        .data-table th {
+            background: #E8B4B8;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .contact-card {
+            background: linear-gradient(135deg, #E8B4B8, #D4A5A5);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .contact-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #E8B4B8, #D4A5A5);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(232, 180, 184, 0.3);
+        }
+        
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 180, 184, 0.4);
+        }
+        
+        .back-link-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: #E8B4B8;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .privacy-container {
+                padding: 1rem;
+            }
+            
+            .privacy-header {
+                padding: 2rem 1rem;
+            }
+            
+            .privacy-title {
+                font-size: 1.8rem;
+            }
+            
+            .privacy-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .data-table {
+                font-size: 0.9rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="privacy-container page-enter">
+        <!-- 页面头部 -->
+        <header class="privacy-header">
+            <div class="privacy-icon">🔒</div>
+            <h1 class="privacy-title">隐私政策</h1>
+            <p class="privacy-subtitle">邓蓓 & 唐韬 婚礼喜糖领取系统</p>
+            <p class="privacy-date">生效日期：2026年2月1日 | 最后更新：2026年2月1日</p>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="privacy-content">
+            <!-- 引言 -->
+            <div class="section">
+                <div class="highlight-box">
+                    <h4>💝 致亲爱的朋友们</h4>
+                    <p>感谢您参与我们的婚礼喜糖领取活动！我们非常重视您的隐私和个人信息安全。本隐私政策将向您说明我们如何收集、使用和保护您的信息。请仔细阅读本政策，如有任何疑问，请随时联系我们。</p>
+                </div>
+            </div>
+
+            <!-- 1. 数据收集说明 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>📋</span>
+                    一、我们收集哪些信息
+                </h2>
+                <div class="section-content">
+                    <p>为了完成喜糖的配送，我们会收集以下信息：</p>
+                    
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>信息类型</th>
+                                <th>具体内容</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>基本信息</strong></td>
+                                <td>姓名、与新人关系</td>
+                                <td>确认身份、记录祝福</td>
+                            </tr>
+                            <tr>
+                                <td><strong>联系方式</strong></td>
+                                <td>手机号码、微信号</td>
+                                <td>物流通知、配送确认</td>
+                            </tr>
+                            <tr>
+                                <td><strong>配送信息</strong></td>
+                                <td>收货地址（省/市/区/详细地址）、邮政编码</td>
+                                <td>快递配送</td>
+                            </tr>
+                            <tr>
+                                <td><strong>可选信息</strong></td>
+                                <td>祝福留言、期望配送时间</td>
+                                <td>个性化服务、婚礼纪念</td>
+                            </tr>
+                            <tr>
+                                <td><strong>技术信息</strong></td>
+                                <td>提交时间、设备类型</td>
+                                <td>系统优化、数据统计</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="highlight-box">
+                        <h4>✅ 我们承诺</h4>
+                        <ul>
+                            <li><strong>最小化原则</strong>：仅收集配送必需的信息</li>
+                            <li><strong>自愿原则</strong>：您可以选择不提供可选信息</li>
+                            <li><strong>透明原则</strong>：清楚说明每项信息的用途</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. 数据使用目的 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>🎯</span>
+                    二、我们如何使用您的信息
+                </h2>
+                <div class="section-content">
+                    <p>您提供的信息将<strong>仅用于以下目的</strong>：</p>
+                    
+                    <ol>
+                        <li>
+                            <strong>喜糖配送</strong>
+                            <ul>
+                                <li>安排快递发货</li>
+                                <li>物流跟踪和状态更新</li>
+                                <li>配送异常处理</li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <strong>沟通联系</strong>
+                            <ul>
+                                <li>发货通知（短信/微信）</li>
+                                <li>签收确认</li>
+                                <li>配送问题协调</li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <strong>婚礼纪念</strong>
+                            <ul>
+                                <li>整理祝福留言</li>
+                                <li>制作婚礼纪念册（仅限姓名和祝福）</li>
+                                <li>统计参与人数和地域分布</li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <strong>系统维护</strong>
+                            <ul>
+                                <li>优化系统性能</li>
+                                <li>防止重复提交</li>
+                                <li>数据安全保护</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="highlight-box">
+                        <h4>🚫 我们承诺不会</h4>
+                        <ul>
+                            <li>将您的信息出售给第三方</li>
+                            <li>用于商业营销或广告推送</li>
+                            <li>在未经您同意的情况下公开您的联系方式</li>
+                            <li>将信息用于上述目的以外的用途</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. 数据存储方式 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>💾</span>
+                    三、我们如何存储和保护您的信息
+                </h2>
+                <div class="section-content">
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">存储方式</h3>
+                    <ul>
+                        <li>
+                            <strong>本地存储</strong>：数据首先存储在您的浏览器本地（LocalStorage），不会自动上传到服务器
+                        </li>
+                        <li>
+                            <strong>加密存储</strong>：敏感信息（如手机号）在显示时自动脱敏处理（如：138****1234）
+                        </li>
+                        <li>
+                            <strong>访问控制</strong>：只有管理员（新人）可以通过密码访问完整信息
+                        </li>
+                        <li>
+                            <strong>定期备份</strong>：系统自动创建数据备份，防止意外丢失
+                        </li>
+                    </ul>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">安全措施</h3>
+                    <ul>
+                        <li>
+                            <strong>密码保护</strong>：管理后台采用密码验证，防止未授权访问
+                        </li>
+                        <li>
+                            <strong>会话管理</strong>：管理员会话24小时自动过期，需重新登录
+                        </li>
+                        <li>
+                            <strong>防暴力破解</strong>：连续5次登录失败将锁定10分钟
+                        </li>
+                        <li>
+                            <strong>数据脱敏</strong>：手机号在存储和显示时自动脱敏
+                        </li>
+                    </ul>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">存储期限</h3>
+                    <p>您的信息将保留至婚礼结束并完成所有喜糖配送后的<strong>30天</strong>。之后我们将：</p>
+                    <ul>
+                        <li>删除所有联系方式和地址信息</li>
+                        <li>仅保留匿名的统计数据（如参与人数、地域分布）</li>
+                        <li>保留祝福留言用于婚礼纪念（不含联系方式）</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>🔐 技术保障</h4>
+                        <p>本系统采用纯前端技术（HTML/CSS/JavaScript），您的数据首先存储在本地浏览器，不会自动上传到任何服务器。这意味着：</p>
+                        <ul>
+                            <li>数据掌握在您自己手中</li>
+                            <li>不存在服务器被黑客攻击的风险</li>
+                            <li>可以随时通过清除浏览器数据来删除信息</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. 用户权利 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>👤</span>
+                    四、您的权利
+                </h2>
+                <div class="section-content">
+                    <p>根据个人信息保护的相关规定，您享有以下权利：</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">1. 知情权</h3>
+                    <p>您有权了解我们收集了哪些信息，以及这些信息的用途。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">2. 访问权</h3>
+                    <p>您可以随时联系我们，查询您提交的信息。我们将在核实您的身份后提供相关信息。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">3. 更正权</h3>
+                    <p>如果您发现提交的信息有误（如地址错误），请及时联系我们进行更正。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">4. 删除权</h3>
+                    <p>在以下情况下，您可以要求我们删除您的信息：</p>
+                    <ul>
+                        <li>您决定不再领取喜糖</li>
+                        <li>喜糖已配送完成，您希望删除信息</li>
+                        <li>我们违反了本隐私政策的承诺</li>
+                    </ul>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">5. 撤回同意权</h3>
+                    <p>您可以随时撤回您对我们处理您个人信息的同意。但这可能导致我们无法为您配送喜糖。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">6. 投诉权</h3>
+                    <p>如果您认为我们侵犯了您的隐私权利，您可以向我们投诉，我们将在收到投诉后<strong>3个工作日内</strong>回复您。</p>
+
+                    <div class="highlight-box">
+                        <h4>📞 如何行使您的权利</h4>
+                        <p>请通过以下方式联系我们：</p>
+                        <ul>
+                            <li><strong>微信</strong>：联系新人微信（邓蓓 或 唐韬）</li>
+                            <li><strong>电话</strong>：请在提交表单时留下的联系方式</li>
+                            <li><strong>邮件</strong>：如有邮箱可在此说明</li>
+                        </ul>
+                        <p style="margin-top: 1rem;">我们会在核实您的身份后，尽快响应您的请求。</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. 第三方共享 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>🤝</span>
+                    五、第三方共享说明
+                </h2>
+                <div class="section-content">
+                    <p>为了完成喜糖配送，我们可能需要与以下第三方共享您的部分信息：</p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>第三方类型</th>
+                                <th>共享信息</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>快递公司</strong></td>
+                                <td>姓名、手机号、收货地址</td>
+                                <td>快递配送</td>
+                            </tr>
+                            <tr>
+                                <td><strong>婚庆服务商</strong></td>
+                                <td>参与人数统计（不含个人信息）</td>
+                                <td>活动规划</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top: 1.5rem;"><strong>我们的要求：</strong></p>
+                    <ul>
+                        <li>要求第三方仅在必要范围内使用您的信息</li>
+                        <li>要求第三方采取安全措施保护您的信息</li>
+                        <li>要求第三方在完成服务后立即删除您的信息</li>
+                        <li>禁止第三方将您的信息用于其他用途</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>⚠️ 特殊情况说明</h4>
+                        <p>在以下情况下，我们可能会披露您的信息而无需事先征得您的同意：</p>
+                        <ul>
+                            <li>根据法律法规的要求</li>
+                            <li>根据政府部门的强制性要求</li>
+                            <li>为维护您或他人的生命、财产安全</li>
+                            <li>为处理紧急配送问题</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 联系方式 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>📞</span>
+                    六、如何联系我们
+                </h2>
+                <div class="section-content">
+                    <p>如果您对本隐私政策有任何疑问、意见或建议，或者需要行使您的权利，请通过以下方式联系我们：</p>
+
+                    <div class="contact-card">
+                        <h4>💕 联系新人</h4>
+                        <div class="contact-info">
+                            <p><strong>邓蓓 & 唐韬</strong></p>
+                            <p>新娘：邓蓓</p>
+                            <p>新郎：唐韬</p>
+                            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.9;">
+                                请通过提交表单时留下的联系方式与我们取得联系
+                            </p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 1.5rem;">我们承诺在收到您的联系后：</p>
+                    <ul>
+                        <li><strong>及时响应</strong>：1个工作日内回复您的咨询</li>
+                        <li><strong>认真处理</strong>：3个工作日内处理您的请求</li>
+                        <li><strong>明确反馈</strong>：告知您处理结果和后续步骤</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. 政策更新 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>🔄</span>
+                    七、隐私政策的更新
+                </h2>
+                <div class="section-content">
+                    <p>我们可能会不时更新本隐私政策。更新后的政策将在本页面发布，并标明最后更新日期。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">重大变更通知</h3>
+                    <p>如果发生以下<strong>重大变更</strong>，我们会通过以下方式通知您：</p>
+                    <ul>
+                        <li>在系统首页显著位置提示</li>
+                        <li>在表单提交页面弹窗提醒</li>
+                        <li>通过微信/短信通知已提交信息的用户</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong>重大变更包括但不限于：</strong></p>
+                    <ul>
+                        <li>我们的服务模式发生变化</li>
+                        <li>个人信息收集、使用或共享的方式发生变化</li>
+                        <li>您参与个人信息处理的方式发生变化</li>
+                        <li>数据存储期限或安全措施发生变化</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>📅 版本历史</h4>
+                        <table class="data-table" style="margin-top: 1rem;">
+                            <thead>
+                                <tr>
+                                    <th>版本</th>
+                                    <th>发布日期</th>
+                                    <th>主要变更</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge">v1.0</span></td>
+                                    <td>2026-02-01</td>
+                                    <td>首次发布</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. 特别说明 -->
+            <section class="section scroll-reveal">
+                <h2 class="section-title">
+                    <span>💡</span>
+                    八、特别说明
+                </h2>
+                <div class="section-content">
+                    <div class="highlight-box">
+                        <h4>💝 关于婚礼喜糖领取系统</h4>
+                        <p>本系统是专为邓蓓 & 唐韬婚礼设计的喜糖领取平台，具有以下特点：</p>
+                        <ul>
+                            <li><strong>纯前端技术</strong>：数据存储在本地浏览器，最大程度保护您的隐私</li>
+                            <li><strong>非商业用途</strong>：仅用于婚礼喜糖配送，不涉及任何商业活动</li>
+                            <li><strong>临时性质</strong>：婚礼结束后30天将停止运营并清除数据</li>
+                            <li><strong>免费服务</strong>：完全免费，不收取任何费用</li>
+                        </ul>
+                    </div>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">适用范围</h3>
+                    <p>本隐私政策适用于：</p>
+                    <ul>
+                        <li>通过本系统提交喜糖领取信息的所有用户</li>
+                        <li>访问本系统页面的所有访客</li>
+                    </ul>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">未成年人保护</h3>
+                    <p>本系统面向成年用户。如果您是未成年人，请在监护人的陪同下使用本系统，并确保已获得监护人的同意。</p>
+
+                    <h3 style="color: #5D4037; margin-top: 1.5rem; margin-bottom: 1rem;">争议解决</h3>
+                    <p>如果您对本隐私政策或我们的隐私实践有任何疑问或投诉，请先通过上述联系方式与我们沟通。我们将尽最大努力解决您的问题。</p>
+                </div>
+            </section>
+
+            <!-- 同意确认 -->
+            <section class="section scroll-reveal">
+                <div class="highlight-box" style="background: linear-gradient(135deg, #E8F5E9 0%, #E8F5F0 100%); border-color: #4CAF50;">
+                    <h4 style="color: #2E7D32;">✅ 您的同意</h4>
+                    <p style="color: #2E7D32;">
+                        当您在本系统提交喜糖领取信息时，即表示您已阅读、理解并同意本隐私政策的全部内容。
+                        如果您不同意本政策，请不要提交您的个人信息。
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 返回链接 -->
+        <div class="back-link-container">
+            <a href="index.html" class="btn-back">
+                <span>←</span>
+                返回首页
+            </a>
+        </div>
+
+        <!-- 页尾 -->
+        <footer style="text-align: center; padding: 2rem 0; color: #8D6E63; font-size: 0.9rem;">
+            <p>© 2026 邓蓓 & 唐韬 婚礼喜糖领取系统</p>
+            <p style="margin-top: 0.5rem;">本隐私政策最后更新于：2026年2月1日</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/animation-helpers.js"></script>
+</body>
+</html>

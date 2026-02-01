@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="喜糖领取成功！我们将在3-5个工作日内为您配送精美喜糖礼盒，感谢您的祝福">
+    <meta name="keywords" content="婚礼喜糖,领取成功,邓蓓,唐韬">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
+    <meta property="og:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
+    <meta property="og:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
+    <meta property="twitter:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
+    <meta property="twitter:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    
+    <title>提交成功 - 婚礼喜糖领取系统</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==================== 配色方案 ==================== */
+        :root {
+            --color-bg-main: #FAF8F5;
+            --color-accent: #D8B4B4;
+            --color-text: #5D4A3D;
+            --color-text-light: #8B7968;
+            --color-card-bg: #FFFFFF;
+            --color-highlight-bg: #F5F0EB;
+            --color-border: #E8DDD4;
+            --color-success: #7CB342;
+            --shadow-soft: 0 2px 12px rgba(93, 74, 61, 0.08);
+            --shadow-medium: 0 4px 20px rgba(93, 74, 61, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', sans-serif;
+            background: var(--color-bg-main);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .success-container {
+            max-width: 650px;
+            width: 100%;
+            background: var(--color-card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-medium);
+            padding: 40px 35px;
+            text-align: center;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            color: var(--color-text);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .success-message {
+            font-size: 1.05rem;
+            color: var(--color-text-light);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .success-info {
+            background: var(--color-highlight-bg);
+            border: 1px solid var(--color-border);
+            border-left: 3px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+        
+        .info-value {
+            color: var(--color-text);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        /* 分享区域 */
+        .share-section {
+            background: var(--color-highlight-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+        }
+        
+        .share-title {
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: 15px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .share-title::before {
+            content: '✿';
+            color: var(--color-accent);
+            margin-right: 8px;
+        }
+        
+        .share-title::after {
+            content: '✿';
+            color: var(--color-accent);
+            margin-left: 8px;
+        }
+        
+        .share-tip {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid var(--color-accent);
+            text-align: left;
+        }
+        
+        .share-url-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .share-url-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            background: white;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .copy-btn {
+            padding: 12px 24px;
+            background: var(--color-accent);
+            color: white;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .copy-btn:hover {
+            background: var(--color-text);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        
+        .copy-btn.copied {
+            background: var(--color-success);
+            border-color: var(--color-success);
+        }
+        
+        /* 朋友圈分享步骤 */
+        .share-steps {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .share-steps-title {
+            font-size: 1rem;
+            color: var(--color-text);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .share-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
+        
+        .share-step-number {
+            min-width: 24px;
+            height: 24px;
+            background: var(--color-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .share-step-text {
+            flex: 1;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-text);
+            border-color: var(--color-text);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--color-text);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-highlight-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        @media (max-width: 768px) {
+            .success-container {
+                padding: 35px 25px;
+            }
+            
+            .success-icon {
+                font-size: 70px;
+            }
+            
+            .success-title {
+                font-size: 1.6rem;
+            }
+            
+            .success-message {
+                font-size: 1rem;
+            }
+            
+            .share-section {
+                padding: 20px 15px;
+            }
+            
+            .share-url-box {
+                flex-direction: column;
+            }
+            
+            .copy-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .success-container {
+                padding: 30px 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .share-title {
+                font-size: 1.1rem;
+            }
+            
+            .share-step-text {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-icon">✅</div>
+        
+        <h1 class="success-title">信息提交成功！</h1>
+        
+        <p class="success-message">
+            感谢您填写信息，我们已收到您的地址。喜糖礼盒将在3-5个工作日内送达，请保持手机畅通。
+        </p>
+        
+        <div class="success-info">
+            <div class="info-item">
+                <span class="info-label">提交时间</span>
+                <span class="info-value" id="submitTime">-</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">预计送达</span>
+                <span class="info-value">3-5个工作日</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">查询编号</span>
+                <span class="info-value" id="queryNumber">-</span>
+            </div>
+        </div>
+        
+        <!-- 分享区域 -->
+        <div class="share-section">
+            <div class="share-title">分享给更多好友</div>
+            
+            <div class="share-tip">
+                💝 可将此链接直接分享到微信群或朋友圈，让更多好友也能领取喜糖
+            </div>
+            
+            <!-- 复制链接 -->
+            <div class="share-url-box">
+                <input 
+                    type="text" 
+                    class="share-url-input" 
+                    id="shareUrl" 
+                    readonly 
+                    value="https://your-domain.com"
+                >
+                <button class="copy-btn" id="copyBtn" onclick="copyShareLink()">
+                    📋 复制链接
+                </button>
+            </div>
+            
+            <!-- 朋友圈分享步骤 -->
+            <div class="share-steps">
+                <div class="share-steps-title">📱 朋友圈分享步骤：</div>
+                
+                <div class="share-step">
+                    <div class="share-step-number">1</div>
+                    <div class="share-step-text">
+                        点击上方"复制链接"按钮，链接会自动复制到剪贴板
+                    </div>
+                </div>
+                
+                <div class="share-step">
+                    <div class="share-step-number">2</div>
+                    <div class="share-step-text">
+                        打开微信朋友圈，长按相机图标选择"从相册选择"或"拍摄"
+                    </div>
+                </div>
+                
+                <div class="share-step">
+                    <div class="share-step-number">3</div>
+                    <div class="share-step-text">
+                        在文字输入框长按，点击"粘贴"，即可将链接分享到朋友圈
+                    </div>
+                </div>
+                
+                <div class="share-step">
+                    <div class="share-step-number">4</div>
+                    <div class="share-step-text">
+                        也可以直接将链接发送到微信群或私聊，好友点击即可打开
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="index.html" class="btn btn-primary">返回首页</a>
+            <button class="btn btn-secondary" onclick="window.print()">打印凭证</button>
+        </div>
+    </div>
+    
+    <script>
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置提交时间
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('submitTime').textContent = timeString;
+            
+            // 生成随机查询编号
+            const queryNum = 'WD' + Date.now().toString().slice(-8);
+            document.getElementById('queryNumber').textContent = queryNum;
+            
+            // 设置分享链接（使用当前域名）
+            const shareUrl = window.location.origin + window.location.pathname.replace('success.html', 'index.html');
+            document.getElementById('shareUrl').value = shareUrl;
+            
+            console.log('%c✅ 提交成功！', 'color: #7CB342; font-size: 16px; font-weight: bold;');
+        });
+        
+        // 复制分享链接
+        function copyShareLink() {
+            const input = document.getElementById('shareUrl');
+            const btn = document.getElementById('copyBtn');
+            
+            // 选择并复制文本
+            input.select();
+            input.setSelectionRange(0, 99999); // 移动端兼容
+            
+            try {
+                // 尝试使用现代 API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(input.value).then(() => {
+                        showCopySuccess(btn);
+                    }).catch(() => {
+                        // 降级到传统方法
+                        fallbackCopy(input, btn);
+                    });
+                } else {
+                    // 传统方法
+                    fallbackCopy(input, btn);
+                }
+            } catch (err) {
+                console.error('复制失败:', err);
+                alert('复制失败，请手动复制链接');
+            }
+        }
+        
+        // 传统复制方法（兼容旧浏览器）
+        function fallbackCopy(input, btn) {
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                    showCopySuccess(btn);
+                } else {
+                    alert('复制失败，请手动复制链接');
+                }
+            } catch (err) {
+                alert('您的浏览器不支持自动复制，请手动复制链接');
+            }
+        }
+        
+        // 显示复制成功提示
+        function showCopySuccess(btn) {
+            // 保存原始文本
+            const originalText = btn.textContent;
+            
+            // 更改按钮状态
+            btn.textContent = '✅ 已复制';
+            btn.classList.add('copied');
+            
+            // 2秒后恢复
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+            
+            // 显示提示
+            console.log('✅ 链接已复制到剪贴板');
+        }
+        
+        // 点击输入框自动全选
+        document.addEventListener('DOMContentLoaded', function() {
+            const shareInput = document.getElementById('shareUrl');
+            if (shareInput) {
+                shareInput.addEventListener('click', function() {
+                    this.select();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="系统测试工具">
+    <title>系统测试工具 - 婚礼喜糖领取系统</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/theme.css">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 2rem 1rem;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .test-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            font-size: 2rem;
+            color: #5D4037;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-header p {
+            color: #8D6E63;
+        }
+        
+        .section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #5D4037;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #E8B4B8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .test-btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .test-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(135deg, #F44336, #da190b);
+        }
+        
+        .test-btn.warning {
+            background: linear-gradient(135deg, #FF9800, #e68900);
+        }
+        
+        .test-btn.info {
+            background: linear-gradient(135deg, #2196F3, #0b7dda);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .info-grid {
+            display: grid;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #f5f7fa;
+            border-radius: 8px;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #5D4037;
+        }
+        
+        .info-value {
+            color: #8D6E63;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+        
+        .console-line {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+        
+        .console-success {
+            color: #4CAF50;
+        }
+        
+        .console-error {
+            color: #F44336;
+        }
+        
+        .console-warning {
+            color: #FF9800;
+        }
+        
+        .console-info {
+            color: #2196F3;
+        }
+        
+        .feature-list {
+            display: grid;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: #f5f7fa;
+            border-radius: 8px;
+        }
+        
+        .feature-status {
+            font-size: 1.2rem;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .test-container {
+                padding: 0;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <!-- 页面头部 -->
+        <div class="test-header">
+            <h1>🧪 系统测试工具</h1>
+            <p>开发和测试辅助工具集</p>
+        </div>
+
+        <!-- 数据生成工具 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>📊</span>
+                数据生成工具
+            </h2>
+            <div class="button-grid">
+                <button class="test-btn success" onclick="generateAndImport(10)">
+                    <span>➕</span>
+                    生成 10 条数据
+                </button>
+                <button class="test-btn success" onclick="generateAndImport(50)">
+                    <span>➕</span>
+                    生成 50 条数据
+                </button>
+                <button class="test-btn success" onclick="generateAndImport(100)">
+                    <span>➕</span>
+                    生成 100 条数据
+                </button>
+                <button class="test-btn info" onclick="exportSample()">
+                    <span>📥</span>
+                    导出样本数据
+                </button>
+            </div>
+        </div>
+
+        <!-- 表单工具 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>📝</span>
+                表单测试工具
+            </h2>
+            <div class="button-grid">
+                <button class="test-btn primary" onclick="autoFill()">
+                    <span>✨</span>
+                    自动填充表单
+                </button>
+                <button class="test-btn primary" onclick="openForm()">
+                    <span>📋</span>
+                    打开填写页面
+                </button>
+            </div>
+        </div>
+
+        <!-- 存储管理 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>💾</span>
+                存储管理
+            </h2>
+            <div class="button-grid">
+                <button class="test-btn info" onclick="showStorage()">
+                    <span>📊</span>
+                    查看存储信息
+                </button>
+                <button class="test-btn warning" onclick="createBackup()">
+                    <span>💾</span>
+                    创建备份
+                </button>
+                <button class="test-btn danger" onclick="clearAllStorage()">
+                    <span>🗑️</span>
+                    清空存储
+                </button>
+            </div>
+        </div>
+
+        <!-- 系统测试 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>🔧</span>
+                系统测试
+            </h2>
+            <div class="button-grid">
+                <button class="test-btn primary" onclick="runTests()">
+                    <span>🧪</span>
+                    运行所有测试
+                </button>
+                <button class="test-btn info" onclick="checkCompatibility()">
+                    <span>🌐</span>
+                    兼容性检测
+                </button>
+                <button class="test-btn warning" onclick="startMonitor()">
+                    <span>⚡</span>
+                    性能监控
+                </button>
+                <button class="test-btn success" onclick="openConsole()">
+                    <span>🖥️</span>
+                    打开控制台
+                </button>
+            </div>
+        </div>
+
+        <!-- 数据统计 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>📊</span>
+                数据统计
+            </h2>
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-label">总记录数</div>
+                    <div class="stat-value" id="statTotal">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">今日新增</div>
+                    <div class="stat-value" id="statToday">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">待发货</div>
+                    <div class="stat-value" id="statPending">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">已发货</div>
+                    <div class="stat-value" id="statShipped">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 系统信息 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>ℹ️</span>
+                系统信息
+            </h2>
+            <div class="info-grid" id="systemInfo">
+                <div class="info-item">
+                    <span class="info-label">浏览器</span>
+                    <span class="info-value" id="browserInfo">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">用户代理</span>
+                    <span class="info-value" id="userAgent">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">屏幕分辨率</span>
+                    <span class="info-value" id="screenResolution">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">存储容量</span>
+                    <span class="info-value" id="storageSize">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">存储项数</span>
+                    <span class="info-value" id="storageItems">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 浏览器兼容性 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>🌐</span>
+                浏览器兼容性
+            </h2>
+            <div class="feature-list" id="featureList">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+
+        <!-- 控制台输出 -->
+        <div class="section">
+            <h2 class="section-title">
+                <span>🖥️</span>
+                控制台输出
+            </h2>
+            <div class="console-output" id="consoleOutput">
+                <div class="console-line console-info">系统测试工具已就绪</div>
+                <div class="console-line">按 F12 打开浏览器开发者工具查看详细日志</div>
+            </div>
+        </div>
+
+        <!-- 返回链接 -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="index.html" class="back-link">
+                <span>←</span>
+                返回首页
+            </a>
+            <a href="admin.html" class="back-link" style="margin-left: 1rem;">
+                <span>🔐</span>
+                管理后台
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/test-utils.js"></script>
+    
+    <script>
+        // 页面初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initTestPage();
+            updateStats();
+            updateSystemInfo();
+            updateCompatibility();
+            
+            // 定时更新统计
+            setInterval(updateStats, 5000);
+        });
+
+        /**
+         * 初始化测试页面
+         */
+        function initTestPage() {
+            log('info', '测试页面已加载');
+            log('success', `当前系统版本: ${CONFIG.APP_VERSION}`);
+            log('info', `新人: ${CONFIG.COUPLE.FULL_NAME}`);
+        }
+
+        /**
+         * 生成并导入测试数据
+         */
+        function generateAndImport(count) {
+            log('info', `开始生成 ${count} 条测试数据...`);
+            const result = TestUtils.importTestData(count);
+            
+            if (result.success) {
+                log('success', `✓ ${result.message}`);
+                updateStats();
+            } else {
+                log('error', `✗ ${result.message}`);
+            }
+        }
+
+        /**
+         * 自动填充表单
+         */
+        function autoFill() {
+            log('warning', '此功能需要在表单页面使用');
+            log('info', '请打开 form.html 页面，然后在控制台输入: TestUtils.autoFillForm()');
+        }
+
+        /**
+         * 打开表单页面
+         */
+        function openForm() {
+            window.open('form.html', '_blank');
+            log('info', '已打开表单页面');
+        }
+
+        /**
+         * 显示存储信息
+         */
+        function showStorage() {
+            const info = TestUtils.showStorageInfo();
+            log('info', `存储项数: ${info.keys}`);
+            log('info', `总大小: ${(info.totalSize / 1024).toFixed(2)} KB`);
+            updateSystemInfo();
+        }
+
+        /**
+         * 创建备份
+         */
+        function createBackup() {
+            if (DataManager.createBackup()) {
+                log('success', '✓ 数据备份成功');
+            } else {
+                log('error', '✗ 数据备份失败');
+            }
+        }
+
+        /**
+         * 清空存储
+         */
+        function clearAllStorage() {
+            const result = TestUtils.clearStorage(true);
+            if (result.success) {
+                log('warning', `✓ ${result.message}`);
+                updateStats();
+                updateSystemInfo();
+            } else {
+                log('info', result.message);
+            }
+        }
+
+        /**
+         * 运行所有测试
+         */
+        function runTests() {
+            log('info', '开始运行系统测试...');
+            TestUtils.runAllTests();
+            log('success', '✓ 测试完成，请查看浏览器控制台');
+            updateCompatibility();
+        }
+
+        /**
+         * 检查兼容性
+         */
+        function checkCompatibility() {
+            log('info', '正在检测浏览器兼容性...');
+            const result = TestUtils.checkBrowserCompatibility();
+            
+            if (result.compatible) {
+                log('success', '✓ 浏览器完全兼容');
+            } else {
+                log('warning', '⚠ 浏览器版本较低，部分功能可能不可用');
+            }
+            
+            updateCompatibility();
+        }
+
+        /**
+         * 启动性能监控
+         */
+        function startMonitor() {
+            TestUtils.startPerformanceMonitor();
+            log('success', '✓ 性能监控已启动');
+            log('info', '监控数据将在控制台定期输出');
+        }
+
+        /**
+         * 打开控制台
+         */
+        function openConsole() {
+            log('info', '请按 F12 或右键 → 检查 打开开发者工具');
+        }
+
+        /**
+         * 导出样本数据
+         */
+        function exportSample() {
+            TestUtils.exportSampleData();
+            log('success', '✓ 样本数据已导出');
+        }
+
+        /**
+         * 更新统计数据
+         */
+        function updateStats() {
+            const stats = DataManager.getStatistics();
+            document.getElementById('statTotal').textContent = stats.total;
+            document.getElementById('statToday').textContent = stats.today;
+            document.getElementById('statPending').textContent = stats.pending;
+            document.getElementById('statShipped').textContent = stats.shipped;
+        }
+
+        /**
+         * 更新系统信息
+         */
+        function updateSystemInfo() {
+            // 浏览器信息
+            const browser = Utils.getBrowser();
+            document.getElementById('browserInfo').textContent = browser;
+            
+            // 用户代理
+            const ua = navigator.userAgent;
+            document.getElementById('userAgent').textContent = ua.substring(0, 50) + '...';
+            
+            // 屏幕分辨率
+            document.getElementById('screenResolution').textContent = 
+                `${window.screen.width} × ${window.screen.height}`;
+            
+            // 存储信息
+            const storageSize = DataManager.getStorageSize();
+            document.getElementById('storageSize').textContent = 
+                `${(storageSize / 1024).toFixed(2)} KB`;
+            
+            document.getElementById('storageItems').textContent = 
+                Object.keys(localStorage).length;
+        }
+
+        /**
+         * 更新兼容性信息
+         */
+        function updateCompatibility() {
+            const result = TestUtils.checkBrowserCompatibility();
+            const featureList = document.getElementById('featureList');
+            
+            featureList.innerHTML = Object.entries(result.features).map(([feature, supported]) => {
+                const status = supported ? '✅' : '❌';
+                const statusText = supported ? '支持' : '不支持';
+                return `
+                    <div class="feature-item">
+                        <span class="feature-status">${status}</span>
+                        <span>${feature}</span>
+                        <span style="margin-left: auto; color: ${supported ? '#4CAF50' : '#F44336'};">
+                            ${statusText}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /**
+         * 记录日志到页面
+         */
+        function log(type, message) {
+            const consoleOutput = document.getElementById('consoleOutput');
+            const timestamp = new Date().toLocaleTimeString();
+            const line = document.createElement('div');
+            line.className = `console-line console-${type}`;
+            line.textContent = `[${timestamp}] ${message}`;
+            consoleOutput.appendChild(line);
+            
+            // 自动滚动到底部
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            
+            // 限制日志数量
+            if (consoleOutput.children.length > 100) {
+                consoleOutput.removeChild(consoleOutput.firstChild);
+            }
+        }
+    </script>
+</body>
+</html>

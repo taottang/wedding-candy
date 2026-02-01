@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="填写喜糖领取信息">
+    <title>填写领取信息 - 邓蓓 & 唐韬</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- 移动端优化样式 -->
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <style>
+        /* ==================== 全局样式 ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #FFE6E6;
+            --accent-color: #E8B4B8;
+            --text-color: #5D4037;
+            --light-bg: #FFF5F5;
+            --white: #FFFFFF;
+            --error-color: #D32F2F;
+            --success-color: #388E3C;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--light-bg) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* ==================== 容器 ==================== */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* ==================== 页面头部 ==================== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        /* ==================== 步骤指示器 ==================== */
+        .steps-indicator {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(93, 64, 55, 0.08);
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        .steps-track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .steps-track::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            z-index: 1;
+        }
+        
+        .step-progress {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+            z-index: 2;
+            transition: width 0.5s ease;
+        }
+        
+        .step-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 3;
+            flex: 1;
+        }
+        
+        .step-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .step-item.active .step-circle {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            border-color: var(--accent-color);
+            color: var(--white);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(232, 180, 184, 0.4);
+        }
+        
+        .step-item.completed .step-circle {
+            background: var(--success-color);
+            border-color: var(--success-color);
+            color: var(--white);
+        }
+        
+        .step-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+        
+        .step-item.active .step-label {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        /* ==================== 表单卡片 ==================== */
+        .form-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(93, 64, 55, 0.1);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .step-title {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        /* ==================== 表单组 ==================== */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        
+        .required {
+            color: var(--error-color);
+            margin-left: 3px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-color);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(232, 180, 184, 0.1);
+        }
+        
+        .form-control.error {
+            border-color: var(--error-color);
+            background: rgba(211, 47, 47, 0.05);
+        }
+        
+        .form-control.success {
+            border-color: var(--success-color);
+        }
+        
+        select.form-control {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235D4037' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-hint {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+        
+        .error-message {
+            display: block;
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            min-height: 20px;
+        }
+        
+        .error-message:empty {
+            display: none;
+        }
+        
+        .char-counter {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+        
+        /* ==================== 行布局 ==================== */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        /* ==================== 预览卡片 ==================== */
+        .preview-card {
+            background: var(--light-bg);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .preview-section {
+            margin-bottom: 20px;
+        }
+        
+        .preview-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .preview-section-title {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .preview-item {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+        }
+        
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+        
+        .preview-label {
+            font-weight: 500;
+            color: var(--text-color);
+            min-width: 120px;
+        }
+        
+        .preview-value {
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        /* ==================== 复选框 ==================== */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent-color);
+            margin-top: 2px;
+        }
+        
+        .checkbox-label {
+            flex: 1;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .checkbox-label a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ==================== 按钮 ==================== */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: var(--white);
+            box-shadow: 0 5px 20px rgba(232, 180, 184, 0.3);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(232, 180, 184, 0.4);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-color);
+        }
+        
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        /* ==================== 草稿提示 ==================== */
+        .draft-notice {
+            background: rgba(232, 180, 184, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+        
+        .draft-icon {
+            font-size: 1.5rem;
+        }
+        
+        /* ==================== 动画 ==================== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        /* ==================== 响应式设计 ==================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .steps-indicator {
+                padding: 20px 15px;
+            }
+            
+            .step-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .step-label {
+                font-size: 0.75rem;
+            }
+            
+            .form-card {
+                padding: 25px 20px;
+            }
+            
+            .step-title {
+                font-size: 1.5rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .steps-track::before {
+                left: 20px;
+                right: 20px;
+            }
+            
+            .step-progress {
+                left: 20px;
+            }
+            
+            .step-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .step-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <a href="index.html" class="back-link">
+                <span>←</span>
+                <span>返回首页</span>
+            </a>
+            <h1 class="page-title">填写领取信息</h1>
+            <p class="page-subtitle">请填写您的真实信息，我们将尽快为您配送喜糖</p>
+        </div>
+        
+        <!-- 步骤指示器 -->
+        <div class="steps-indicator">
+            <div class="steps-track">
+                <div class="step-progress" id="stepProgress"></div>
+                <div class="step-item active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">基本信息</div>
+                </div>
+                <div class="step-item" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">联系方式</div>
+                </div>
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">收货地址</div>
+                </div>
+                <div class="step-item" data-step="4">
+                    <div class="step-circle">4</div>
+                    <div class="step-label">确认提交</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 表单卡片 -->
+        <div class="form-card">
+            <form id="candyForm" novalidate>
+                <!-- 第1步：基本信息 -->
+                <div class="form-step active" data-step="1">
+                    <h2 class="step-title">📋 基本信息</h2>
+                    <p class="step-description">请告诉我们您的基本信息</p>
+                    
+                    <div class="draft-notice" id="draftNotice" style="display: none;">
+                        <span class="draft-icon">💾</span>
+                        <span>检测到未完成的草稿，已自动恢复</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            姓名 <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-control"
+                            placeholder="请输入您的真实姓名"
+                            required
+                            autocomplete="name"
+                        >
+                        <span class="form-hint">2-20个字符，支持中文或英文</span>
+                        <span class="error-message" id="nameError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="relationship" class="form-label">
+                            与新人关系 <span class="required">*</span>
+                        </label>
+                        <select 
+                            id="relationship" 
+                            name="relationship" 
+                            class="form-control"
+                            required
+                        >
+                            <option value="">请选择您与新人的关系</option>
+                            <option value="family">家人</option>
+                            <option value="friend">朋友</option>
+                            <option value="colleague">同事</option>
+                            <option value="relative">亲戚</option>
+                            <option value="other">其他</option>
+                        </select>
+                        <span class="error-message" id="relationshipError"></span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" id="step1Next">
+                            下一步 →
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第2步：联系方式 -->
+                <div class="form-step" data-step="2">
+                    <h2 class="step-title">📞 联系方式</h2>
+                    <p class="step-description">请提供您的联系方式，以便我们与您沟通</p>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            手机号码 <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            class="form-control"
+                            placeholder="请输入11位手机号"
+                            required
+                            maxlength="11"
+                            autocomplete="tel"
+                        >
+                        <span class="form-hint">用于接收配送通知</span>
+                        <span class="error-message" id="phoneError"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wechat" class="form-label">
+                            微信号 <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="wechat" 
+                            name="wechat" 
+                            class="form-control"
+                            placeholder="请输入您的微信号"
+                            required
+                        >
+                        <span class="form-hint">字母开头，6-20位字符</span>
+                        <span class="error-message" id="wechatError"></span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="step2Prev">
+                            ← 上一步
+                        </button>
+                        <button type="button" class="btn btn-primary" id="step2Next">
+                            下一步 →
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第3步：收货地址 -->
+                <div class="form-step" data-step="3">
+                    <h2 class="step-title">📍 收货地址</h2>
+                    <p class="step-description">请填写准确的收货地址</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="province" class="form-label">
+                                省份 <span class="required">*</span>
+                            </label>
+                            <select 
+                                id="province" 
+                                name="province" 
+                                class="form-control"
+                                required
+                            >
+                                <option value="">请选择省份</option>
+                            </select>
+                            <span class="error-message" id="provinceError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city" class="form-label">
+                                城市 <span class="required">*</span>
+                            </label>
+                            <select 
+                                id="city" 
+                                name="city" 
+                                class="form-control"
+                                required
+                                disabled
+                            >
+                                <option value="">请先选择省份</option>
+                            </select>
+                            <span class="error-message" id="cityError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="district" class="form-label">
+                                区县 <span class="required">*</span>
+                            </label>
+                            <select 
+                                id="district" 
+                                name="district" 
+                                class="form-control"
+                                required
+                                disabled
+                            >
+                                <option value="">请先选择城市</option>
+                            </select>
+                            <span class="error-message" id="districtError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address" class="form-label">
+                            详细地址 <span class="required">*</span>
+                        </label>
+                        <textarea 
+                            id="address" 
+                            name="address" 
+                            class="form-control"
+                            placeholder="请输入详细地址（街道、门牌号、楼栋单元等）"
+                            required
+                            rows="3"
+                            autocomplete="street-address"
+                        ></textarea>
+                        <span class="form-hint">至少5个字符</span>
+                        <span class="error-message" id="addressError"></span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zipcode" class="form-label">
+                                邮政编码 <span style="color: #999;">(选填)</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                id="zipcode" 
+                                name="zipcode" 
+                                class="form-control"
+                                placeholder="请输入邮政编码"
+                                maxlength="6"
+                                autocomplete="postal-code"
+                            >
+                            <span class="error-message" id="zipcodeError"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deliveryTime" class="form-label">
+                                期望配送时间 <span class="required">*</span>
+                            </label>
+                            <select 
+                                id="deliveryTime" 
+                                name="deliveryTime" 
+                                class="form-control"
+                                required
+                            >
+                                <option value="">请选择配送时间</option>
+                                <option value="anytime">任何时间</option>
+                                <option value="weekday">工作日</option>
+                                <option value="weekend">周末</option>
+                                <option value="morning">上午(9:00-12:00)</option>
+                                <option value="afternoon">下午(14:00-18:00)</option>
+                            </select>
+                            <span class="error-message" id="deliveryTimeError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="step3Prev">
+                            ← 上一步
+                        </button>
+                        <button type="button" class="btn btn-primary" id="step3Next">
+                            下一步 →
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 第4步：确认提交 -->
+                <div class="form-step" data-step="4">
+                    <h2 class="step-title">✅ 确认提交</h2>
+                    <p class="step-description">请确认您的信息无误</p>
+                    
+                    <div class="preview-card" id="previewCard">
+                        <div class="preview-section">
+                            <div class="preview-section-title">基本信息</div>
+                            <div class="preview-item">
+                                <span class="preview-label">姓名：</span>
+                                <span class="preview-value" id="previewName">-</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">与新人关系：</span>
+                                <span class="preview-value" id="previewRelationship">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <div class="preview-section-title">联系方式</div>
+                            <div class="preview-item">
+                                <span class="preview-label">手机号码：</span>
+                                <span class="preview-value" id="previewPhone">-</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">微信号：</span>
+                                <span class="preview-value" id="previewWechat">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <div class="preview-section-title">收货地址</div>
+                            <div class="preview-item">
+                                <span class="preview-label">地区：</span>
+                                <span class="preview-value" id="previewRegion">-</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">详细地址：</span>
+                                <span class="preview-value" id="previewAddress">-</span>
+                            </div>
+                            <div class="preview-item" id="previewZipcodeItem" style="display: none;">
+                                <span class="preview-label">邮政编码：</span>
+                                <span class="preview-value" id="previewZipcode">-</span>
+                            </div>
+                            <div class="preview-item">
+                                <span class="preview-label">期望配送时间：</span>
+                                <span class="preview-value" id="previewDeliveryTime">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">
+                            祝福留言 <span style="color: #999;">(选填)</span>
+                        </label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-control"
+                            placeholder="写下您对新人的祝福吧~"
+                            rows="4"
+                            maxlength="200"
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="messageCount">0</span> / 200
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input 
+                            type="checkbox" 
+                            id="privacy" 
+                            name="privacy" 
+                            class="checkbox-input"
+                            required
+                        >
+                        <label for="privacy" class="checkbox-label">
+                            我已阅读并同意 <a href="privacy.html" target="_blank">《隐私政策》</a>，
+                            同意系统收集和使用我的个人信息用于喜糖配送。
+                            <span class="required">*</span>
+                        </label>
+                    </div>
+                    <span class="error-message" id="privacyError"></span>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="step4Prev">
+                            ← 上一步
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            提交信息 ✓
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 引入必要的JS文件 -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/form-validator.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/region-loader.js"></script>
+    
+    <!-- 优化模块 -->
+    <script src="js/performance.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/seo.js"></script>
+    
+    <script>
+        // ==================== 全局变量 ====================
+        let currentStep = 1;
+        const totalSteps = 4;
+        const DRAFT_KEY = 'wedding_form_draft';
+        
+        // 关系映射
+        const relationshipMap = {
+            'family': '家人',
+            'friend': '朋友',
+            'colleague': '同事',
+            'relative': '亲戚',
+            'other': '其他'
+        };
+        
+        // 配送时间映射
+        const deliveryTimeMap = {
+            'anytime': '任何时间',
+            'weekday': '工作日',
+            'weekend': '周末',
+            'morning': '上午(9:00-12:00)',
+            'afternoon': '下午(14:00-18:00)'
+        };
+        
+        // ==================== 初始化 ====================
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // 加载区域数据
+                await RegionLoader.load();
+                
+                // 初始化省市区联动
+                const provinceSelect = document.getElementById('province');
+                const citySelect = document.getElementById('city');
+                const districtSelect = document.getElementById('district');
+                
+                // 填充省份
+                RegionLoader.populateProvinces(provinceSelect);
+                
+                // 初始化联动
+                RegionLoader.initCascade({
+                    province: provinceSelect,
+                    city: citySelect,
+                    district: districtSelect
+                });
+                
+                // 加载草稿（可能包含地区选择）
+                loadDraft();
+                
+                // 初始化事件监听
+                initializeEventListeners();
+                
+                // 更新步骤进度
+                updateStepProgress();
+                
+            } catch (error) {
+                console.error('Initialization error:', error);
+                Utils.toast('系统初始化失败，请刷新页面重试', 'error');
+            }
+        });
+        
+        // 省市区联动已通过 RegionLoader.initCascade() 初始化
+        
+        // ==================== 事件监听器初始化 ====================
+        function initializeEventListeners() {
+            // 步骤导航
+            document.getElementById('step1Next').addEventListener('click', () => validateAndNext(1));
+            document.getElementById('step2Prev').addEventListener('click', () => goToStep(1));
+            document.getElementById('step2Next').addEventListener('click', () => validateAndNext(2));
+            document.getElementById('step3Prev').addEventListener('click', () => goToStep(2));
+            document.getElementById('step3Next').addEventListener('click', () => validateAndNext(3));
+            document.getElementById('step4Prev').addEventListener('click', () => goToStep(3));
+            
+            // 表单提交
+            document.getElementById('candyForm').addEventListener('submit', handleSubmit);
+            
+            // 实时验证
+            addRealtimeValidation('name', validateName);
+            addRealtimeValidation('relationship', validateRelationship);
+            addRealtimeValidation('phone', validatePhone);
+            addRealtimeValidation('wechat', validateWechat);
+            addRealtimeValidation('address', validateAddress);
+            addRealtimeValidation('zipcode', validateZipcode);
+            addRealtimeValidation('deliveryTime', validateDeliveryTime);
+            
+            // 留言字符计数
+            document.getElementById('message').addEventListener('input', function() {
+                document.getElementById('messageCount').textContent = this.value.length;
+            });
+            
+            // 自动保存草稿
+            const formInputs = document.querySelectorAll('#candyForm input, #candyForm select, #candyForm textarea');
+            formInputs.forEach(input => {
+                input.addEventListener('change', saveDraft);
+                input.addEventListener('input', Utils.debounce(saveDraft, 1000));
+            });
+            
+            // 步骤指示器点击
+            document.querySelectorAll('.step-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetStep = parseInt(this.dataset.step);
+                    if (targetStep < currentStep) {
+                        goToStep(targetStep);
+                    }
+                });
+            });
+        }
+        
+        // ==================== 实时验证 ====================
+        function addRealtimeValidation(fieldId, validationFn) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            
+            field.addEventListener('blur', () => validationFn());
+            field.addEventListener('input', Utils.debounce(() => {
+                if (field.value) validationFn();
+            }, 500));
+        }
+        
+        // ==================== 字段验证函数（使用FormValidator） ====================
+        function validateName() {
+            return FormValidator.validateDOMField(document.getElementById('name'));
+        }
+        
+        function validateRelationship() {
+            return FormValidator.validateDOMField(document.getElementById('relationship'));
+        }
+        
+        function validatePhone() {
+            return FormValidator.validateDOMField(document.getElementById('phone'));
+        }
+        
+        function validateWechat() {
+            return FormValidator.validateDOMField(document.getElementById('wechat'));
+        }
+        
+        function validateField(fieldName) {
+            const field = document.getElementById(fieldName);
+            return FormValidator.validateDOMField(field);
+        }
+        
+        function validateAddress() {
+            return FormValidator.validateDOMField(document.getElementById('address'));
+        }
+        
+        function validateZipcode() {
+            return FormValidator.validateDOMField(document.getElementById('zipcode'));
+        }
+        
+        function validateDeliveryTime() {
+            return validateField('deliveryTime');
+        }
+        
+        // ==================== 步骤验证和导航 ====================
+        function validateStep(step) {
+            let isValid = true;
+            
+            switch(step) {
+                case 1:
+                    isValid = validateName() && validateRelationship();
+                    break;
+                case 2:
+                    isValid = validatePhone() && validateWechat();
+                    break;
+                case 3:
+                    isValid = validateField('province') && 
+                              validateField('city') && 
+                              validateField('district') && 
+                              validateAddress() && 
+                              validateZipcode() &&
+                              validateDeliveryTime();
+                    break;
+            }
+            
+            return isValid;
+        }
+        
+        function validateAndNext(step) {
+            if (validateStep(step)) {
+                if (step === 3) {
+                    updatePreview();
+                }
+                goToStep(step + 1);
+            } else {
+                Utils.toast('请检查表单填写', 'error');
+            }
+        }
+        
+        function goToStep(step) {
+            // 隐藏当前步骤
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step-item').forEach(s => s.classList.remove('active', 'completed'));
+            
+            // 显示目标步骤
+            document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+            
+            // 更新步骤指示器
+            document.querySelectorAll('.step-item').forEach(item => {
+                const itemStep = parseInt(item.dataset.step);
+                if (itemStep === step) {
+                    item.classList.add('active');
+                } else if (itemStep < step) {
+                    item.classList.add('completed');
+                }
+            });
+            
+            currentStep = step;
+            updateStepProgress();
+            
+            // 滚动到顶部
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function updateStepProgress() {
+            const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            const progressBar = document.getElementById('stepProgress');
+            progressBar.style.width = `calc(${progress}% - 25px)`;
+        }
+        
+        // ==================== 信息预览 ====================
+        function updatePreview() {
+            const formData = getFormData();
+            
+            document.getElementById('previewName').textContent = formData.name;
+            document.getElementById('previewRelationship').textContent = relationshipMap[formData.relationship] || formData.relationship;
+            document.getElementById('previewPhone').textContent = Utils.formatPhone(formData.phone);
+            document.getElementById('previewWechat').textContent = formData.wechat;
+            document.getElementById('previewRegion').textContent = `${formData.province} ${formData.city} ${formData.district}`;
+            document.getElementById('previewAddress').textContent = formData.address;
+            document.getElementById('previewDeliveryTime').textContent = deliveryTimeMap[formData.deliveryTime] || formData.deliveryTime;
+            
+            if (formData.zipcode) {
+                document.getElementById('previewZipcode').textContent = formData.zipcode;
+                document.getElementById('previewZipcodeItem').style.display = 'flex';
+            } else {
+                document.getElementById('previewZipcodeItem').style.display = 'none';
+            }
+        }
+        
+        // ==================== 获取表单数据 ====================
+        function getFormData() {
+            const provinceSelect = document.getElementById('province');
+            const citySelect = document.getElementById('city');
+            const districtSelect = document.getElementById('district');
+            
+            return {
+                name: document.getElementById('name').value.trim(),
+                relationship: document.getElementById('relationship').value,
+                phone: document.getElementById('phone').value.trim(),
+                wechat: document.getElementById('wechat').value.trim(),
+                province: provinceSelect.options[provinceSelect.selectedIndex]?.dataset.name || provinceSelect.value,
+                city: citySelect.options[citySelect.selectedIndex]?.dataset.name || citySelect.value,
+                district: districtSelect.options[districtSelect.selectedIndex]?.dataset.name || districtSelect.value,
+                address: document.getElementById('address').value.trim(),
+                zipcode: document.getElementById('zipcode').value.trim(),
+                deliveryTime: document.getElementById('deliveryTime').value,
+                message: document.getElementById('message').value.trim(),
+                privacy: document.getElementById('privacy').checked
+            };
+        }
+        
+        // ==================== 草稿保存和加载 ====================
+        function saveDraft() {
+            const formData = getFormData();
+            Utils.storage.set(DRAFT_KEY, {
+                data: formData,
+                step: currentStep,
+                savedAt: new Date().toISOString()
+            });
+        }
+        
+        function loadDraft() {
+            const draft = Utils.storage.get(DRAFT_KEY);
+            
+            if (draft && draft.data) {
+                const data = draft.data;
+                
+                // 恢复表单数据
+                if (data.name) document.getElementById('name').value = data.name;
+                if (data.relationship) document.getElementById('relationship').value = data.relationship;
+                if (data.phone) document.getElementById('phone').value = data.phone;
+                if (data.wechat) document.getElementById('wechat').value = data.wechat;
+                
+                // 恢复地区选择（使用新的区域代码）
+                if (data.province) {
+                    const provinceCode = RegionLoader.getProvinceCode(data.province);
+                    if (provinceCode) {
+                        document.getElementById('province').value = provinceCode;
+                        RegionLoader.populateCities(document.getElementById('city'), provinceCode);
+                        
+                        setTimeout(() => {
+                            if (data.city) {
+                                const cityCode = RegionLoader.getCityCode(provinceCode, data.city);
+                                if (cityCode) {
+                                    document.getElementById('city').value = cityCode;
+                                    RegionLoader.populateDistricts(
+                                        document.getElementById('district'), 
+                                        provinceCode, 
+                                        cityCode
+                                    );
+                                    
+                                    setTimeout(() => {
+                                        if (data.district) {
+                                            const districtCode = RegionLoader.getDistrictCode(
+                                                provinceCode, 
+                                                cityCode, 
+                                                data.district
+                                            );
+                                            if (districtCode) {
+                                                document.getElementById('district').value = districtCode;
+                                            }
+                                        }
+                                    }, 100);
+                                }
+                            }
+                        }, 100);
+                    }
+                }
+                
+                if (data.address) document.getElementById('address').value = data.address;
+                if (data.zipcode) document.getElementById('zipcode').value = data.zipcode;
+                if (data.deliveryTime) document.getElementById('deliveryTime').value = data.deliveryTime;
+                if (data.message) {
+                    document.getElementById('message').value = data.message;
+                    document.getElementById('messageCount').textContent = data.message.length;
+                }
+                
+                // 显示草稿提示
+                document.getElementById('draftNotice').style.display = 'flex';
+            }
+        }
+        
+        function clearDraft() {
+            Utils.storage.remove(DRAFT_KEY);
+        }
+        
+        // ==================== 表单提交 ====================
+        function handleSubmit(e) {
+            e.preventDefault();
+            
+            const privacyCheckbox = document.getElementById('privacy');
+            const privacyError = document.getElementById('privacyError');
+            
+            if (!privacyCheckbox.checked) {
+                privacyError.textContent = '请阅读并同意隐私政策';
+                Utils.toast('请同意隐私政策', 'error');
+                return;
+            }
+            
+            privacyError.textContent = '';
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('btn-loading');
+            submitBtn.textContent = '提交中...';
+            
+            // 获取表单数据
+            const formData = getFormData();
+            
+            // 构造提交数据
+            const submitData = {
+                name: formData.name,
+                phone: formData.phone,
+                wechat: formData.wechat,
+                relationship: formData.relationship,
+                province: formData.province,
+                city: formData.city,
+                district: formData.district,
+                address: formData.address,
+                zipcode: formData.zipcode,
+                deliveryTime: formData.deliveryTime,
+                message: formData.message,
+                fullAddress: `${formData.province} ${formData.city} ${formData.district} ${formData.address}${formData.zipcode ? ' (邮编:' + formData.zipcode + ')' : ''}`
+            };
+            
+            // 模拟提交延迟
+            setTimeout(() => {
+                // 提交到数据管理器
+                const result = DataManager.addRecipient(submitData);
+                
+                if (result.success) {
+                    // 清除草稿
+                    clearDraft();
+                    
+                    // 显示成功提示
+                    Utils.toast('提交成功！', 'success');
+                    
+                    // 跳转到成功页面
+                    setTimeout(() => {
+                        window.location.href = 'success.html';
+                    }, 500);
+                } else {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('btn-loading');
+                    submitBtn.textContent = '提交信息 ✓';
+                    Utils.toast(result.message, 'error');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

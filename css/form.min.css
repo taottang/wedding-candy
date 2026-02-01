@@ -1,0 +1,145 @@
+.form-main {
+padding: 20px 0 60px;
+}
+.candy-form {
+max-width: 700px;
+margin: 0 auto;
+background: white;
+padding: 40px;
+border-radius: 20px;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.form-row {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 15px;
+}
+.form-control {
+width: 100%;
+padding: 12px 15px;
+border: 2px solid #e0e0e0;
+border-radius: 10px;
+font-size: 1rem;
+font-family: inherit;
+transition: all 0.3s ease;
+background-color: white;
+}
+.form-control:hover {
+border-color: #d0d0d0;
+}
+.form-control:focus {
+outline: none;
+border-color: #d81b60;
+box-shadow: 0 0 0 3px rgba(216, 27, 96, 0.1);
+}
+.form-control::placeholder {
+color: #bbb;
+}
+.form-control.error {
+border-color: #e53935;
+}
+.form-control.success {
+border-color: #4CAF50;
+}
+.form-textarea {
+resize: vertical;
+min-height: 100px;
+line-height: 1.6;
+}
+.checkbox-group {
+margin-bottom: 25px;
+}
+.checkbox-label {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+cursor: pointer;
+user-select: none;
+}
+.form-checkbox {
+width: 20px;
+height: 20px;
+margin-top: 2px;
+cursor: pointer;
+accent-color: #d81b60;
+flex-shrink: 0;
+}
+.checkbox-text {
+font-size: 0.95rem;
+color: #666;
+line-height: 1.5;
+}
+.privacy-link {
+color: #d81b60;
+text-decoration: none;
+font-weight: 500;
+}
+.privacy-link:hover {
+text-decoration: underline;
+}
+.form-actions {
+margin-top: 30px;
+text-align: center;
+}
+.btn-submit {
+min-width: 200px;
+position: relative;
+}
+.btn-submit .btn-loading {
+display: none;
+}
+.btn-submit.loading .btn-text {
+display: none;
+}
+.btn-submit.loading .btn-loading {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+}
+.btn-submit.loading .btn-loading:before {
+content: "";
+display: inline-block;
+width: 16px;
+height: 16px;
+border: 2px solid rgba(255, 255, 255, 0.3);
+border-radius: 50%;
+border-top-color: white;
+animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+.input-hint {
+font-size: 0.85rem;
+color: #999;
+margin-top: 5px;
+display: flex;
+align-items: center;
+gap: 5px;
+}
+.input-hint:before {
+content: "ℹ️";
+}
+}
+.btn-submit {
+width: 100%;
+}
+}
+.form-loading {
+position: relative;
+pointer-events: none;
+}
+.form-loading:after {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(255, 255, 255, 0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 20px;
+z-index: 10;
+}
