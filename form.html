@@ -6,13 +6,8 @@
     <meta name="description" content="填写喜糖领取信息">
     <title>填写领取信息 - 邓蓓 & 唐韬</title>
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&display=swap" rel="stylesheet">
-    
     <!-- 移动端优化样式 -->
-    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/mobile.min.css">
     
     <style>
         /* ==================== 全局样式 ==================== */
@@ -33,7 +28,7 @@
         }
         
         body {
-            font-family: 'Noto Serif SC', serif;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
             color: var(--text-color);
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--light-bg) 100%);
             min-height: 100vh;
@@ -936,10 +931,12 @@
     <script src="js/data-manager.js"></script>
     <script src="js/region-loader.js"></script>
     
-    <!-- 优化模块 -->
-    <script src="js/performance.js"></script>
-    <script src="js/accessibility.js"></script>
-    <script src="js/seo.js"></script>
+    <!-- 只加载表单必需的脚本 -->
+    <script src="js/config.min.js"></script>
+    <script src="js/utils.min.js"></script>
+    <script src="js/form-validator.js"></script>
+    <script src="js/region-loader.js"></script>
+    <script src="js/data-manager.min.js"></script>
     
     <script>
         // ==================== 全局变量 ====================
