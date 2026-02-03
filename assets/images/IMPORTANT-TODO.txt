@@ -1,0 +1,24 @@
+⚠️ 重要：需要替换分享预览图！
+
+当前使用的是临时占位图（share-preview.svg），微信可能不支持 SVG 格式。
+
+请尽快替换为真实的 JPG 图片：
+
+方法 1：使用生成工具
+1. 在浏览器打开 share-preview-placeholder.html
+2. 点击"下载图片"
+3. 将下载的文件重命名为 share-preview.jpg
+4. 替换掉 share-preview.svg
+
+方法 2：使用 Canva
+1. 访问 https://www.canva.com
+2. 创建 1200×630 像素设计
+3. 使用婚纱照 + 文字
+4. 导出为 share-preview.jpg
+
+然后提交并推送：
+git add assets/images/share-preview.jpg
+git commit -m "更新分享预览图为真实照片"
+git push
+
+详细说明请查看：WECHAT-SHARE-GUIDE.md

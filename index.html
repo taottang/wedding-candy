@@ -11,19 +11,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / 微信朋友圈分享优化 -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.com/">
-    <meta property="og:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
-    <meta property="og:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
-    <meta property="og:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    <meta property="og:url" content="https://wedding-candy.pages.dev/">
+    <meta property="og:title" content="💝 邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
+    <meta property="og:site_name" content="邓蓓 & 唐韬的婚礼">
+    <meta property="og:description" content="🎉 我们即将步入婚姻殿堂！精心准备了喜糖礼盒送给亲朋好友，填写地址即可免费领取。让我们把甜蜜和祝福送到您手中 💕">
+    <meta property="og:image" content="https://wedding-candy.pages.dev/assets/images/share-preview.svg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="邓蓓 & 唐韬的婚礼喜糖">
+    <meta property="og:locale" content="zh_CN">
     
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://your-domain.com/">
-    <meta property="twitter:title" content="邓蓓 & 唐韬的婚礼喜糖 - 在线领取">
-    <meta property="twitter:description" content="我们即将步入婚姻殿堂，精心准备了喜糖礼盒送给亲朋好友。填写地址，让我们把甜蜜和祝福送到您手中 💝">
-    <meta property="twitter:image" content="https://your-domain.com/assets/images/share-cover.jpg">
+    <!-- 微信专用标签 -->
+    <meta itemprop="name" content="💝 邓蓓 & 唐韬的婚礼喜糖">
+    <meta itemprop="description" content="精心准备的喜糖礼盒，承载我们的喜悦与祝福">
+    <meta itemprop="image" content="https://wedding-candy.pages.dev/assets/images/share-preview.svg">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="💝 邓蓓 & 唐韬的婚礼喜糖">
+    <meta name="twitter:description" content="精心准备的喜糖礼盒，承载我们的喜悦与祝福">
+    <meta name="twitter:image" content="https://wedding-candy.pages.dev/assets/images/share-preview.svg">
     
     <title>邓蓓 & 唐韬 - 婚礼喜糖领取</title>
     
@@ -1383,6 +1392,85 @@
             window.location.href = 'form.html';
         }
         
+        // ==================== 微信浏览器检测和分享提示 ====================
+        function detectWeChatBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            return ua.includes('micromessenger');
+        }
+        
+        function showWeChatShareTip() {
+            // 检查是否已显示过（24小时内）
+            const lastShown = localStorage.getItem('wechatShareTipShown');
+            const now = Date.now();
+            if (lastShown && (now - parseInt(lastShown)) < 24 * 60 * 60 * 1000) {
+                return; // 24小时内只显示一次
+            }
+            
+            // 创建提示框
+            const tip = document.createElement('div');
+            tip.style.cssText = `
+                position: fixed;
+                top: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #FFE6E6, #F5E8E8);
+                color: #5D4037;
+                padding: 15px 25px;
+                border-radius: 30px;
+                box-shadow: 0 4px 20px rgba(232, 180, 184, 0.4);
+                z-index: 10000;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideDown 0.5s ease-out;
+                max-width: 90%;
+                border: 1px solid #E8B4B8;
+            `;
+            
+            tip.innerHTML = `
+                <span style="font-size: 20px;">💝</span>
+                <span>点击右上角<strong style="color: #E8B4B8;"> ··· </strong>分享给朋友吧！</span>
+                <button onclick="this.parentElement.remove()" style="
+                    background: none;
+                    border: none;
+                    color: #8B7968;
+                    font-size: 18px;
+                    cursor: pointer;
+                    padding: 0 5px;
+                    margin-left: 10px;
+                ">×</button>
+            `;
+            
+            // 添加动画
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        opacity: 0;
+                        transform: translateX(-50%) translateY(-20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(tip);
+            
+            // 5秒后自动消失
+            setTimeout(() => {
+                tip.style.transition = 'opacity 0.5s ease-out';
+                tip.style.opacity = '0';
+                setTimeout(() => tip.remove(), 500);
+            }, 5000);
+            
+            // 记录已显示
+            localStorage.setItem('wechatShareTipShown', now.toString());
+        }
+        
         // ==================== 页面初始化 ====================
         document.addEventListener('DOMContentLoaded', function() {
             try {
@@ -1402,9 +1490,14 @@
                 // 初始化开发工具栏（仅localhost）
                 initDevToolbar();
                 
+                // 微信浏览器分享提示（延迟2秒显示）
+                if (detectWeChatBrowser()) {
+                    setTimeout(showWeChatShareTip, 2000);
+                }
+                
                 // 页面加载完成提示
                 console.log('%c💝 邓蓓 & 唐韬的婚礼喜糖领取系统', 'color: #D8B4B4; font-size: 16px; font-weight: bold;');
-                console.log('%c页面已优化：淡雅高级版本 v2.1', 'color: #5D4A3D; font-size: 12px;');
+                console.log('%c页面已优化：淡雅高级版本 v2.2 - 微信分享优化', 'color: #5D4A3D; font-size: 12px;');
                 
             } catch (error) {
                 console.error('初始化错误:', error);

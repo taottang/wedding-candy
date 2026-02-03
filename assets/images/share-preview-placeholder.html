@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>分享预览图生成器</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .generator {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #E8B4B8;
+            margin-bottom: 30px;
+        }
+        
+        .preview-canvas {
+            border: 2px solid #ddd;
+            margin: 20px 0;
+            max-width: 100%;
+        }
+        
+        .instructions {
+            background: #FFF5F5;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #E8B4B8;
+            margin-top: 20px;
+        }
+        
+        .instructions h3 {
+            margin-top: 0;
+            color: #5D4037;
+        }
+        
+        .instructions ol {
+            line-height: 2;
+        }
+        
+        button {
+            background: #E8B4B8;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 10px 10px 0;
+        }
+        
+        button:hover {
+            background: #D4A5A5;
+        }
+    </style>
+</head>
+<body>
+    <div class="generator">
+        <h1>📱 微信分享预览图生成器</h1>
+        
+        <p>这个页面可以帮助你快速生成一个 1200×630 像素的分享预览图。</p>
+        
+        <canvas id="canvas" class="preview-canvas" width="1200" height="630"></canvas>
+        
+        <button onclick="generateImage()">生成预览图</button>
+        <button onclick="downloadImage()">下载图片</button>
+        
+        <div class="instructions">
+            <h3>📋 使用说明</h3>
+            <ol>
+                <li>点击"生成预览图"按钮，会自动生成一个带有婚礼信息的预览图</li>
+                <li>点击"下载图片"保存到本地，文件名为 <code>share-preview.jpg</code></li>
+                <li>将下载的图片重命名为 <code>share-preview.jpg</code></li>
+                <li>上传到 <code>assets/images/</code> 文件夹</li>
+                <li>提交并推送到 GitHub</li>
+            </ol>
+            
+            <h3>💡 自定义图片（推荐）</h3>
+            <p>更好的方式是使用专业工具制作分享图：</p>
+            <ul>
+                <li><strong>Canva（在线设计工具）</strong>：https://www.canva.com
+                    <br>- 搜索"社交媒体分享图"模板
+                    <br>- 尺寸设置为 1200×630 像素
+                    <br>- 添加婚礼照片、新人姓名、婚期等信息
+                    <br>- 导出为 JPG 格式
+                </li>
+                <li><strong>Photoshop / Figma</strong>：使用婚纱照作为背景</li>
+                <li><strong>手机 App</strong>：美图秀秀、黄油相机等</li>
+            </ul>
+            
+            <h3>✅ 图片要求</h3>
+            <ul>
+                <li>尺寸：<strong>1200×630 像素</strong>（微信推荐）</li>
+                <li>格式：JPG 或 PNG</li>
+                <li>文件大小：建议 &lt; 500KB</li>
+                <li>内容：包含新人姓名、婚期、视觉吸引力强</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function generateImage() {
+            // 背景渐变
+            const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+            gradient.addColorStop(0, '#FFE6E6');
+            gradient.addColorStop(0.5, '#F5E8E8');
+            gradient.addColorStop(1, '#E8B4B8');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // 装饰圆圈
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.beginPath();
+            ctx.arc(900, 150, 200, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(300, 500, 150, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 中央白色卡片
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+            ctx.shadowBlur = 20;
+            ctx.fillRect(150, 150, 900, 330);
+            ctx.shadowBlur = 0;
+            
+            // 标题
+            ctx.fillStyle = '#E8B4B8';
+            ctx.font = 'bold 72px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('邓蓓 & 唐韬', 600, 260);
+            
+            // 副标题
+            ctx.fillStyle = '#5D4037';
+            ctx.font = '48px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.fillText('婚礼喜糖在线领取', 600, 340);
+            
+            // 日期
+            ctx.font = '36px "PingFang SC", "Microsoft YaHei", sans-serif';
+            ctx.fillStyle = '#8B7968';
+            ctx.fillText('2026年2月1日', 600, 410);
+            
+            // 装饰元素
+            ctx.font = '60px Arial';
+            ctx.fillText('💝', 350, 240);
+            ctx.fillText('🎁', 850, 240);
+            
+            alert('预览图已生成！点击"下载图片"保存。');
+        }
+        
+        function downloadImage() {
+            if (!ctx.getImageData(0, 0, 1, 1).data[3]) {
+                alert('请先点击"生成预览图"按钮！');
+                return;
+            }
+            
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'share-preview.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                alert('图片已下载！\n请将文件重命名为 share-preview.jpg\n然后上传到 assets/images/ 文件夹');
+            }, 'image/jpeg', 0.9);
+        }
+        
+        // 页面加载时自动生成
+        window.addEventListener('load', generateImage);
+    </script>
+</body>
+</html>
