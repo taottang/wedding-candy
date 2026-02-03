@@ -1,0 +1,7 @@
+# Cloudflare Pages 配置文件
+name = "wedding-candy"
+compatibility_date = "2026-02-03"
+
+# 静态资源目录
+[site]
+bucket = "."
