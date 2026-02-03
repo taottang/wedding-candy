@@ -40,6 +40,9 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
+    <!-- 分享统计模块 -->
+    <script src="js/share-tracker.js"></script>
+    
     <style>
         /* ==================== 配色方案 ==================== */
         :root {
@@ -586,28 +589,64 @@
             left: -9999px;
             top: 0;
             width: 750px;
-            background: linear-gradient(135deg, #FAF8F5 0%, #F5F0EB 100%);
+            background: linear-gradient(135deg, #FAF8F5 0%, #F5F0EB 50%, #FAF8F5 100%);
             padding: 60px 50px;
             font-family: 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 海报背景装饰 */
+        .poster-template::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(216, 180, 180, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .poster-template::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(216, 180, 180, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
         }
         
         .poster-header {
             text-align: center;
             margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
         }
         
         .poster-icon {
             font-size: 80px;
             margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .poster-couple-names {
-            font-size: 48px;
+            font-size: 52px;
             font-weight: 700;
             color: #5D4A3D;
             margin-bottom: 15px;
             position: relative;
             display: inline-block;
+            text-shadow: 2px 2px 4px rgba(93, 74, 61, 0.1);
+            letter-spacing: 8px;
         }
         
         .poster-couple-names::before,
@@ -618,6 +657,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            opacity: 0.8;
         }
         
         .poster-couple-names::before {
@@ -632,6 +672,7 @@
             font-size: 28px;
             color: #8B7968;
             font-weight: 500;
+            letter-spacing: 4px;
         }
         
         .poster-image {
@@ -665,7 +706,18 @@
             padding: 40px;
             margin-bottom: 40px;
             border: 2px solid #E8DDD4;
-            box-shadow: 0 4px 20px rgba(93, 74, 61, 0.1);
+            box-shadow: 0 8px 30px rgba(93, 74, 61, 0.12);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .poster-content::before {
+            content: '❤️';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 24px;
+            opacity: 0.2;
         }
         
         .poster-title {
@@ -674,27 +726,44 @@
             color: #5D4A3D;
             margin-bottom: 25px;
             text-align: center;
-            border-bottom: 2px solid #D8B4B4;
+            border-bottom: 3px solid #D8B4B4;
             padding-bottom: 20px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .poster-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D8B4B4, transparent);
         }
         
         .poster-text {
             font-size: 24px;
-            line-height: 1.8;
+            line-height: 2;
             color: #5D4A3D;
             margin-bottom: 20px;
             text-align: center;
+            letter-spacing: 1px;
         }
         
         .poster-highlight {
-            background: linear-gradient(120deg, #D8B4B4 0%, #E8DDD4 100%);
+            background: linear-gradient(135deg, rgba(216, 180, 180, 0.3) 0%, rgba(232, 221, 212, 0.3) 100%);
             color: #5D4A3D;
             padding: 25px 30px;
             border-radius: 15px;
-            font-size: 22px;
-            line-height: 1.8;
+            font-size: 23px;
+            line-height: 2;
             margin-bottom: 20px;
-            border-left: 4px solid #D8B4B4;
+            border: 2px solid rgba(216, 180, 180, 0.5);
+            border-left: 5px solid #D8B4B4;
+            box-shadow: 0 4px 15px rgba(216, 180, 180, 0.15);
+            font-weight: 500;
         }
         
         .poster-qr-section {
@@ -706,11 +775,26 @@
             border-radius: 20px;
             padding: 40px;
             border: 2px solid #E8DDD4;
-            box-shadow: 0 4px 20px rgba(93, 74, 61, 0.1);
+            box-shadow: 0 8px 30px rgba(93, 74, 61, 0.12);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .poster-qr-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(216, 180, 180, 0.03) 0%, transparent 100%);
+            border-radius: 20px;
+            pointer-events: none;
         }
         
         .poster-qr-wrapper {
             text-align: center;
+            position: relative;
         }
         
         .poster-qr-code {
@@ -719,8 +803,8 @@
             padding: 15px;
             background: white;
             border-radius: 15px;
-            border: 3px solid #D8B4B4;
-            box-shadow: 0 4px 15px rgba(93, 74, 61, 0.1);
+            border: 4px solid #D8B4B4;
+            box-shadow: 0 6px 20px rgba(216, 180, 180, 0.3);
         }
         
         .poster-qr-hint {
@@ -728,6 +812,10 @@
             color: #8B7968;
             margin-top: 15px;
             font-weight: 600;
+            background: linear-gradient(135deg, #D8B4B4, #C89FA0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .poster-qr-text {
@@ -763,6 +851,284 @@
         @media (max-width: 768px) {
             .share-buttons {
                 flex-direction: column;
+            }
+        }
+        
+        /* ==================== 分享统计面板 ==================== */
+        .share-stats {
+            background: linear-gradient(135deg, #F5F0EB 0%, #FAF8F5 100%);
+            border: 2px solid var(--color-border);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .share-stats-title {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .share-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 15px 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+        
+        .share-tip-box {
+            background: rgba(216, 180, 180, 0.1);
+            border: 1px dashed var(--color-accent);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-top: 15px;
+        }
+        
+        /* ==================== 分享教程 ==================== */
+        .tutorial-section {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 15px;
+            padding: 30px 25px;
+            margin-top: 25px;
+        }
+        
+        .tutorial-title {
+            font-size: 1.4rem;
+            color: var(--color-text);
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .tutorial-title::before {
+            content: '📚';
+            margin-right: 8px;
+        }
+        
+        .tutorial-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--color-border);
+            padding-bottom: 0;
+        }
+        
+        .tutorial-tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+            transition: all 0.3s ease;
+            margin-bottom: -2px;
+        }
+        
+        .tutorial-tab:hover {
+            color: var(--color-accent);
+        }
+        
+        .tutorial-tab.active {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+        
+        .tutorial-content {
+            display: none;
+        }
+        
+        .tutorial-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .tutorial-step {
+            background: var(--color-highlight-bg);
+            border: 1px solid var(--color-border);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .tutorial-step-number {
+            min-width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, #C89FA0 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(216, 180, 180, 0.3);
+        }
+        
+        .tutorial-step-content {
+            flex: 1;
+        }
+        
+        .tutorial-step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-step-desc {
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-step-image {
+            width: 100%;
+            max-width: 300px;
+            height: 180px;
+            background: linear-gradient(135deg, #E8DDD4 0%, #F5F0EB 100%);
+            border: 2px dashed var(--color-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            font-size: 3rem;
+            color: var(--color-accent);
+        }
+        
+        .tutorial-tip {
+            background: white;
+            border: 1px solid var(--color-accent);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .tutorial-tip::before {
+            content: '💡';
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        
+        .tutorial-video-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #5D4A3D 0%, #8B7968 100%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-top: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tutorial-video-placeholder:hover {
+            transform: scale(1.02);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .tutorial-video-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+        
+        .tutorial-video-text {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .share-stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+            
+            .tutorial-section {
+                padding: 25px 20px;
+            }
+            
+            .tutorial-tabs {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .tutorial-tab {
+                border-bottom: none;
+                border-left: 3px solid transparent;
+                text-align: left;
+            }
+            
+            .tutorial-tab.active {
+                border-bottom: none;
+                border-left-color: var(--color-accent);
+                background: var(--color-highlight-bg);
+            }
+            
+            .tutorial-step {
+                flex-direction: column;
+                gap: 15px;
             }
         }
     </style>
@@ -843,6 +1209,252 @@
                     <span>📱</span>
                     <span>生成分享海报</span>
                 </button>
+            </div>
+            
+            <!-- 分享统计面板 -->
+            <div class="share-stats">
+                <div class="share-stats-title">
+                    <span>📊</span>
+                    <span>分享统计</span>
+                </div>
+                
+                <div class="share-stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalShareCount">0</div>
+                        <div class="stat-label">总分享</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="linkShareCount">0</div>
+                        <div class="stat-label">链接分享</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="posterShareCount">0</div>
+                        <div class="stat-label">海报分享</div>
+                    </div>
+                </div>
+                
+                <div class="share-tip-box">
+                    💝 分享越多，收到祝福越多！上次分享时间：<span id="lastShareTime">暂无</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 分享教程区域 -->
+        <div class="tutorial-section">
+            <h2 class="tutorial-title">分享教程</h2>
+            
+            <!-- 教程标签页 -->
+            <div class="tutorial-tabs">
+                <button class="tutorial-tab active" onclick="switchTutorial('moments')">
+                    📱 朋友圈分享
+                </button>
+                <button class="tutorial-tab" onclick="switchTutorial('poster')">
+                    🖼️ 保存海报
+                </button>
+                <button class="tutorial-tab" onclick="switchTutorial('link')">
+                    🔗 直接分享
+                </button>
+            </div>
+            
+            <!-- 朋友圈分享教程 -->
+            <div class="tutorial-content active" id="tutorial-moments">
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">1</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">生成精美海报</div>
+                        <div class="tutorial-step-desc">
+                            点击上方"生成分享海报"按钮，系统会自动为您生成一张包含二维码的精美海报。
+                        </div>
+                        <div class="tutorial-step-image">🎨</div>
+                        <div class="tutorial-tip">
+                            海报包含新人姓名、二维码和精美文案，更适合朋友圈分享
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">2</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">保存到相册</div>
+                        <div class="tutorial-step-desc">
+                            海报生成后会弹出预览窗口，点击"保存到相册"按钮，图片会自动下载到手机相册。<br>
+                            <strong>iOS用户：</strong>可能需要长按图片选择"存储图像"。
+                        </div>
+                        <div class="tutorial-step-image">💾</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">3</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">发送到朋友圈</div>
+                        <div class="tutorial-step-desc">
+                            1. 打开微信，进入"发现" → "朋友圈"<br>
+                            2. 长按右上角相机图标<br>
+                            3. 选择"从相册选择"<br>
+                            4. 选中刚才保存的海报<br>
+                            5. 添加您的祝福语，点击"发表"
+                        </div>
+                        <div class="tutorial-step-image">📤</div>
+                        <div class="tutorial-tip">
+                            建议添加文字说明："我们要结婚啦！扫码领取喜糖，期待您的祝福 💝"
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">4</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">好友扫码领取</div>
+                        <div class="tutorial-step-desc">
+                            朋友们看到您的朋友圈后，可以直接长按或点击海报中的二维码，识别后即可访问网站填写地址领取喜糖。
+                        </div>
+                        <div class="tutorial-step-image">📱</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 保存海报教程 -->
+            <div class="tutorial-content" id="tutorial-poster">
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">1</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">点击生成海报按钮</div>
+                        <div class="tutorial-step-desc">
+                            在分享区域找到"生成分享海报"按钮并点击，系统会自动生成高清海报（约2-3秒）。
+                        </div>
+                        <div class="tutorial-step-image">🖱️</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">2</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">查看海报预览</div>
+                        <div class="tutorial-step-desc">
+                            生成完成后会弹出预览窗口，您可以查看海报效果。海报包含：<br>
+                            • 💝 新人姓名和日期<br>
+                            • 🍬 喜糖礼盒图片<br>
+                            • 📱 二维码（扫码即达）<br>
+                            • 💒 精美祝福文案
+                        </div>
+                        <div class="tutorial-step-image">👀</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">3</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">保存到相册</div>
+                        <div class="tutorial-step-desc">
+                            <strong>电脑端：</strong><br>
+                            点击"保存到相册"按钮，图片会自动下载到"下载"文件夹。<br><br>
+                            <strong>手机端：</strong><br>
+                            • Android：自动下载到相册<br>
+                            • iOS Safari：可能需要长按图片，选择"存储图像"<br>
+                            • 微信浏览器：建议在浏览器中打开
+                        </div>
+                        <div class="tutorial-step-image">💾</div>
+                        <div class="tutorial-tip">
+                            图片格式为PNG，尺寸750px，文件大小约200-400KB，适合各平台分享
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">4</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">重新生成（可选）</div>
+                        <div class="tutorial-step-desc">
+                            如果对海报效果不满意，可以点击"重新生成"按钮重新制作。每次生成的海报都包含最新的二维码和信息。
+                        </div>
+                        <div class="tutorial-step-image">🔄</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 直接分享链接教程 -->
+            <div class="tutorial-content" id="tutorial-link">
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">1</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">复制分享链接</div>
+                        <div class="tutorial-step-desc">
+                            在分享区域找到链接输入框，点击"📋 复制链接"按钮，链接会自动复制到剪贴板。<br>
+                            您会看到按钮变成"✅ 已复制"的提示。
+                        </div>
+                        <div class="tutorial-step-image">📋</div>
+                        <div class="tutorial-tip">
+                            也可以直接点击输入框，手动全选后复制（Ctrl+C 或 长按复制）
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">2</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">分享到微信群</div>
+                        <div class="tutorial-step-desc">
+                            <strong>方式一：直接发送</strong><br>
+                            1. 打开微信，进入要分享的群聊<br>
+                            2. 点击输入框，长按粘贴<br>
+                            3. 添加说明文字（可选）<br>
+                            4. 点击发送<br><br>
+                            <strong>方式二：转发</strong><br>
+                            1. 在聊天框输入链接<br>
+                            2. 发送后会显示预览卡片<br>
+                            3. 好友点击即可访问
+                        </div>
+                        <div class="tutorial-step-image">💬</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">3</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">发送给微信好友</div>
+                        <div class="tutorial-step-desc">
+                            1. 打开微信，找到要分享的好友<br>
+                            2. 进入聊天界面<br>
+                            3. 长按输入框，点击"粘贴"<br>
+                            4. 添加一句话："我们要结婚啦，点击链接填写地址领喜糖 💝"<br>
+                            5. 点击发送
+                        </div>
+                        <div class="tutorial-step-image">👥</div>
+                        <div class="tutorial-tip">
+                            好友在微信中点击链接会自动打开网页，非常方便
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">4</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">其他平台分享</div>
+                        <div class="tutorial-step-desc">
+                            链接可以分享到任何平台：<br>
+                            • QQ / QQ空间<br>
+                            • 短信 / 邮件<br>
+                            • 钉钉 / 企业微信<br>
+                            • 微博 / 小红书<br><br>
+                            复制链接后，在任何应用中粘贴即可。
+                        </div>
+                        <div class="tutorial-step-image">🌐</div>
+                    </div>
+                </div>
+                
+                <div class="tutorial-step">
+                    <div class="tutorial-step-number">💡</div>
+                    <div class="tutorial-step-content">
+                        <div class="tutorial-step-title">分享建议</div>
+                        <div class="tutorial-step-desc">
+                            <strong>朋友圈：</strong>建议使用海报分享，更美观且包含二维码<br>
+                            <strong>微信群：</strong>可直接分享链接，快速便捷<br>
+                            <strong>私聊好友：</strong>直接分享链接，并附上祝福语<br>
+                            <strong>其他平台：</strong>复制链接分享即可
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -981,6 +1593,10 @@
                 if (navigator.clipboard && navigator.clipboard.writeText) {
                     navigator.clipboard.writeText(input.value).then(() => {
                         showCopySuccess(btn);
+                        // 记录链接分享
+                        if (typeof ShareTracker !== 'undefined') {
+                            ShareTracker.recordLinkShare();
+                        }
                     }).catch(() => {
                         // 降级到传统方法
                         fallbackCopy(input, btn);
@@ -1180,6 +1796,11 @@
                 link.click();
                 document.body.removeChild(link);
                 
+                // 记录海报分享
+                if (typeof ShareTracker !== 'undefined') {
+                    ShareTracker.recordPosterShare();
+                }
+                
                 // 显示成功提示
                 alert('✅ 海报已保存！\n\n请到相册中查看，然后可以直接分享到微信朋友圈');
                 
@@ -1193,6 +1814,11 @@
                     const newWindow = window.open();
                     newWindow.document.write('<img src="' + generatedPosterDataUrl + '" style="width:100%"/>');
                     newWindow.document.write('<p style="text-align:center">请长按图片保存到相册</p>');
+                    
+                    // 即使是降级方案，也记录分享
+                    if (typeof ShareTracker !== 'undefined') {
+                        ShareTracker.recordPosterShare();
+                    }
                 } catch (err) {
                     alert('下载失败，请尝试截图保存');
                 }
@@ -1248,6 +1874,63 @@
         });
         
         console.log('%c🎨 海报生成功能已加载', 'color: #D8B4B4; font-size: 14px; font-weight: bold;');
+        
+        // ==================== 教程标签页切换 ====================
+        
+        /**
+         * 切换教程标签页
+         */
+        function switchTutorial(tabName) {
+            // 隐藏所有内容
+            const allContents = document.querySelectorAll('.tutorial-content');
+            allContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有标签的激活状态
+            const allTabs = document.querySelectorAll('.tutorial-tab');
+            allTabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // 显示选中的内容
+            const targetContent = document.getElementById('tutorial-' + tabName);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+            
+            // 激活选中的标签
+            const clickedTab = event.target;
+            if (clickedTab) {
+                clickedTab.classList.add('active');
+            }
+            
+            console.log('✅ 切换到教程:', tabName);
+        }
+        
+        // ==================== 传统复制方法增强 ====================
+        
+        /**
+         * 传统复制方法（带统计）
+         */
+        function fallbackCopy(input, btn) {
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                    showCopySuccess(btn);
+                    // 记录链接分享
+                    if (typeof ShareTracker !== 'undefined') {
+                        ShareTracker.recordLinkShare();
+                    }
+                } else {
+                    alert('复制失败，请手动复制链接');
+                }
+            } catch (err) {
+                alert('您的浏览器不支持自动复制，请手动复制链接');
+            }
+        }
+        
+        console.log('%c📚 教程功能已加载', 'color: #7CB342; font-size: 14px; font-weight: bold;');
     </script>
 </body>
 </html>
