@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部署验证 - 婚礼喜糖系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #FAF8F5 0%, #F5F0EB 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #5D4A3D;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        .test-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(93, 74, 61, 0.1);
+        }
+        
+        .test-section h2 {
+            color: #D8B4B4;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #E8DDD4;
+            padding-bottom: 10px;
+        }
+        
+        .test-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border: 1px solid #E8DDD4;
+            background: #F7F8FA;
+        }
+        
+        .test-item.pass {
+            background: #E6F7FF;
+            border-color: #1890FF;
+        }
+        
+        .test-item.fail {
+            background: #FFF1F0;
+            border-color: #FF4D4F;
+        }
+        
+        .test-item.warning {
+            background: #FFF7E6;
+            border-color: #FFA940;
+        }
+        
+        .test-label {
+            font-weight: 600;
+            color: #5D4A3D;
+            margin-bottom: 8px;
+        }
+        
+        .test-result {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .status-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .status-icon.pass {
+            background: #52C41A;
+        }
+        
+        .status-icon.fail {
+            background: #FF4D4F;
+        }
+        
+        .status-icon.warning {
+            background: #FFA940;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #D8B4B4;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            background: #5D4A3D;
+            transform: translateY(-2px);
+        }
+        
+        .summary {
+            background: linear-gradient(135deg, #D8B4B4 0%, #E8DDD4 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .summary h2 {
+            color: white;
+            border: none;
+            margin-bottom: 15px;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .action-buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 婚礼喜糖系统 - 部署验证</h1>
+        
+        <div class="summary" id="summary">
+            <h2>验证结果汇总</h2>
+            <p id="summaryText">正在运行测试...</p>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="passCount">0</div>
+                    <div class="stat-label">通过</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="failCount">0</div>
+                    <div class="stat-label">失败</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="warningCount">0</div>
+                    <div class="stat-label">警告</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn" onclick="runAllTests()">🔄 重新测试</button>
+            <button class="btn" onclick="clearCache()">🗑️ 清除缓存</button>
+            <button class="btn" onclick="exportReport()">📄 导出报告</button>
+        </div>
+        
+        <div class="test-section">
+            <h2>1. CDN 加载测试</h2>
+            <div id="cdnTests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>2. 浏览器兼容性测试</h2>
+            <div id="compatTests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>3. 功能模块测试</h2>
+            <div id="moduleTests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>4. 缓存系统测试</h2>
+            <div id="cacheTests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>5. 性能测试</h2>
+            <div id="perfTests"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>6. 环境信息</h2>
+            <div id="envInfo"></div>
+        </div>
+    </div>
+    
+    <!-- 加载依赖 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="js/poster-optimizer.js"></script>
+    
+    <script>
+        // 测试结果统计
+        let testResults = {
+            pass: 0,
+            fail: 0,
+            warning: 0,
+            details: []
+        };
+        
+        /**
+         * 运行所有测试
+         */
+        async function runAllTests() {
+            testResults = { pass: 0, fail: 0, warning: 0, details: [] };
+            
+            // 1. CDN 测试
+            await testCDNLoading();
+            
+            // 2. 兼容性测试
+            testCompatibility();
+            
+            // 3. 模块测试
+            testModules();
+            
+            // 4. 缓存测试
+            testCache();
+            
+            // 5. 性能测试
+            await testPerformance();
+            
+            // 6. 环境信息
+            showEnvironmentInfo();
+            
+            // 更新汇总
+            updateSummary();
+        }
+        
+        /**
+         * 测试 CDN 加载
+         */
+        async function testCDNLoading() {
+            const container = document.getElementById('cdnTests');
+            container.innerHTML = '';
+            
+            // 测试 html2canvas
+            addTestResult(container, 'html2canvas', 
+                typeof html2canvas !== 'undefined',
+                typeof html2canvas !== 'undefined' ? 
+                    'CDN 加载成功，版本已就绪' : 
+                    'CDN 加载失败，海报功能不可用'
+            );
+            
+            // 测试 qrcode.js
+            addTestResult(container, 'qrcode.js',
+                typeof QRCode !== 'undefined',
+                typeof QRCode !== 'undefined' ?
+                    'CDN 加载成功，二维码功能就绪' :
+                    'CDN 加载失败，二维码功能不可用'
+            );
+            
+            // 测试 poster-optimizer.js
+            addTestResult(container, 'poster-optimizer.js',
+                typeof PosterOptimizer !== 'undefined',
+                typeof PosterOptimizer !== 'undefined' ?
+                    '优化模块加载成功' :
+                    '优化模块加载失败'
+            );
+        }
+        
+        /**
+         * 测试兼容性
+         */
+        function testCompatibility() {
+            const container = document.getElementById('compatTests');
+            container.innerHTML = '';
+            
+            if (typeof PosterOptimizer !== 'undefined') {
+                const compat = PosterOptimizer.checkCompatibility();
+                
+                addTestResult(container, 'Canvas 支持',
+                    compat.features.canvas,
+                    compat.features.canvas ? '支持 Canvas API' : '不支持 Canvas，无法生成海报'
+                );
+                
+                addTestResult(container, 'LocalStorage',
+                    compat.features.localStorage,
+                    compat.features.localStorage ? 'LocalStorage 可用' : 'LocalStorage 不可用，无法缓存'
+                );
+                
+                addTestResult(container, 'Blob 支持',
+                    compat.features.blob,
+                    compat.features.blob ? '支持 Blob' : '不支持 Blob，下载可能有问题'
+                );
+                
+                addTestResult(container, 'Promise 支持',
+                    compat.features.promises,
+                    compat.features.promises ? '支持 Promise' : '不支持 Promise，功能受限'
+                );
+                
+                addTestResult(container, 'Fetch API',
+                    compat.features.fetch,
+                    compat.features.fetch ? '支持 Fetch API' : '不支持 Fetch API',
+                    !compat.features.fetch ? 'warning' : 'pass'
+                );
+            } else {
+                addTestResult(container, '兼容性检测', false, '优化模块未加载');
+            }
+        }
+        
+        /**
+         * 测试功能模块
+         */
+        function testModules() {
+            const container = document.getElementById('moduleTests');
+            container.innerHTML = '';
+            
+            if (typeof PosterOptimizer !== 'undefined') {
+                const deps = PosterOptimizer.checkDependencies();
+                
+                addTestResult(container, 'html2canvas 依赖',
+                    deps.html2canvas,
+                    deps.html2canvas ? 'html2canvas 就绪' : 'html2canvas 未加载'
+                );
+                
+                addTestResult(container, 'QRCode 依赖',
+                    deps.QRCode,
+                    deps.QRCode ? 'QRCode 就绪' : 'QRCode 未加载'
+                );
+                
+                // 测试缓存功能
+                try {
+                    PosterOptimizer.clearAllCache();
+                    addTestResult(container, '缓存管理', true, '缓存管理功能正常');
+                } catch (e) {
+                    addTestResult(container, '缓存管理', false, '缓存管理功能异常: ' + e.message);
+                }
+            }
+        }
+        
+        /**
+         * 测试缓存
+         */
+        function testCache() {
+            const container = document.getElementById('cacheTests');
+            container.innerHTML = '';
+            
+            if (typeof PosterOptimizer !== 'undefined') {
+                // 清理旧缓存
+                PosterOptimizer.cleanExpiredCache();
+                
+                // 获取缓存统计
+                const stats = PosterOptimizer.getCacheStats();
+                
+                addTestResult(container, '缓存统计',
+                    true,
+                    `当前缓存: ${stats.count} 项，总大小: ${stats.formattedSize}`
+                );
+                
+                // 测试写入缓存
+                try {
+                    const testData = 'data:image/png;base64,test';
+                    const testUrl = 'https://test.com';
+                    PosterOptimizer.cacheQRCode(testUrl, testData);
+                    const cached = PosterOptimizer.getCachedQRCode(testUrl);
+                    
+                    addTestResult(container, '缓存读写',
+                        cached === testData,
+                        cached === testData ? '缓存读写正常' : '缓存读写异常'
+                    );
+                    
+                    // 清理测试数据
+                    localStorage.removeItem(PosterOptimizer._getQRCodeCacheKey(testUrl));
+                } catch (e) {
+                    addTestResult(container, '缓存读写', false, '缓存读写测试失败: ' + e.message);
+                }
+            }
+        }
+        
+        /**
+         * 测试性能
+         */
+        async function testPerformance() {
+            const container = document.getElementById('perfTests');
+            container.innerHTML = '';
+            
+            if (typeof PosterOptimizer !== 'undefined') {
+                // 获取性能报告
+                const report = PosterOptimizer.getPerformanceReport();
+                
+                // 显示加载时间
+                if (Object.keys(report.loadTimes).length > 0) {
+                    const loadTimesHtml = Object.entries(report.loadTimes)
+                        .map(([key, value]) => `${key}: ${value.toFixed(2)}ms`)
+                        .join('<br>');
+                    
+                    addTestResult(container, '性能数据', true, loadTimesHtml);
+                } else {
+                    addTestResult(container, '性能数据', true, '暂无性能数据（需要先使用功能）', 'warning');
+                }
+                
+                // 显示错误
+                if (report.errors.length > 0) {
+                    const errorsHtml = report.errors
+                        .map(err => `${err.type}: ${err.message || ''}`)
+                        .join('<br>');
+                    
+                    addTestResult(container, '错误记录', false, errorsHtml);
+                } else {
+                    addTestResult(container, '错误记录', true, '无错误记录');
+                }
+            }
+        }
+        
+        /**
+         * 显示环境信息
+         */
+        function showEnvironmentInfo() {
+            const container = document.getElementById('envInfo');
+            
+            const info = {
+                'User Agent': navigator.userAgent,
+                'Platform': navigator.platform,
+                'Language': navigator.language,
+                'Online': navigator.onLine ? '在线' : '离线',
+                'Cookie Enabled': navigator.cookieEnabled ? '是' : '否',
+                'Screen': `${screen.width}×${screen.height}`,
+                'Viewport': `${window.innerWidth}×${window.innerHeight}`,
+                'Device Pixel Ratio': window.devicePixelRatio,
+                'Hostname': window.location.hostname,
+                'Protocol': window.location.protocol,
+                'Current URL': window.location.href
+            };
+            
+            let html = '<pre>';
+            for (let [key, value] of Object.entries(info)) {
+                html += `<strong>${key}:</strong> ${value}\n`;
+            }
+            html += '</pre>';
+            
+            container.innerHTML = html;
+        }
+        
+        /**
+         * 添加测试结果
+         */
+        function addTestResult(container, name, pass, message, type = null) {
+            const status = type || (pass ? 'pass' : 'fail');
+            
+            if (status === 'pass') testResults.pass++;
+            else if (status === 'fail') testResults.fail++;
+            else if (status === 'warning') testResults.warning++;
+            
+            testResults.details.push({ name, status, message });
+            
+            const div = document.createElement('div');
+            div.className = `test-item ${status}`;
+            div.innerHTML = `
+                <div class="test-label">
+                    <span class="status-icon ${status}"></span>
+                    ${name}
+                </div>
+                <div class="test-result">${message}</div>
+            `;
+            container.appendChild(div);
+        }
+        
+        /**
+         * 更新汇总
+         */
+        function updateSummary() {
+            document.getElementById('passCount').textContent = testResults.pass;
+            document.getElementById('failCount').textContent = testResults.fail;
+            document.getElementById('warningCount').textContent = testResults.warning;
+            
+            const total = testResults.pass + testResults.fail + testResults.warning;
+            let summaryText = '';
+            
+            if (testResults.fail === 0 && testResults.warning === 0) {
+                summaryText = `🎉 太棒了！所有 ${total} 项测试全部通过！`;
+            } else if (testResults.fail === 0) {
+                summaryText = `✅ 测试完成，${testResults.pass} 项通过，${testResults.warning} 项警告`;
+            } else {
+                summaryText = `⚠️ 测试完成，发现 ${testResults.fail} 项失败，${testResults.warning} 项警告`;
+            }
+            
+            document.getElementById('summaryText').textContent = summaryText;
+        }
+        
+        /**
+         * 清除缓存
+         */
+        function clearCache() {
+            if (typeof PosterOptimizer !== 'undefined') {
+                const count = PosterOptimizer.clearAllCache();
+                alert(`✅ 已清除 ${count} 个缓存项`);
+                runAllTests();
+            } else {
+                alert('优化模块未加载');
+            }
+        }
+        
+        /**
+         * 导出报告
+         */
+        function exportReport() {
+            const report = {
+                timestamp: new Date().toISOString(),
+                summary: {
+                    pass: testResults.pass,
+                    fail: testResults.fail,
+                    warning: testResults.warning
+                },
+                details: testResults.details,
+                environment: {
+                    userAgent: navigator.userAgent,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    screen: `${screen.width}×${screen.height}`,
+                    viewport: `${window.innerWidth}×${window.innerHeight}`
+                }
+            };
+            
+            const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `deployment-test-${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // 页面加载时自动运行测试
+        window.addEventListener('load', function() {
+            setTimeout(runAllTests, 500);
+        });
+    </script>
+</body>
+</html>

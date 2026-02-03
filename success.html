@@ -47,6 +47,9 @@
     <link rel="stylesheet" href="css/wechat-optimize.css">
     <script src="js/wechat-optimizer.js"></script>
     
+    <!-- 海报优化模块 -->
+    <script src="js/poster-optimizer.js"></script>
+    
     <style>
         /* ==================== 配色方案 ==================== */
         :root {
@@ -1663,13 +1666,31 @@
         let generatedPosterDataUrl = null; // 保存生成的海报数据
         
         /**
-         * 生成二维码
+         * 生成二维码（带缓存）
          */
         function generateQRCode() {
             const canvas = document.getElementById('posterQRCode');
             const shareUrl = document.getElementById('shareUrl').value;
             
-            // 使用 qrcode.js 生成二维码
+            // 检查是否有缓存
+            if (typeof PosterOptimizer !== 'undefined') {
+                const cached = PosterOptimizer.getCachedQRCode(shareUrl);
+                if (cached) {
+                    // 使用缓存的二维码
+                    const img = new Image();
+                    img.onload = function() {
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = 200;
+                        canvas.height = 200;
+                        ctx.drawImage(img, 0, 0, 200, 200);
+                    };
+                    img.src = cached;
+                    console.log('✅ 使用缓存的二维码');
+                    return;
+                }
+            }
+            
+            // 生成新的二维码
             QRCode.toCanvas(canvas, shareUrl, {
                 width: 200,
                 height: 200,
@@ -1681,17 +1702,40 @@
             }, function (error) {
                 if (error) {
                     console.error('二维码生成失败:', error);
+                } else {
+                    // 缓存生成的二维码
+                    if (typeof PosterOptimizer !== 'undefined') {
+                        try {
+                            const qrDataUrl = canvas.toDataURL('image/png');
+                            PosterOptimizer.cacheQRCode(shareUrl, qrDataUrl);
+                        } catch (e) {
+                            console.warn('缓存二维码失败:', e);
+                        }
+                    }
                 }
             });
         }
         
         /**
-         * 生成海报
+         * 生成海报（优化版，带缓存和性能监控）
          */
         async function generatePoster() {
             try {
+                // 性能监控开始
+                if (typeof PosterOptimizer !== 'undefined') {
+                    PosterOptimizer.startPerformanceMonitor('poster_generation');
+                }
+                
                 // 显示加载提示
                 showLoading();
+                
+                // 检查依赖
+                if (typeof html2canvas === 'undefined') {
+                    throw new Error('html2canvas 未加载');
+                }
+                if (typeof QRCode === 'undefined') {
+                    throw new Error('QRCode 未加载');
+                }
                 
                 // 生成二维码
                 generateQRCode();
@@ -1715,7 +1759,12 @@
                     backgroundColor: '#FAF8F5',
                     logging: false,
                     width: 750,
-                    height: posterTemplate.scrollHeight
+                    height: posterTemplate.scrollHeight,
+                    windowWidth: 750,
+                    windowHeight: posterTemplate.scrollHeight,
+                    // Cloudflare Pages 优化
+                    allowTaint: false,
+                    foreignObjectRendering: false
                 });
                 
                 // 隐藏模板
@@ -1725,8 +1774,19 @@
                 // 转换为图片
                 generatedPosterDataUrl = canvas.toDataURL('image/png', 1.0);
                 
+                // 缓存海报
+                if (typeof PosterOptimizer !== 'undefined') {
+                    PosterOptimizer.cachePoster(generatedPosterDataUrl);
+                }
+                
                 // 隐藏加载提示
                 hideLoading();
+                
+                // 性能监控结束
+                if (typeof PosterOptimizer !== 'undefined') {
+                    const duration = PosterOptimizer.endPerformanceMonitor('poster_generation');
+                    console.log(`📊 海报生成耗时: ${duration.toFixed(2)}ms`);
+                }
                 
                 // 显示海报预览
                 showPosterPreview(generatedPosterDataUrl);
@@ -1740,8 +1800,26 @@
                 
             } catch (error) {
                 console.error('❌ 海报生成失败:', error);
+                
+                // 记录错误
+                if (typeof PosterOptimizer !== 'undefined') {
+                    PosterOptimizer.performance.errors.push({
+                        type: 'poster_generation_failed',
+                        message: error.message,
+                        time: new Date().toISOString()
+                    });
+                }
+                
                 hideLoading();
-                alert('海报生成失败，请重试');
+                
+                // 友好的错误提示
+                let errorMsg = '海报生成失败，请重试';
+                if (error.message.includes('html2canvas')) {
+                    errorMsg = '图片生成库加载失败，请刷新页面重试';
+                } else if (error.message.includes('QRCode')) {
+                    errorMsg = '二维码生成库加载失败，请刷新页面重试';
+                }
+                alert(errorMsg);
             }
         }
         
