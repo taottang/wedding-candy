@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>生成分享图片 - 立即下载</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #E8B4B8;
+            margin-bottom: 20px;
+        }
+        
+        .canvas-container {
+            border: 2px solid #ddd;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        canvas {
+            max-width: 100%;
+            display: block;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        button {
+            flex: 1;
+            background: #E8B4B8;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background: #D4A5A5;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .instructions {
+            background: #FFF5F5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #E8B4B8;
+        }
+        
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 微信分享图片生成器</h1>
+        <p><strong>重要</strong>：这会生成一个 1200×630 像素的 JPG 图片，用于微信朋友圈分享。</p>
+        
+        <div class="canvas-container">
+            <canvas id="canvas" width="1200" height="630"></canvas>
+        </div>
+        
+        <div class="buttons">
+            <button onclick="generateImage()">🎨 重新生成</button>
+            <button onclick="downloadImage()" id="downloadBtn">💾 下载图片</button>
+        </div>
+        
+        <div id="status"></div>
+        
+        <div class="instructions">
+            <h3>📋 下载后的操作：</h3>
+            <ol>
+                <li>图片会自动下载为 <code>share-preview.jpg</code></li>
+                <li>将文件移动到项目的 <code>assets/images/</code> 文件夹</li>
+                <li>删除 <code>share-preview.svg</code></li>
+                <li>更新代码并推送：
+                    <pre style="background: #f8f8f8; padding: 10px; border-radius: 5px; margin-top: 10px;">cd wedding-candy-system
+git add assets/images/share-preview.jpg
+git rm assets/images/share-preview.svg
+git commit -m "更新分享图片为JPG格式"
+git push</pre>
+                </li>
+            </ol>
+            
+            <h3>💡 或者使用婚纱照（推荐）：</h3>
+            <p>使用 Canva (https://www.canva.com) 制作更专业的分享图片：</p>
+            <ul>
+                <li>尺寸：1200×630 像素</li>
+                <li>上传婚纱照作为背景</li>
+                <li>添加文字：邓蓓 & 唐韬、2026年2月1日</li>
+                <li>导出为 JPG</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        function generateImage() {
+            // 设置白色背景（防止透明）
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // 渐变背景
+            const gradient = ctx.createLinearGradient(0, 0, 1200, 630);
+            gradient.addColorStop(0, '#FFE6E6');
+            gradient.addColorStop(0.5, '#F5E8E8');
+            gradient.addColorStop(1, '#E8B4B8');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1200, 630);
+            
+            // 装饰圆圈
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.beginPath();
+            ctx.arc(900, 150, 200, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(300, 500, 150, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 中央白色卡片
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 10;
+            ctx.beginPath();
+            ctx.roundRect(150, 150, 900, 330, 20);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetY = 0;
+            
+            // 标题 - 使用更通用的字体
+            ctx.fillStyle = '#E8B4B8';
+            ctx.font = 'bold 72px Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('邓蓓 & 唐韬', 600, 260);
+            
+            // 副标题
+            ctx.fillStyle = '#5D4037';
+            ctx.font = '48px Arial, sans-serif';
+            ctx.fillText('婚礼喜糖在线领取', 600, 340);
+            
+            // 日期
+            ctx.font = '36px Arial, sans-serif';
+            ctx.fillStyle = '#8B7968';
+            ctx.fillText('2026年2月1日', 600, 410);
+            
+            // 装饰线条
+            ctx.strokeStyle = '#E8B4B8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(350, 290);
+            ctx.lineTo(850, 290);
+            ctx.stroke();
+            
+            // 装饰小圆点
+            const dots = [
+                {x: 320, y: 240, size: 8},
+                {x: 880, y: 240, size: 8},
+                {x: 320, y: 440, size: 6},
+                {x: 880, y: 440, size: 6}
+            ];
+            
+            ctx.fillStyle = '#E8B4B8';
+            dots.forEach(dot => {
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            
+            showStatus('✅ 图片已生成！点击"下载图片"保存', 'success');
+        }
+        
+        function downloadImage() {
+            // 检查是否已生成图片
+            const imageData = ctx.getImageData(0, 0, 1, 1);
+            if (imageData.data[0] === 0 && imageData.data[1] === 0 && imageData.data[2] === 0) {
+                showStatus('⚠️ 请先点击"重新生成"按钮', 'warning');
+                return;
+            }
+            
+            // 转换为 JPG 并下载
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'share-preview.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('✅ 图片已下载！请查看下载文件夹', 'success');
+            }, 'image/jpeg', 0.95);
+        }
+        
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status ' + type;
+        }
+        
+        // Canvas 2D 的 roundRect polyfill（兼容性）
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                if (w < 2 * r) r = w / 2;
+                if (h < 2 * r) r = h / 2;
+                this.beginPath();
+                this.moveTo(x + r, y);
+                this.arcTo(x + w, y, x + w, y + h, r);
+                this.arcTo(x + w, y + h, x, y + h, r);
+                this.arcTo(x, y + h, x, y, r);
+                this.arcTo(x, y, x + w, y, r);
+                this.closePath();
+                return this;
+            };
+        }
+        
+        // 页面加载时自动生成
+        window.addEventListener('load', function() {
+            generateImage();
+        });
+    </script>
+</body>
+</html>
