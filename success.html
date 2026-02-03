@@ -43,6 +43,10 @@
     <!-- 分享统计模块 -->
     <script src="js/share-tracker.js"></script>
     
+    <!-- 微信优化模块 -->
+    <link rel="stylesheet" href="css/wechat-optimize.css">
+    <script src="js/wechat-optimizer.js"></script>
+    
     <style>
         /* ==================== 配色方案 ==================== */
         :root {
@@ -1726,6 +1730,11 @@
                 
                 // 显示海报预览
                 showPosterPreview(generatedPosterDataUrl);
+                
+                // 触发海报生成事件（供微信优化模块使用）
+                document.dispatchEvent(new CustomEvent('posterGenerated', {
+                    detail: { imageDataUrl: generatedPosterDataUrl }
+                }));
                 
                 console.log('✅ 海报生成成功');
                 

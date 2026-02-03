@@ -1,0 +1,525 @@
+/**
+ * 微信环境优化样式
+ * 专门为微信浏览器设计的UI组件
+ */
+
+/* ==================== 微信提示横幅 ==================== */
+.wechat-tips-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #07C160 0%, #06AE56 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+    animation: slideDown 0.4s ease-out;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.wechat-tips-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.wechat-tips-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.wechat-tips-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.wechat-tips-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.wechat-tips-desc {
+    font-size: 0.85rem;
+    opacity: 0.95;
+    line-height: 1.4;
+}
+
+.wechat-tips-close {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wechat-tips-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.wechat-tips-close:active {
+    transform: rotate(90deg) scale(0.9);
+}
+
+/* ==================== 微信分享指南 ==================== */
+.wechat-share-guide {
+    background: linear-gradient(135deg, #F7F8FA 0%, #FFFFFF 100%);
+    border: 2px solid #07C160;
+    border-radius: 15px;
+    padding: 25px 20px;
+    margin-top: 20px;
+}
+
+.wechat-share-guide-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #07C160;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wechat-icon {
+    font-size: 1.4rem;
+}
+
+.wechat-share-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.wechat-share-method {
+    background: white;
+    border: 1px solid #E5E5E5;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.wechat-share-method:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.1);
+}
+
+.wechat-share-method.highlight {
+    background: linear-gradient(135deg, #FFF7E6 0%, #FFFFFF 100%);
+    border-color: #FFA940;
+}
+
+.method-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.method-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.method-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.method-steps {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.7;
+}
+
+/* ==================== 在浏览器中打开按钮 ==================== */
+.wechat-open-browser {
+    text-align: center;
+}
+
+.open-browser-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #07C160 0%, #06AE56 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+}
+
+.open-browser-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4);
+}
+
+.open-browser-btn:active {
+    transform: translateY(0);
+}
+
+/* ==================== 图片保存提示 ==================== */
+.wechat-save-tips {
+    background: linear-gradient(135deg, #E6F7FF 0%, #FFFFFF 100%);
+    border: 2px solid #1890FF;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.wechat-save-tips-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1890FF;
+    margin-bottom: 15px;
+}
+
+.wechat-save-tips-list {
+    margin: 0 0 15px 0;
+    padding-left: 25px;
+    color: #333;
+}
+
+.wechat-save-tips-list li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.wechat-save-tips-note {
+    background: white;
+    border: 1px solid #1890FF;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.9rem;
+    color: #1890FF;
+    line-height: 1.6;
+}
+
+/* ==================== 浏览器打开指南 Modal ==================== */
+.wechat-guide-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wechat-guide-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+}
+
+.wechat-guide-modal-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.wechat-guide-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 25px;
+    border-bottom: 2px solid #F0F0F0;
+}
+
+.wechat-guide-modal-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.wechat-guide-modal-close {
+    width: 32px;
+    height: 32px;
+    background: #F5F5F5;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.wechat-guide-modal-close:hover {
+    background: #07C160;
+    color: white;
+    transform: rotate(90deg);
+}
+
+.wechat-guide-modal-body {
+    padding: 25px;
+}
+
+.browser-guide-content h3 {
+    font-size: 1.2rem;
+    color: #07C160;
+    margin-bottom: 20px;
+}
+
+.browser-guide-steps {
+    margin-bottom: 20px;
+}
+
+.guide-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #F7F8FA;
+    border-radius: 12px;
+    border-left: 4px solid #07C160;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #07C160 0%, #06AE56 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(7, 193, 96, 0.3);
+}
+
+.step-text {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #333;
+    padding-top: 4px;
+}
+
+.step-text strong {
+    color: #07C160;
+    font-weight: 600;
+}
+
+.browser-guide-benefits {
+    background: linear-gradient(135deg, #E6F7FF 0%, #FFFFFF 100%);
+    border: 2px solid #1890FF;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.browser-guide-benefits strong {
+    color: #1890FF;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.wechat-guide-modal-footer {
+    padding: 20px 25px;
+    border-top: 2px solid #F0F0F0;
+    text-align: center;
+}
+
+.wechat-guide-modal-btn {
+    padding: 12px 40px;
+    background: linear-gradient(135deg, #07C160 0%, #06AE56 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+}
+
+.wechat-guide-modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(7, 193, 96, 0.4);
+}
+
+.wechat-guide-modal-btn:active {
+    transform: translateY(0);
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 768px) {
+    .wechat-tips-banner {
+        font-size: 0.9rem;
+    }
+    
+    .wechat-tips-content {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+    
+    .wechat-tips-icon {
+        font-size: 24px;
+    }
+    
+    .wechat-tips-title {
+        font-size: 0.9rem;
+    }
+    
+    .wechat-tips-desc {
+        font-size: 0.8rem;
+    }
+    
+    .wechat-share-guide {
+        padding: 20px 15px;
+    }
+    
+    .wechat-share-method {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .method-icon {
+        font-size: 2.5rem;
+    }
+    
+    .wechat-guide-modal-content {
+        max-height: 90vh;
+    }
+    
+    .wechat-guide-modal-header,
+    .wechat-guide-modal-body,
+    .wechat-guide-modal-footer {
+        padding: 15px 20px;
+    }
+    
+    .guide-step {
+        padding: 12px;
+    }
+}
+
+/* ==================== 微信深色模式适配（可选）==================== */
+@media (prefers-color-scheme: dark) {
+    /* 如果需要支持微信深色模式，可以在这里添加样式 */
+}
+
+/* ==================== 打印样式（隐藏微信相关元素）==================== */
+@media print {
+    .wechat-tips-banner,
+    .wechat-share-guide,
+    .wechat-save-tips,
+    .wechat-guide-modal {
+        display: none !important;
+    }
+}
+
+/* ==================== 辅助动画 ==================== */
+@keyframes wechatPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.wechat-pulse {
+    animation: wechatPulse 2s ease-in-out infinite;
+}
+
+@keyframes wechatShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.wechat-shake {
+    animation: wechatShake 0.5s ease-in-out;
+}
+
+/* ==================== 实用类 ==================== */
+.wechat-only {
+    display: none;
+}
+
+/* 仅在微信中显示 */
+.is-wechat .wechat-only {
+    display: block;
+}
+
+.non-wechat-only {
+    display: block;
+}
+
+/* 非微信中隐藏 */
+.is-wechat .non-wechat-only {
+    display: none;
+}
