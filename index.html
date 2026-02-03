@@ -223,222 +223,119 @@
             color: var(--color-accent);
         }
         
-        /* ==================== 喜糖礼盒区域 ==================== */
-        .candy-showcase {
-            padding: 60px 40px;
+        /* ==================== 婚礼相册区域 ==================== */
+        .photo-gallery-section {
+            padding: 60px 20px;
             background: var(--color-card-bg);
             margin: 20px auto;
-            max-width: 1200px;
+            max-width: 1400px;
             border-radius: 20px;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-medium);
+            overflow: hidden;
         }
         
-        .candy-container {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-        
-        /* 左侧图片轮播 */
-        .candy-carousel {
-            flex: 1;
+        .gallery-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'KaiTi', 'STKaiti', 'FangSong', serif;
             position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .gallery-title::before,
+        .gallery-title::after {
+            content: '✿';
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin: 0 15px;
+        }
+        
+        /* 横向滚动相册容器 */
+        .photo-gallery {
+            position: relative;
+            width: 100%;
             overflow: hidden;
             border-radius: 16px;
-            border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-soft);
             background: var(--color-highlight-bg);
         }
         
-        .carousel-wrapper {
+        .gallery-track {
+            display: flex;
+            gap: 20px;
+            animation: autoScroll 40s linear infinite;
+            will-change: transform;
+        }
+        
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
+        
+        /* 无限循环动画 */
+        @keyframes autoScroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        
+        .gallery-item {
+            flex-shrink: 0;
+            width: 350px;
+            height: 450px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
             position: relative;
-            width: 100%;
-            padding-bottom: 75%; /* 4:3 宽高比 */
         }
         
-        .carousel-track {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            transition: transform 0.5s ease-in-out;
+        .gallery-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-medium);
+            z-index: 10;
         }
         
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--color-highlight-bg), var(--color-bg-main));
-        }
-        
-        .carousel-slide img {
+        .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
         
-        /* 如果没有图片，显示占位符 */
-        .carousel-placeholder {
+        /* 占位符样式 */
+        .gallery-placeholder {
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, var(--color-highlight-bg), var(--color-bg-main));
             color: var(--color-accent);
             font-size: 3rem;
         }
         
-        .carousel-placeholder-text {
-            margin-top: 10px;
-            font-size: 1rem;
+        .gallery-placeholder-text {
+            margin-top: 15px;
+            font-size: 1.1rem;
             color: var(--color-text-light);
-        }
-        
-        /* 轮播指示器 */
-        .carousel-indicators {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            z-index: 2;
-        }
-        
-        .carousel-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-indicator.active {
-            width: 24px;
-            border-radius: 4px;
-            background: white;
-        }
-        
-        /* 左右切换按钮（桌面端） */
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid var(--color-border);
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text);
-            font-size: 1.2rem;
-            z-index: 2;
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-        
-        .carousel-wrapper:hover .carousel-nav {
-            opacity: 1;
-        }
-        
-        .carousel-nav:hover {
-            background: white;
-            border-color: var(--color-accent);
-            box-shadow: var(--shadow-soft);
-        }
-        
-        .carousel-nav.prev {
-            left: 15px;
-        }
-        
-        .carousel-nav.next {
-            right: 15px;
-        }
-        
-        /* 右侧固定文字 */
-        .candy-info {
-            flex: 1;
-            padding: 20px;
-        }
-        
-        .candy-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--color-text);
-            margin-bottom: 20px;
             font-family: 'KaiTi', 'STKaiti', 'FangSong', serif;
-            position: relative;
-            display: inline-block;
-            padding: 0 40px;
         }
         
-        /* 标题前后装饰 */
-        .candy-title::before,
-        .candy-title::after {
-            content: '❀';
-            font-size: 1.2rem;
-            color: var(--color-accent);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .candy-title::before {
-            left: 0;
-        }
-        
-        .candy-title::after {
-            right: 0;
-        }
-        
-        .candy-description {
-            font-size: 1.05rem;
-            line-height: 2;
+        /* 相册说明文字 */
+        .gallery-caption {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.1rem;
             color: var(--color-text-light);
-            margin-bottom: 25px;
-            padding: 15px;
-            background: var(--color-highlight-bg);
-            border-radius: 12px;
-            border-left: 3px solid var(--color-accent);
-        }
-        
-        .candy-features {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .candy-feature {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: var(--color-text);
-            padding: 12px;
-            background: var(--color-card-bg);
-            border-radius: 8px;
-            border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
-        }
-        
-        .candy-feature:hover {
-            transform: translateX(5px);
-            box-shadow: var(--shadow-soft);
-        }
-        
-        .candy-feature-icon {
-            font-size: 1.3rem;
-            color: var(--color-accent);
+            font-style: italic;
         }
         
         /* ==================== 详情展开区域 ==================== */
@@ -731,53 +628,31 @@
                 font-size: 2rem;
             }
             
-            /* 喜糖区域紧凑布局 */
-            .candy-showcase {
+            /* 相册区域紧凑布局 */
+            .photo-gallery-section {
                 padding: 30px 15px;
                 margin: 15px 10px;
             }
             
-            .candy-container {
-                flex-direction: column;
-                gap: 25px;
-            }
-            
-            .candy-carousel {
-                width: 100%;
-            }
-            
-            .candy-info {
-                padding: 0;
-            }
-            
-            .candy-title {
+            .gallery-title {
                 font-size: 1.5rem;
-                padding: 0 30px;
+                margin-bottom: 25px;
             }
             
-            .candy-title::before {
-                left: 0;
+            .gallery-title::before,
+            .gallery-title::after {
+                font-size: 1.2rem;
+                margin: 0 10px;
             }
             
-            .candy-title::after {
-                right: 0;
+            .gallery-item {
+                width: 280px;
+                height: 360px;
             }
             
-            .candy-description {
+            .gallery-caption {
                 font-size: 0.95rem;
-                line-height: 1.8;
-                padding: 12px;
-                margin-bottom: 20px;
-            }
-            
-            .candy-feature {
-                font-size: 0.9rem;
-                padding: 10px;
-                margin-bottom: 10px;
-            }
-            
-            .candy-feature-icon {
-                font-size: 1.1rem;
+                margin-top: 20px;
             }
             
             /* 详情区域紧凑 */
@@ -800,10 +675,6 @@
                 font-size: 1.15rem;
             }
             
-            /* 移动端隐藏导航按钮，使用手势滑动 */
-            .carousel-nav {
-                display: none;
-            }
         }
         
         @media (max-width: 480px) {
@@ -840,24 +711,24 @@
                 font-size: 1.8rem;
             }
             
-            .candy-showcase {
+            .photo-gallery-section {
                 padding: 25px 12px;
                 margin: 12px 8px;
             }
             
-            .candy-title {
+            .gallery-title {
                 font-size: 1.3rem;
-                padding: 0 25px;
+                margin-bottom: 20px;
             }
             
-            .candy-description {
+            .gallery-item {
+                width: 250px;
+                height: 320px;
+            }
+            
+            .gallery-caption {
                 font-size: 0.9rem;
-                padding: 10px;
-            }
-            
-            .candy-feature {
-                font-size: 0.85rem;
-                padding: 8px;
+                margin-top: 15px;
             }
             
             .details-content {
@@ -1003,8 +874,8 @@
             <span class="dev-toolbar-value" id="devScreen">-</span>
         </div>
         <div class="dev-toolbar-item">
-            <span class="dev-toolbar-label">轮播:</span>
-            <span class="dev-toolbar-value" id="devCarousel">-</span>
+            <span class="dev-toolbar-label">相册:</span>
+            <span class="dev-toolbar-value" id="devGallery">-</span>
         </div>
         <div class="dev-toolbar-item">
             <span class="dev-toolbar-label">存储:</span>
@@ -1039,74 +910,123 @@
             </div>
         </section>
         
-        <!-- 喜糖礼盒展示区域 -->
-        <section class="candy-showcase">
-            <div class="candy-container">
-                <!-- 左侧图片轮播 -->
-                <div class="candy-carousel">
-                    <div class="carousel-wrapper">
-                        <div class="carousel-track" id="carouselTrack">
-                            <!-- 如果有图片，使用 img 标签 -->
-                            <!-- <div class="carousel-slide">
-                                <img src="assets/images/candy1.jpg" alt="喜糖礼盒1" loading="lazy">
-                            </div> -->
-                            
-                            <!-- 占位符（没有图片时显示）-->
-                            <div class="carousel-slide">
-                                <div class="carousel-placeholder">
-                                    🍬
-                                    <div class="carousel-placeholder-text">喜糖礼盒</div>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="carousel-placeholder">
-                                    🎁
-                                    <div class="carousel-placeholder-text">精美包装</div>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="carousel-placeholder">
-                                    💝
-                                    <div class="carousel-placeholder-text">满满心意</div>
-                                </div>
-                            </div>
+        <!-- 婚礼相册展示区域 -->
+        <section class="photo-gallery-section">
+            <h2 class="gallery-title">婚礼精彩瞬间</h2>
+            
+            <div class="photo-gallery" id="photoGallery">
+                <div class="gallery-track" id="galleryTrack">
+                    <!-- 第一组照片 -->
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💕
+                            <div class="gallery-placeholder-text">幸福时刻</div>
                         </div>
-                        
-                        <!-- 左右切换按钮（桌面端） -->
-                        <button class="carousel-nav prev" onclick="prevSlide()" aria-label="上一张">‹</button>
-                        <button class="carousel-nav next" onclick="nextSlide()" aria-label="下一张">›</button>
-                        
-                        <!-- 指示器 -->
-                        <div class="carousel-indicators" id="carouselIndicators"></div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo1.jpg" alt="婚礼照片1" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💍
+                            <div class="gallery-placeholder-text">浪漫瞬间</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo2.jpg" alt="婚礼照片2" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🌹
+                            <div class="gallery-placeholder-text">甜蜜回忆</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo3.jpg" alt="婚礼照片3" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎊
+                            <div class="gallery-placeholder-text">欢乐时光</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo4.jpg" alt="婚礼照片4" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            ✨
+                            <div class="gallery-placeholder-text">美好瞬间</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo5.jpg" alt="婚礼照片5" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎉
+                            <div class="gallery-placeholder-text">欢庆时刻</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo6.jpg" alt="婚礼照片6" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💐
+                            <div class="gallery-placeholder-text">花样年华</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo7.jpg" alt="婚礼照片7" loading="lazy"> -->
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🥂
+                            <div class="gallery-placeholder-text">举杯同庆</div>
+                        </div>
+                        <!-- 实际使用时替换为：<img src="assets/images/wedding-photo8.jpg" alt="婚礼照片8" loading="lazy"> -->
+                    </div>
+                    
+                    <!-- 第二组照片（无限循环用，与第一组相同） -->
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💕
+                            <div class="gallery-placeholder-text">幸福时刻</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💍
+                            <div class="gallery-placeholder-text">浪漫瞬间</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🌹
+                            <div class="gallery-placeholder-text">甜蜜回忆</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎊
+                            <div class="gallery-placeholder-text">欢乐时光</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            ✨
+                            <div class="gallery-placeholder-text">美好瞬间</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🎉
+                            <div class="gallery-placeholder-text">欢庆时刻</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            💐
+                            <div class="gallery-placeholder-text">花样年华</div>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-placeholder">
+                            🥂
+                            <div class="gallery-placeholder-text">举杯同庆</div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- 右侧固定文字 -->
-                <div class="candy-info">
-                    <h2 class="candy-title">Sweet Memories</h2>
-                    <p class="candy-description">
-                        精心准备的喜糖礼盒，承载着我们的喜悦与祝福。每一颗糖果都是我们对您的感谢，愿这份甜蜜能为您带来美好的心情。
-                    </p>
-                    <ul class="candy-features">
-                        <li class="candy-feature">
-                            <span class="candy-feature-icon">✨</span>
-                            <span>精选进口糖果，口味丰富</span>
-                        </li>
-                        <li class="candy-feature">
-                            <span class="candy-feature-icon">🎨</span>
-                            <span>精美礼盒包装，用心设计</span>
-                        </li>
-                        <li class="candy-feature">
-                            <span class="candy-feature-icon">💌</span>
-                            <span>附赠定制贺卡，传递心意</span>
-                        </li>
-                        <li class="candy-feature">
-                            <span class="candy-feature-icon">🚚</span>
-                            <span>全国包邮，安全送达</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
+            
+            <p class="gallery-caption">爱的时光，定格永恒</p>
         </section>
     </div>
     
@@ -1176,18 +1096,19 @@
             updateScreenInfo();
             window.addEventListener('resize', updateScreenInfo);
             
-            // 轮播状态
-            function updateCarouselInfo() {
-                const track = document.getElementById('carouselTrack');
+            // 相册状态
+            function updateGalleryInfo() {
+                const track = document.getElementById('galleryTrack');
                 if (track) {
-                    const slides = track.querySelectorAll('.carousel-slide');
-                    document.getElementById('devCarousel').textContent = 
-                        `${currentSlide + 1}/${slides.length}`;
+                    const items = track.querySelectorAll('.gallery-item');
+                    const playState = getComputedStyle(track).animationPlayState;
+                    document.getElementById('devGallery').textContent = 
+                        `${items.length / 2}张 ${playState === 'paused' ? '⏸' : '▶'}`;
                 }
             }
             
-            // 每次轮播切换时更新
-            setInterval(updateCarouselInfo, 500);
+            // 定时更新相册信息
+            setInterval(updateGalleryInfo, 500);
             
             // LocalStorage 使用情况
             function updateStorageInfo() {
@@ -1280,111 +1201,104 @@
             console.log('✅ 详情展开功能已初始化');
         }
         
-        // ==================== 喜糖轮播功能 ====================
-        let currentSlide = 0;
-        let slideInterval;
-        let touchStartX = 0;
-        let touchEndX = 0;
+        // ==================== 婚礼相册滚动功能 ====================
+        let galleryTouchStartX = 0;
+        let galleryTouchEndX = 0;
+        let isGalleryDragging = false;
         
-        function initCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const indicatorsContainer = document.getElementById('carouselIndicators');
+        function initPhotoGallery() {
+            const gallery = document.getElementById('photoGallery');
+            const track = document.getElementById('galleryTrack');
             
-            if (slides.length === 0) return;
+            if (!gallery || !track) return;
             
-            // 创建指示器
-            slides.forEach((_, index) => {
-                const indicator = document.createElement('div');
-                indicator.className = 'carousel-indicator';
-                if (index === 0) indicator.classList.add('active');
-                indicator.addEventListener('click', () => goToSlide(index));
-                indicatorsContainer.appendChild(indicator);
+            // 添加触摸事件支持（移动端手势滑动）
+            gallery.addEventListener('touchstart', handleGalleryTouchStart, { passive: true });
+            gallery.addEventListener('touchmove', handleGalleryTouchMove, { passive: false });
+            gallery.addEventListener('touchend', handleGalleryTouchEnd, { passive: true });
+            
+            // 添加鼠标拖动支持（桌面端）
+            gallery.addEventListener('mousedown', handleGalleryMouseDown);
+            gallery.addEventListener('mousemove', handleGalleryMouseMove);
+            gallery.addEventListener('mouseup', handleGalleryMouseUp);
+            gallery.addEventListener('mouseleave', handleGalleryMouseUp);
+            
+            // 鼠标悬停时暂停动画，移开时恢复
+            gallery.addEventListener('mouseenter', () => {
+                track.style.animationPlayState = 'paused';
             });
-            
-            // 添加触摸事件（支持手势滑动）
-            const wrapper = track.closest('.carousel-wrapper');
-            wrapper.addEventListener('touchstart', handleTouchStart, { passive: true });
-            wrapper.addEventListener('touchend', handleTouchEnd, { passive: true });
-            
-            // 自动播放
-            startAutoPlay();
-            
-            // 鼠标悬停时暂停
-            wrapper.addEventListener('mouseenter', stopAutoPlay);
-            wrapper.addEventListener('mouseleave', startAutoPlay);
-            
-            console.log(`✅ 喜糖轮播已初始化（${slides.length}张图片）`);
-        }
-        
-        function updateCarousel() {
-            const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
-            const indicators = document.querySelectorAll('.carousel-indicator');
-            
-            // 更新轨道位置
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            // 更新指示器
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentSlide);
-            });
-        }
-        
-        function nextSlide() {
-            const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            const track = document.getElementById('carouselTrack');
-            const slides = track.querySelectorAll('.carousel-slide');
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateCarousel();
-        }
-        
-        function goToSlide(index) {
-            currentSlide = index;
-            updateCarousel();
-        }
-        
-        function startAutoPlay() {
-            stopAutoPlay(); // 先清除已有的
-            slideInterval = setInterval(nextSlide, 3000); // 每3秒切换
-        }
-        
-        function stopAutoPlay() {
-            if (slideInterval) {
-                clearInterval(slideInterval);
-                slideInterval = null;
-            }
-        }
-        
-        // 触摸手势处理
-        function handleTouchStart(e) {
-            touchStartX = e.touches[0].clientX;
-        }
-        
-        function handleTouchEnd(e) {
-            touchEndX = e.changedTouches[0].clientX;
-            handleSwipe();
-        }
-        
-        function handleSwipe() {
-            const swipeThreshold = 50; // 滑动阈值
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // 向左滑动，显示下一张
-                    nextSlide();
-                } else {
-                    // 向右滑动，显示上一张
-                    prevSlide();
+            gallery.addEventListener('mouseleave', () => {
+                if (!isGalleryDragging) {
+                    track.style.animationPlayState = 'running';
                 }
+            });
+            
+            console.log('✅ 婚礼相册已初始化（自动滚动+触摸支持）');
+        }
+        
+        // 触摸事件处理
+        function handleGalleryTouchStart(e) {
+            galleryTouchStartX = e.touches[0].clientX;
+            isGalleryDragging = true;
+            const track = document.getElementById('galleryTrack');
+            track.style.animationPlayState = 'paused';
+        }
+        
+        function handleGalleryTouchMove(e) {
+            if (!isGalleryDragging) return;
+            
+            const currentX = e.touches[0].clientX;
+            const diff = galleryTouchStartX - currentX;
+            
+            // 可以添加实时跟随手指的效果
+            // 这里简单处理：大于50px阈值才触发
+        }
+        
+        function handleGalleryTouchEnd(e) {
+            if (!isGalleryDragging) return;
+            
+            galleryTouchEndX = e.changedTouches[0].clientX;
+            isGalleryDragging = false;
+            
+            const track = document.getElementById('galleryTrack');
+            const diff = galleryTouchStartX - galleryTouchEndX;
+            const swipeThreshold = 50;
+            
+            // 如果滑动距离较小，恢复动画
+            if (Math.abs(diff) < swipeThreshold) {
+                track.style.animationPlayState = 'running';
+            } else {
+                // 滑动后稍作延迟再恢复动画
+                setTimeout(() => {
+                    track.style.animationPlayState = 'running';
+                }, 1000);
             }
+        }
+        
+        // 鼠标拖动事件处理（桌面端）
+        function handleGalleryMouseDown(e) {
+            galleryTouchStartX = e.clientX;
+            isGalleryDragging = true;
+            const track = document.getElementById('galleryTrack');
+            track.style.animationPlayState = 'paused';
+            e.preventDefault();
+        }
+        
+        function handleGalleryMouseMove(e) {
+            if (!isGalleryDragging) return;
+            // 可以添加鼠标拖动时的实时效果
+        }
+        
+        function handleGalleryMouseUp(e) {
+            if (!isGalleryDragging) return;
+            
+            isGalleryDragging = false;
+            const track = document.getElementById('galleryTrack');
+            
+            // 延迟恢复动画
+            setTimeout(() => {
+                track.style.animationPlayState = 'running';
+            }, 500);
         }
         
         // ==================== 跳转到表单 ====================
@@ -1484,8 +1398,8 @@
                 // 初始化详情展开功能
                 initDetailsToggle();
                 
-                // 初始化喜糖轮播
-                initCarousel();
+                // 初始化婚礼相册
+                initPhotoGallery();
                 
                 // 初始化开发工具栏（仅localhost）
                 initDevToolbar();
@@ -1497,7 +1411,7 @@
                 
                 // 页面加载完成提示
                 console.log('%c💝 邓蓓 & 唐韬的婚礼喜糖领取系统', 'color: #D8B4B4; font-size: 16px; font-weight: bold;');
-                console.log('%c页面已优化：淡雅高级版本 v2.2 - 微信分享优化', 'color: #5D4A3D; font-size: 12px;');
+                console.log('%c页面已优化：淡雅高级版本 v2.3 - 婚礼相册展示', 'color: #5D4A3D; font-size: 12px;');
                 
             } catch (error) {
                 console.error('初始化错误:', error);
