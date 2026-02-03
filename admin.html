@@ -812,6 +812,200 @@
             word-break: break-word;
         }
         
+        /* ==================== 高级导出面板样式 ==================== */
+        .export-panel {
+            background: #E3F2FD;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #BBDEFB;
+        }
+        
+        .export-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #BBDEFB;
+        }
+        
+        .export-panel-header h4 {
+            margin: 0;
+            color: #1976D2;
+            font-size: 1.2rem;
+        }
+        
+        .export-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .export-section h5 {
+            margin: 0 0 1rem 0;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .export-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 1rem;
+        }
+        
+        .export-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .export-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .export-icon {
+            font-size: 2rem;
+        }
+        
+        .export-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .export-desc {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .filter-group {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .date-range-inputs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-input {
+            flex: 1;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+        
+        .region-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .export-preview {
+            background: white;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .preview-count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0 0.5rem;
+        }
+        
+        /* ==================== 导出记录样式 ==================== */
+        .export-history-container {
+            min-height: 300px;
+        }
+        
+        .history-item {
+            background: #F8F9FA;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .history-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .history-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+        
+        .history-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #E0E0E0;
+        }
+        
+        .history-detail-label {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .history-detail-value {
+            font-size: 0.9rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .export-history-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E0E0E0;
+        }
+        
+        .empty-history {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #999;
+        }
+        
+        .empty-history-icon {
+            font-size: 4rem;
+            opacity: 0.5;
+        }
+        
         /* 响应式 */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -1009,12 +1203,114 @@
                     </div>
                     
                     <div class="toolbar-right">
-                        <button class="btn btn-success" onclick="exportData('all', 'excel')">
-                            📥 导出Excel
+                        <button class="btn btn-success" onclick="showExportDialog()">
+                            📥 高级导出
                         </button>
-                        <button class="btn btn-info" onclick="exportData('all', 'csv')">
-                            📥 导出CSV
+                        <button class="btn btn-secondary" onclick="showExportHistory()">
+                            📊 导出记录
                         </button>
+                    </div>
+                </div>
+                
+                <!-- 高级导出对话框 -->
+                <div class="export-panel" id="exportPanel" style="display: none;">
+                    <div class="export-panel-header">
+                        <h4>🎯 高级导出选项</h4>
+                        <button class="modal-close" onclick="hideExportDialog()">&times;</button>
+                    </div>
+                    
+                    <div class="export-panel-body">
+                        <!-- 导出方式 -->
+                        <div class="export-section">
+                            <h5>📦 选择导出方式</h5>
+                            <div class="export-buttons">
+                                <button class="export-btn" onclick="quickExport('excel')">
+                                    <span class="export-icon">📊</span>
+                                    <span class="export-name">Excel</span>
+                                    <span class="export-desc">完整功能</span>
+                                </button>
+                                <button class="export-btn" onclick="quickExport('csv')">
+                                    <span class="export-icon">📄</span>
+                                    <span class="export-name">CSV</span>
+                                    <span class="export-desc">纯文本</span>
+                                </button>
+                                <button class="export-btn" onclick="quickExport('print')">
+                                    <span class="export-icon">🖨️</span>
+                                    <span class="export-name">打印</span>
+                                    <span class="export-desc">直接打印</span>
+                                </button>
+                                <button class="export-btn" onclick="quickExport('clipboard')">
+                                    <span class="export-icon">📋</span>
+                                    <span class="export-name">剪贴板</span>
+                                    <span class="export-desc">快速复制</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 数据筛选 -->
+                        <div class="export-section">
+                            <h5>🔍 数据筛选（可选）</h5>
+                            
+                            <div class="filter-group">
+                                <label>时间范围：</label>
+                                <div class="date-range-inputs">
+                                    <input type="date" id="exportDateStart" class="filter-input">
+                                    <span>至</span>
+                                    <input type="date" id="exportDateEnd" class="filter-input">
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>地区筛选：</label>
+                                <div class="region-filters">
+                                    <select id="exportProvince" class="filter-select" onchange="updateExportCities()">
+                                        <option value="">全部省份</option>
+                                    </select>
+                                    <select id="exportCity" class="filter-select" onchange="updateExportDistricts()">
+                                        <option value="">全部城市</option>
+                                    </select>
+                                    <select id="exportDistrict" class="filter-select">
+                                        <option value="">全部区县</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>状态筛选：</label>
+                                <select id="exportStatus" class="filter-select">
+                                    <option value="all">全部状态</option>
+                                    <option value="pending">待发货</option>
+                                    <option value="shipped">已发货</option>
+                                    <option value="received">已签收</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label>关系筛选：</label>
+                                <select id="exportRelation" class="filter-select">
+                                    <option value="all">全部关系</option>
+                                    <option value="family">家人</option>
+                                    <option value="relative">亲戚</option>
+                                    <option value="friend">朋友</option>
+                                    <option value="colleague">同事</option>
+                                    <option value="classmate">同学</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                            
+                            <button class="btn btn-secondary btn-small" onclick="resetExportFilters()">
+                                🔄 重置筛选
+                            </button>
+                        </div>
+                        
+                        <!-- 预览统计 -->
+                        <div class="export-section">
+                            <div class="export-preview">
+                                <span class="preview-label">将要导出：</span>
+                                <span class="preview-count" id="exportPreviewCount">0</span>
+                                <span class="preview-label">条记录</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1152,12 +1448,34 @@
         </div>
     </div>
 
+    <!-- 导出记录模态框 -->
+    <div class="modal" id="exportHistoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📊 导出记录</h3>
+                <button class="modal-close" onclick="closeModal('exportHistoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="export-history-container" id="exportHistoryContainer">
+                    <!-- 导出记录动态生成 -->
+                </div>
+                <div class="export-history-footer">
+                    <button class="btn btn-secondary" onclick="clearExportHistoryConfirm()">
+                        🗑️ 清空记录
+                    </button>
+                    <span class="history-note">* 最多显示最近5条导出记录</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/data-manager.js"></script>
     <script src="js/admin-auth.js"></script>
     <script src="js/export-utils.js"></script>
+    <script src="js/export-manager.js"></script></script>
     
     <script>
         // =================================================================
@@ -1618,11 +1936,6 @@
         // =================================================================
         // 批量操作
         // =================================================================
-        async function batchExport() {
-            const selectedData = allData.filter(item => selectedIds.has(item.id));
-            await exportData('selected', 'excel', selectedData);
-        }
-
         function batchUpdateStatus() {
             if (confirm(`确定要将选中的 ${selectedIds.size} 条记录标记为已发货吗？`)) {
                 let success = 0;
@@ -1650,6 +1963,243 @@
         // =================================================================
         // 导出功能
         // =================================================================
+        
+        // 显示高级导出对话框
+        function showExportDialog() {
+            const panel = document.getElementById('exportPanel');
+            panel.style.display = 'block';
+            
+            // 初始化地区选择器
+            initExportRegionSelectors();
+            
+            // 更新预览计数
+            updateExportPreview();
+        }
+        
+        // 隐藏导出对话框
+        function hideExportDialog() {
+            document.getElementById('exportPanel').style.display = 'none';
+        }
+        
+        // 初始化导出地区选择器
+        function initExportRegionSelectors() {
+            // 填充省份选项（从数据中提取）
+            const provinces = [...new Set(allData.map(item => item.address?.province).filter(Boolean))];
+            const provinceSelect = document.getElementById('exportProvince');
+            provinceSelect.innerHTML = '<option value="">全部省份</option>';
+            provinces.forEach(province => {
+                provinceSelect.innerHTML += `<option value="${province}">${province}</option>`;
+            });
+        }
+        
+        // 更新城市选择器
+        function updateExportCities() {
+            const province = document.getElementById('exportProvince').value;
+            const citySelect = document.getElementById('exportCity');
+            const districtSelect = document.getElementById('exportDistrict');
+            
+            citySelect.innerHTML = '<option value="">全部城市</option>';
+            districtSelect.innerHTML = '<option value="">全部区县</option>';
+            
+            if (province) {
+                const cities = [...new Set(
+                    allData
+                        .filter(item => item.address?.province === province)
+                        .map(item => item.address?.city)
+                        .filter(Boolean)
+                )];
+                cities.forEach(city => {
+                    citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+                });
+            }
+            
+            updateExportPreview();
+        }
+        
+        // 更新区县选择器
+        function updateExportDistricts() {
+            const province = document.getElementById('exportProvince').value;
+            const city = document.getElementById('exportCity').value;
+            const districtSelect = document.getElementById('exportDistrict');
+            
+            districtSelect.innerHTML = '<option value="">全部区县</option>';
+            
+            if (province && city) {
+                const districts = [...new Set(
+                    allData
+                        .filter(item => 
+                            item.address?.province === province && 
+                            item.address?.city === city
+                        )
+                        .map(item => item.address?.district)
+                        .filter(Boolean)
+                )];
+                districts.forEach(district => {
+                    districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
+                });
+            }
+            
+            updateExportPreview();
+        }
+        
+        // 更新导出预览计数
+        function updateExportPreview() {
+            const filters = getExportFilters();
+            const filtered = ExportManager.filterData(allData, filters);
+            document.getElementById('exportPreviewCount').textContent = filtered.length;
+        }
+        
+        // 获取导出筛选条件
+        function getExportFilters() {
+            const filters = {};
+            
+            // 时间范围
+            const dateStart = document.getElementById('exportDateStart')?.value;
+            const dateEnd = document.getElementById('exportDateEnd')?.value;
+            if (dateStart || dateEnd) {
+                filters.dateRange = { start: dateStart, end: dateEnd };
+            }
+            
+            // 地区
+            const province = document.getElementById('exportProvince')?.value;
+            const city = document.getElementById('exportCity')?.value;
+            const district = document.getElementById('exportDistrict')?.value;
+            if (province || city || district) {
+                filters.region = { province, city, district };
+            }
+            
+            // 状态
+            const status = document.getElementById('exportStatus')?.value;
+            if (status && status !== 'all') {
+                filters.status = status;
+            }
+            
+            // 关系
+            const relation = document.getElementById('exportRelation')?.value;
+            if (relation && relation !== 'all') {
+                filters.relation = relation;
+            }
+            
+            return filters;
+        }
+        
+        // 重置导出筛选
+        function resetExportFilters() {
+            document.getElementById('exportDateStart').value = '';
+            document.getElementById('exportDateEnd').value = '';
+            document.getElementById('exportProvince').value = '';
+            document.getElementById('exportCity').value = '';
+            document.getElementById('exportDistrict').value = '';
+            document.getElementById('exportStatus').value = 'all';
+            document.getElementById('exportRelation').value = 'all';
+            updateExportPreview();
+        }
+        
+        // 快速导出
+        async function quickExport(format) {
+            try {
+                const filters = getExportFilters();
+                const options = {
+                    filename: CONFIG.EXPORT.EXCEL_FILENAME,
+                    filters: filters
+                };
+                
+                switch (format) {
+                    case 'excel':
+                        await ExportManager.exportExcel(allData, options);
+                        break;
+                    case 'csv':
+                        await ExportManager.exportCSV(allData, options);
+                        break;
+                    case 'print':
+                        ExportManager.printData(allData, options);
+                        break;
+                    case 'clipboard':
+                        await ExportManager.copyToClipboard(allData, options);
+                        break;
+                }
+                
+                // 导出成功后隐藏面板
+                if (format !== 'print') {
+                    hideExportDialog();
+                }
+                
+            } catch (error) {
+                console.error('Quick export error:', error);
+                Utils.toast('导出失败: ' + error.message, 'error');
+            }
+        }
+        
+        // 显示导出历史
+        function showExportHistory() {
+            const history = ExportManager.getExportHistory();
+            const container = document.getElementById('exportHistoryContainer');
+            
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-history">
+                        <div class="empty-history-icon">📊</div>
+                        <div>暂无导出记录</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = history.map(record => {
+                    const icon = {
+                        'excel': '📊',
+                        'csv': '📄',
+                        'print': '🖨️',
+                        'clipboard': '📋'
+                    }[record.type] || '📦';
+                    
+                    return `
+                        <div class="history-item">
+                            <div class="history-header">
+                                <div class="history-type">
+                                    <span>${icon}</span>
+                                    <span>${record.format}</span>
+                                </div>
+                                <div class="history-time">
+                                    ${Utils.formatDate(record.timestamp, 'MM-DD HH:mm')}
+                                </div>
+                            </div>
+                            <div class="history-details">
+                                <div>
+                                    <div class="history-detail-label">文件名</div>
+                                    <div class="history-detail-value">${record.filename}</div>
+                                </div>
+                                <div>
+                                    <div class="history-detail-label">记录数</div>
+                                    <div class="history-detail-value">${record.recordCount} 条</div>
+                                </div>
+                                <div>
+                                    <div class="history-detail-label">文件大小</div>
+                                    <div class="history-detail-value">${record.fileSize}</div>
+                                </div>
+                                ${record.duration ? `
+                                <div>
+                                    <div class="history-detail-label">耗时</div>
+                                    <div class="history-detail-value">${(record.duration / 1000).toFixed(2)}s</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            openModal('exportHistoryModal');
+        }
+        
+        // 清空导出历史确认
+        function clearExportHistoryConfirm() {
+            if (confirm('确定要清空所有导出记录吗？')) {
+                ExportManager.clearExportHistory();
+                showExportHistory();
+                Utils.toast('导出记录已清空', 'success');
+            }
+        }
+        
+        // 旧版导出函数（保留兼容性）
         async function exportData(type, format, data = null) {
             try {
                 const exportData = data || (type === 'selected' 
@@ -1662,13 +2212,10 @@
                 }
                 
                 if (format === 'excel') {
-                    // 使用 ExcelJS 导出
-                    await ExportUtils.exportToExcel(exportData, CONFIG.EXPORT.EXCEL_FILENAME);
+                    await ExportManager.exportExcel(exportData, { filename: CONFIG.EXPORT.EXCEL_FILENAME });
                 } else if (format === 'csv') {
-                    // 使用 CSV 导出
-                    await ExportUtils.exportToCSV(exportData, CONFIG.EXPORT.EXCEL_FILENAME);
+                    await ExportManager.exportCSV(exportData, { filename: CONFIG.EXPORT.EXCEL_FILENAME });
                 } else if (format === 'json') {
-                    // 导出 JSON
                     const jsonData = {
                         exportedAt: new Date().toISOString(),
                         exportedBy: CONFIG.COUPLE.FULL_NAME,
@@ -1682,6 +2229,12 @@
                 console.error('Export error:', error);
                 Utils.toast('导出失败: ' + error.message, 'error');
             }
+        }
+        
+        // 批量导出
+        async function batchExport() {
+            const selectedData = allData.filter(item => selectedIds.has(item.id));
+            await exportData('selected', 'excel', selectedData);
         }
 
         // =================================================================
