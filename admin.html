@@ -1656,6 +1656,9 @@
         </div>
     </div>
 
+    <!-- Mobile Admin CSS -->
+    <link rel="stylesheet" href="css/mobile-admin.css">
+    
     <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/utils.js"></script>
@@ -1664,7 +1667,8 @@
     <script src="js/export-utils.js"></script>
     <script src="js/export-manager.js"></script>
     <script src="js/backup-manager.js"></script>
-    <script src="js/statistics-manager.js"></script></script></script>
+    <script src="js/statistics-manager.js"></script>
+    <script src="js/mobile-admin.js"></script></script></script>
     
     <script>
         // =================================================================
@@ -1969,6 +1973,10 @@
                         </td>
                     </tr>
                 `;
+                // 更新移动端卡片视图
+                if (typeof MobileAdmin !== 'undefined') {
+                    MobileAdmin.updateCardView();
+                }
                 return;
             }
             
@@ -2011,6 +2019,11 @@
                     </td>
                 </tr>
             `).join('');
+            
+            // 更新移动端卡片视图
+            if (typeof MobileAdmin !== 'undefined') {
+                MobileAdmin.updateCardView();
+            }
         }
 
         function getStatusText(status) {
