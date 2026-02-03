@@ -1006,6 +1006,56 @@
             opacity: 0.5;
         }
         
+        /* ==================== 统计面板样式 ==================== */
+        .statistics-panel {
+            margin: 2rem 0;
+        }
+        
+        .panel-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #E0E0E0;
+        }
+        
+        .tab-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .tab-btn:hover {
+            color: #667eea;
+        }
+        
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .stats-tab-content {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
         /* 响应式 */
         @media (max-width: 1024px) {
             .stats-grid {
@@ -1166,6 +1216,117 @@
                         <div class="stat-content">
                             <div class="stat-label">已发货数量</div>
                             <div class="stat-value" id="statShipped">0</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 详细统计面板 -->
+            <section class="statistics-panel" style="margin: 2rem 0;">
+                <div class="panel-tabs" style="display: flex; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 2px solid #E0E0E0;">
+                    <button class="tab-btn active" onclick="switchStatsTab('trend')" data-tab="trend" style="
+                        padding: 0.75rem 1.5rem;
+                        background: none;
+                        border: none;
+                        border-bottom: 3px solid transparent;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: #666;
+                        transition: all 0.3s;
+                        font-family: inherit;
+                    ">
+                        📈 提交趋势
+                    </button>
+                    <button class="tab-btn" onclick="switchStatsTab('region')" data-tab="region" style="
+                        padding: 0.75rem 1.5rem;
+                        background: none;
+                        border: none;
+                        border-bottom: 3px solid transparent;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: #666;
+                        transition: all 0.3s;
+                        font-family: inherit;
+                    ">
+                        🗺️ 地区分布
+                    </button>
+                    <button class="tab-btn" onclick="switchStatsTab('relation')" data-tab="relation" style="
+                        padding: 0.75rem 1.5rem;
+                        background: none;
+                        border: none;
+                        border-bottom: 3px solid transparent;
+                        cursor: pointer;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        color: #666;
+                        transition: all 0.3s;
+                        font-family: inherit;
+                    ">
+                        👥 关系分布
+                    </button>
+                </div>
+                
+                <!-- 提交趋势 -->
+                <div class="stats-tab-content" id="trendTab" style="display: block;">
+                    <div class="stats-card" style="
+                        background: white;
+                        border-radius: 15px;
+                        padding: 2rem;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="margin: 0; font-size: 1.3rem; color: #333;">
+                                📈 最近7天提交趋势
+                            </h3>
+                            <button class="btn btn-secondary btn-small" onclick="refreshStatistics()">
+                                🔄 刷新
+                            </button>
+                        </div>
+                        <div id="trendChartContainer" style="min-height: 250px;">
+                            <!-- 趋势图将动态生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 地区分布 -->
+                <div class="stats-tab-content" id="regionTab" style="display: none;">
+                    <div class="stats-card" style="
+                        background: white;
+                        border-radius: 15px;
+                        padding: 2rem;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="margin: 0; font-size: 1.3rem; color: #333;">
+                                🗺️ 地区分布统计（Top 10）
+                            </h3>
+                            <button class="btn btn-secondary btn-small" onclick="exportRegionReport()">
+                                📥 导出报告
+                            </button>
+                        </div>
+                        <div id="regionChartContainer" style="min-height: 400px;">
+                            <!-- 地区分布图将动态生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 关系分布 -->
+                <div class="stats-tab-content" id="relationTab" style="display: none;">
+                    <div class="stats-card" style="
+                        background: white;
+                        border-radius: 15px;
+                        padding: 2rem;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                    ">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3 style="margin: 0; font-size: 1.3rem; color: #333;">
+                                👥 关系分布统计
+                            </h3>
+                        </div>
+                        <div id="relationChartContainer" style="min-height: 250px;">
+                            <!-- 关系分布图将动态生成 -->
                         </div>
                     </div>
                 </div>
@@ -1421,10 +1582,36 @@
                     
                     <div style="padding: 1rem 0; border-top: 1px solid #E0E0E0;">
                         <h4 style="margin-bottom: 1rem;">数据管理</h4>
+                        
+                        <!-- 备份信息 -->
+                        <div id="backupInfo" style="
+                            background: #F8F9FA;
+                            padding: 12px;
+                            border-radius: 8px;
+                            margin-bottom: 12px;
+                            font-size: 13px;
+                            color: #666;
+                        ">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span>最后备份：</span>
+                                <span id="lastBackupTime">-</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>当前数据量：</span>
+                                <span id="currentRecordCount">-</span>
+                            </div>
+                        </div>
+                        
                         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                            <button class="btn btn-info" onclick="backupData()">📦 备份数据</button>
-                            <button class="btn btn-warning" onclick="restoreData()">♻️ 恢复数据</button>
-                            <button class="btn btn-danger" onclick="clearAllData()">🗑️ 清空数据</button>
+                            <button class="btn btn-info" onclick="handleBackupData()" title="导出完整JSON备份文件">
+                                📦 备份数据
+                            </button>
+                            <button class="btn btn-warning" onclick="handleRestoreData()" title="从JSON文件恢复数据">
+                                ♻️ 恢复数据
+                            </button>
+                            <button class="btn btn-danger" onclick="handleClearAllData()" title="清空所有数据（需密码确认）">
+                                🗑️ 清空数据
+                            </button>
                         </div>
                     </div>
                     
@@ -1475,7 +1662,9 @@
     <script src="js/data-manager.js"></script>
     <script src="js/admin-auth.js"></script>
     <script src="js/export-utils.js"></script>
-    <script src="js/export-manager.js"></script></script>
+    <script src="js/export-manager.js"></script>
+    <script src="js/backup-manager.js"></script>
+    <script src="js/statistics-manager.js"></script></script></script>
     
     <script>
         // =================================================================
@@ -1587,6 +1776,128 @@
             // 加载表格数据
             allData = DataManager.getAllRecipients();
             applyFilters();
+            
+            // 加载详细统计
+            loadDetailedStatistics();
+            
+            // 更新备份信息
+            updateBackupInfo();
+        }
+        
+        // =================================================================
+        // 详细统计
+        // =================================================================
+        function loadDetailedStatistics() {
+            try {
+                // 加载趋势图
+                const trends = StatisticsManager.getLast7DaysTrend();
+                const trendHtml = StatisticsManager.generateTrendChart(trends);
+                document.getElementById('trendChartContainer').innerHTML = trendHtml;
+                
+                // 加载地区分布
+                const regions = StatisticsManager.getRegionDistribution();
+                const regionHtml = StatisticsManager.generateRegionChart(regions);
+                document.getElementById('regionChartContainer').innerHTML = regionHtml;
+                
+                // 加载关系分布
+                const relations = StatisticsManager.getRelationDistribution();
+                const relationHtml = StatisticsManager.generateRelationChart(relations);
+                document.getElementById('relationChartContainer').innerHTML = relationHtml;
+                
+                console.log('Detailed statistics loaded');
+            } catch (error) {
+                console.error('Load detailed statistics error:', error);
+            }
+        }
+        
+        // 切换统计标签
+        function switchStatsTab(tabName) {
+            // 更新按钮状态
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.dataset.tab === tabName) {
+                    btn.classList.add('active');
+                    btn.style.borderBottomColor = '#667eea';
+                    btn.style.color = '#667eea';
+                } else {
+                    btn.classList.remove('active');
+                    btn.style.borderBottomColor = 'transparent';
+                    btn.style.color = '#666';
+                }
+            });
+            
+            // 显示对应内容
+            document.querySelectorAll('.stats-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+        }
+        
+        // 刷新统计
+        function refreshStatistics() {
+            Utils.toast('正在刷新统计数据...', 'info');
+            setTimeout(() => {
+                loadDetailedStatistics();
+                Utils.toast('统计数据已刷新', 'success');
+            }, 500);
+        }
+        
+        // 导出地区报告
+        function exportRegionReport() {
+            try {
+                StatisticsManager.exportReport('json');
+            } catch (error) {
+                console.error('Export region report error:', error);
+                Utils.toast('导出失败: ' + error.message, 'error');
+            }
+        }
+        
+        // =================================================================
+        // 备份管理
+        // =================================================================
+        function updateBackupInfo() {
+            try {
+                const info = BackupManager.getBackupInfo();
+                document.getElementById('lastBackupTime').textContent = info.lastBackupFormatted;
+                document.getElementById('currentRecordCount').textContent = info.currentRecordCount + ' 条';
+            } catch (error) {
+                console.error('Update backup info error:', error);
+            }
+        }
+        
+        function handleBackupData() {
+            try {
+                BackupManager.backupData();
+                setTimeout(updateBackupInfo, 500);
+            } catch (error) {
+                console.error('Handle backup data error:', error);
+                Utils.toast('备份失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function handleRestoreData() {
+            try {
+                const result = await BackupManager.restoreData();
+                if (result.success) {
+                    // 页面会自动刷新
+                }
+            } catch (error) {
+                console.error('Handle restore data error:', error);
+                if (!error.message.includes('未选择文件')) {
+                    Utils.toast('恢复失败: ' + error.message, 'error');
+                }
+            }
+        }
+        
+        async function handleClearAllData() {
+            try {
+                const result = await BackupManager.clearAllData();
+                if (result.success) {
+                    // 页面会自动刷新
+                }
+            } catch (error) {
+                console.error('Handle clear all data error:', error);
+                Utils.toast('清空失败: ' + error.message, 'error');
+            }
         }
 
         function applyFilters() {
